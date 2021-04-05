@@ -2,6 +2,7 @@
     width: 400px;
     margin: 0 auto;
     padding: 30px 0;
+    padding-top: 100px;
 }
 
 .auth-form h2{
@@ -84,3 +85,7 @@
 .auth-form form a:hover{
     text-decoration: underline;
 }  
+
+.modal-body > p {
+    justify-content: center;
+}

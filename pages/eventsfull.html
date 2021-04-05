@@ -1,0 +1,31 @@
+<div>
+    <h1 id="title"></h1>
+    <small id="date"></small>
+    <p id="info"></p>
+</div>
+
+
+<script>
+
+$(function () {
+   var eventid = window.location.hash.substr(1);
+   console.log(eventid)
+    $(function(){
+    $.ajax({
+        url: '../forms/eventsdisplaypage.php',
+        type: 'get',
+        data: {"eventid":eventid},
+        dataType: 'JSON',
+        success: function(data){
+            const title = data.title
+            const date = data.date 
+            const info = data.info
+
+            $("#title").append(title);
+            $("#date").append(date);
+            $("#info").append(info);
+        }
+    });
+});
+})
+</script>

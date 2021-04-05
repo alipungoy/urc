@@ -18,6 +18,9 @@
             </div>
         </div>
         <div class="form-group">
+            <input type="text" class="form-control" name="suffix" placeholder="Suffix" value="">
+        </div>
+        <div class="form-group">
             <input type="email" class="form-control" name="EMAIL" placeholder="E-mail" required="required" value="">
         </div>
         <div class="form-group">
@@ -33,6 +36,22 @@
         </div>
         <div class="text-center">Already have an account? <a href="../login.php">Sign in</a></div>
     </form>
+</div>
+
+<div id="testModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>A verification link has been sent your email</p>
+    </div>
+  </div>
+  </div>
 </div>
 
 <script>
@@ -71,10 +90,11 @@
                     if (data.error) {
                          $('#frmLoginUsername').text('');
 
-                        alert(data.error.msg);
+                         alert(data.error.msg);
                     } else {
-                        alert(data.result);
-
+                        $(".modal-header > .modal-title ").html(data.result);
+                        $("#testModal").modal('show');
+                        setTimeout(function() {$('#testModal').modal('hide');}, 2000);
                         $('#frmRegister').trigger("reset");
                     }
 

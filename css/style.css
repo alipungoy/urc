@@ -1,0 +1,18 @@
+
+input#uploadFile {
+	display: none;
+}
+
+input#importcsv {
+	display: none;
+}
+
+.divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
+}
+
+.dataTables_length {
+    display: none;
+}

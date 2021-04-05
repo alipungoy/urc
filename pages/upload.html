@@ -1,0 +1,160 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-lg-6">
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Research</h6>
+  </div>
+  <div class="card-body">
+  <h1 class="text text-primary">Research Submission</h1>
+  <hr> 
+  <form id="form" method="post" enctype="multipart/form-data">
+  <div class="form-group">
+  <label for="name">Journal title</label>
+  <textarea type="text" class="form-control" id="title" name="title"  cols="30" rows="3" required /></textarea>
+  </div>
+  <div class="form-group">
+    <label for="funding">Funding Type:</label>
+    <select class="form-control" name="funding" id="funding">
+      <option value="External">External funding</option>
+      <option value="Internal">Internal funding</option>
+    </select><br>
+  </div>
+  <div class="form-group">
+    <div id="addAuthor">    
+    <label for="author">Authors</label>
+    <select class="form-control" name="mainAuthor" id="mainAuthor" required></select>
+    <br>
+    <div class=" d-flex justify-content-end">
+      <button class=" btn btn-sm" id="addcoAuthor"><i class="far fa-plus-square"></i></button>
+    </div>
+    <select class="form-control" style="display:none" name="coAuthor[]" id="coAuthor" multiple="multiple" size="5"></select>
+    <p>Hold control + click to select multiple Co Authors</p>
+  </div>
+  </div>
+  <div id="filename"></div>
+  <div class="text-danger" id="err"></div>
+  <div class="text-success" id="success"></div>
+  </div>
+  <div id="preview"></div>
+  <button class="btn btn-primary" id="fileSelect">Choose File</button>
+  <input id="uploadFile" type="file"  name="ftu" />
+  <input class="btn btn-success" type="submit" value="Upload">
+  </form>
+  <div id="preview"></div>
+  <hr>
+  </div>
+  </div>
+</div>
+
+
+
+  <script>
+ $(function() {
+      $('#fileSelect').on('click',function(e){
+         e.preventDefault();
+         $("#preview").fadeOut();
+         $('#uploadFile').trigger('click');
+     });
+  });
+  $("#uploadFile").change(function() {
+  filename = this.files[0].name
+  $("#filename").html('<i class="fas fa-file-pdf fa-10x"></i>' + filename);
+});
+
+// $(function (){
+//   var max_option = 10;
+//   var x = 1;
+
+//   $('#addField').on('click', function (e){
+//     e.preventDefault();
+//     if(x < max_option){
+//       x++;
+//       $('.coauthor').append($('#names').clone())
+//       $('.coauthor').append('<br>');
+//     }
+//   });
+//   $('#addAuthor').on('click', '#removeField', function(e){
+//     e.preventDefault();
+//     $(this).parent('div').remove(); x--;
+//   })
+// });
+
+    $(function(){
+    $.ajax({
+        url: '../forms/loadauthors.php',
+        type: 'post',
+        dataType: 'JSON',
+        success: function(response){
+            response.forEach(({ fullname, id }) => {
+              var author=`<option value="${id}">${fullname}</option>`;
+
+              $("#mainAuthor").append(author);
+              $("#coAuthor").append(author);
+            })
+        }
+    });
+});
+
+$('#addcoAuthor').on('click', function(e){
+ e.preventDefault();
+  $('#coAuthor').toggle();
+})
+
+  
+ $("#form").on('submit',(function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  console.log(formData);
+
+  $.ajax({
+         url: "../forms/upload.php",
+   type: "POST",
+   data:  formData,
+   contentType: false,
+         cache: false,
+   processData:false,
+   beforeSend : function()
+   {
+    $("#err").fadeOut();
+   },
+   success: function(data)
+      {
+        console.log(data);
+        if(data=='empty'){
+          $("#err").html("No File Selected. Please select file").fadeIn(); 
+        }
+       else if(data=='existing'){
+          $("#err").html("File already exist").fadeIn(); 
+        }
+    else if(data=='invalid')
+    {
+     // invalid file format.
+     $("#err").html("Only PDF files are allowed").fadeIn();
+    }
+    else if (data=='ok')
+    {
+      $("#success").html("File upload success").fadeIn();
+     $("#form")[0].reset(); 
+    }
+      },
+     error: function(e) 
+      {
+    $("#err").html(e).fadeIn();
+      }          
+    });
+ }));
+
+$(function(){
+  $("#usersearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#author tr").filter(function() {
+      var result = $(this).text().toLowerCase().indexOf(value);
+      $(this).toggle(result > -1)
+    });
+  });
+});
+
+$("#checkall").on('click', function(){
+    $('input:checkbox').not(this).prop('checked', this.checked);
+});
+  </script>

@@ -1,0 +1,140 @@
+<!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="active" id="tab1">
+                <section>
+                    <div>
+                        <div class="container">
+                            <input class="form-control mb-4" id="tableSearch" type="text" name="tableSearch"
+                              placeholder="Search For Users">
+                              <label for="filter">Filter</label>
+                              <select name="filter" id="filter">
+                                <option value="None">None</option>
+                                <option value="Admin">Admin</option>
+                                <option value="user">User</option>
+                              </select>
+
+                            <table class="table table-bordered table-striped" id="dataTable">
+                              <thead>
+                                <tr>
+                                <th>user id</th>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Email</th>
+                                <th>User Type</th>
+                                <th><input id='checkall' type ='checkbox' value='FALSE'></th>
+                                </tr>
+                                </thead>
+                                <tbody id="myTable">
+
+                                </tbody>
+                            </table>
+                            <a href="#" class="btn btn-success" id="assign">
+                              <span class="text">Assign Reviewer</span>
+                            </a>
+                          </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div> <!-- /#page-content-wrapper -->
+
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+          <div class="hidden" id="tab2">
+              <section>
+              </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+ <script>
+//    $(function() {
+//     $(".navItem").click(function(event) {
+//         event.preventDefault();
+
+//         $('.navItem').removeClass("active").removeClass("on");
+//         $(this).addClass("active").addClass("on");
+//         var panel = $(this).attr('panel-id');
+
+//         $(".panel").hide();
+//         $("#"+panel).show();
+//     });
+// });
+
+// //load data
+$(document).ready(function(){
+  $.ajax({
+        url: '../forms/loaddata.php',
+        type: 'get',
+        dataType: 'JSON',
+        success: function(response){
+            var len = response.length;
+            for(var i=0; i<len; i++){
+                var id = response[i].id;
+                var firstname = response[i].firstname;
+                var lastname = response[i].lastname;
+                var email = response[i].email;
+                var type = response[i].type;
+
+                var tr_str = 
+                                "<tr>" +
+                                "<td align='center'>" + id + "</td>" +
+                                "<td align='center'>" + firstname + "</td>" +
+                                "<td align='center'>" + lastname + "</td>" +
+                                "<td align='center'>" + email + "</td>" +
+                                "<td align='center'>" + type + "</td>" +
+                                "<td><input type ='checkbox' id='testbox' value="+ id +" PID="+ id +"></td>" +
+                                "</tr>";
+
+                $("#myTable").append(tr_str);
+              
+            }
+
+        }
+    });
+});
+
+$("#dataTable_length").addClass('display:none');
+
+
+
+// $('#assign').on('click', function(e){
+//   e.preventDefault();
+//   $('input:checkbox[id=testbox]').each(function() 
+// {    
+//     if($(this).is(':checked'))
+//       console.log($(this).val());
+// });
+// })
+
+//search
+$(document).ready(function(){
+  $("#tableSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      var result = $(this).text().toLowerCase().indexOf(value);
+      $(this).toggle(result > -1)
+    });
+  });
+}); 
+
+$(document).ready(function(){
+  $("#filter").change(function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      var result = $(this).text().toLowerCase().indexOf(value);
+      $(this).toggle(result > -1)
+    });
+  });
+}); 
+
+// $("#checkall").on('click', function(){
+//     $('input:checkbox').not(this).prop('checked', this.checked);
+// });
+
+</script>

@@ -1,0 +1,126 @@
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+            <section>
+                <div>
+                    <div class="container">
+                          <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">List of submitted proposal</h6>
+                                <div class="input-group">
+                                  <input type="text" id="tableSearch" class="form-control bg-light border-1 small" placeholder="Search for..."
+                                      aria-label="Search" aria-describedby="basic-addon2">
+                                  <div class="input-group-append">
+                                      <button class="btn btn-primary disabled" type="button">
+                                          <i class="fas fa-search fa-sm"></i>
+                                      </button>
+                                  </div>
+                              </div>
+                              <select name="filter" id="filter">
+                                <option value="">None</option>
+                                <option value="External">External</option>
+                                <option value="Internal">Internal</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                              </select>
+    
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                            <tr>
+                              <th>Proposal ID</th>
+                              <th>title</th>
+                              <th>funding</th>
+                              <th>status</th>
+                              <th><input id="checkall" type ="checkbox" value="FALSE"></th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody id="myTable"></tbody>
+                        </table>
+                      </div>
+                      </div>
+                      </div>
+                    </div>  
+            </section>
+    </div>
+</div> <!-- /#page-content-wrapper -->
+
+
+
+<script>
+$(function() {
+$(".navItem").click(function(event) {
+    event.preventDefault();
+
+    $('.navItem').removeClass("active").removeClass("on");
+    $(this).addClass("active").addClass("on");
+    var panel = $(this).attr('panel-id');
+
+    $(".panel").hide();
+    $("#"+panel).show();
+});
+});
+
+//load data
+$.ajax({
+    url: '../include/displayproposal.php',
+    type: 'get',
+    dataType: 'JSON',
+    success: function(response){
+      response.forEach(({id, title, funding, status }) => {
+      var author=`<tr>
+        <td align='center'>${id}</td>
+        <td align='center'>${title}</td>
+        <td align='center'>${funding}</td>
+        <td align='center'>${status}</td>
+        <td><button id='testbtn' class='btn btn-success' data-toggle='modal' data-target='#testmodal' value="${id}" PID="${id}">Assign Reviewer</button></td>
+        <td><button id='testbox' class='btn btn-danger' value="${id}" PID="${id}"><i class='fas fa-trash-alt'></i></button></td>
+      </tr>`;
+        // var len = response.length;
+        // for(var i=0; i<len; i++)
+        //     var id = response[i].id;
+        //     var title = response[i].title;
+        //     var author = response[i].author;
+        //     var funding = response[i].funding;
+        //     var status = response[i].status;
+
+        //     var tr_str = "<tr>" +
+        //         "<td align='center'>" + id + "</td>" +
+        //         "<td align='center'>" + title + "</td>" +
+        //         "<td align='center'>" + funding + "</td>" +
+        //         "<td align='center'>" + status + "</td>" +
+        //         "<td><button id='testbtn' class='btn btn-success' data-toggle='modal' data-target='#testmodal' value="+ id +" PID="+ id +">Assign Reviewer</button></td>" +
+        //         "<td><button id='testbox' class='btn btn-danger' value="+ id +" PID="+ id +"><i class='fas fa-trash-alt'></i></button></td>" +
+        //         "</tr>";
+            $("#myTable").append(author);
+        }
+    
+      )}
+    });
+
+
+//search
+$(document).ready(function(){
+  $("#tableSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      var result = $(this).text().toLowerCase().indexOf(value);
+      $(this).toggle(result > -1)
+    });
+  });
+}); 
+
+$(document).ready(function(){
+  $("#filter").change(function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      var result = $(this).text().toLowerCase().indexOf(value);
+      $(this).toggle(result > -1)
+    });
+  });
+});  
+
+</script>
