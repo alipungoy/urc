@@ -9,26 +9,28 @@
   <hr> 
   <form id="form" method="post" enctype="multipart/form-data">
   <div class="form-group">
-  <label for="name">Journal title</label>
+  <label for="name">Research title</label>
   <textarea type="text" class="form-control" id="title" name="title"  cols="30" rows="3" required /></textarea>
   </div>
   <div class="form-group">
     <label for="funding">Funding Type:</label>
     <select class="form-control" name="funding" id="funding">
-      <option value="External">External funding</option>
-      <option value="Internal">Internal funding</option>
+      <option value="Externally Funded Research">Externally funded Research</option>
+      <option value="Internally Funded Research">Internally funded Research</option>
     </select><br>
   </div>
   <div class="form-group">
     <div id="addAuthor">    
-    <label for="author">Authors</label>
+    <label for="author">Main author</label>
     <select class="form-control" name="mainAuthor" id="mainAuthor" required></select>
     <br>
     <div class=" d-flex justify-content-end">
-      <button class=" btn btn-sm" id="addcoAuthor"><i class="far fa-plus-square"></i></button>
+      <button class=" btn btn-sm" id="addcoAuthor"><span id="coauthortext">Click here to add co-author</span> <i class="far fa-plus-square"> </i></button>
     </div>
-    <select class="form-control" style="display:none" name="coAuthor[]" id="coAuthor" multiple="multiple" size="5"></select>
-    <p>Hold control + click to select multiple Co Authors</p>
+    <div id="coAuthorMenu"  style="display:none">
+      <select class="form-control" name="coAuthor[]" id="coAuthor" multiple="multiple" size="5"></select>
+      <small>Hold control + click to select multiple Co Authors</small>
+    </div>
   </div>
   </div>
   <div id="filename"></div>
@@ -97,7 +99,9 @@
 
 $('#addcoAuthor').on('click', function(e){
  e.preventDefault();
-  $('#coAuthor').toggle();
+  $('#coAuthorMenu').toggle('fast', function(){
+    $('#coauthortext').toggle('fast');
+  });
 })
 
   

@@ -101,6 +101,14 @@ $.ajax({
       )}
     });
 
+    $('#myTable').on('click', '#testbtn', function(e) {
+      e.preventDefault()
+      var id = $(this).attr('PID');
+      console.log(id)
+      
+
+    });
+
 
 //search
 $(document).ready(function(){

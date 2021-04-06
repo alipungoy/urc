@@ -20,7 +20,7 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item">
-    <a class="nav-link" href="../admin-home.php">
+    <a class="nav-link" href="../profile.php">
     <i class="far fa-user"></i>
         <span>Profile</span></a>
 </li>
@@ -43,8 +43,8 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage User:</h6>
-            <a class="collapse-item" href="../sidenav.php">Manage User status</a>
-            <a class="collapse-item" href="../proposals.php">Manage Proposals</a>
+            <a class="collapse-item" href="../sidenav.php">User status</a>
+            <a class="collapse-item" href="../proposals.php">Research Proposals</a>
         </div>
     </div>
 </li>
@@ -60,7 +60,7 @@
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Site Settings:</h6>
-            <a class="collapse-item" href="utilities-color.html">Manage Posts</a>
+            <a class="collapse-item" href="utilities-color.html">Manage Site Contents</a>
             <a class="collapse-item" href="utilities-border.html">Events</a>
             <a class="collapse-item" href="../importcsv.php">Import Csv</a>
             <a class="collapse-item" href="../eventscreation.php">Event Manager</a>

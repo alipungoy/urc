@@ -8,7 +8,7 @@ session_start();
 
 $userID = $_SESSION['userid'];
 $lName = $_SESSION['last_name'];
-$status = 'pending';
+$status = 'Pending';
 $mainAuthor = $_POST['mainAuthor'];
 $coAuthor = isset( $_POST["coAuthor"] ) ? $_POST["coAuthor"] : [];
 $DATE = date("y-m-d h:i:sa");

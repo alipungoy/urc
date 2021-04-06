@@ -30,7 +30,7 @@
                                 </tbody>
                             </table>
                             <a href="#" class="btn btn-success" id="assign">
-                              <span class="text">Assign Reviewer</span>
+                              <span class="text">Update User Status</span>
                             </a>
                           </div>
                     </div>
@@ -100,6 +100,22 @@ $(document).ready(function(){
 });
 
 $("#dataTable_length").addClass('display:none');
+
+   $('#myTable').on('click', '#assign', function(e) {
+      e.preventDefault()
+      var id = $(this).attr('PID');
+      console.log(id)
+      $.ajax({
+        url: '../forms/update.php',
+        type: 'post',
+        data: {id:id},
+        success: function(data)
+        {
+          alert(data.ok.msg);
+        }
+
+    });
+  })
 
 
 

@@ -1,24 +1,12 @@
-<?php
-require_once('./include/header.php');
+<?php require_once('./include/header.php');
 
-// Check if usertype is admin
-
+  if(!isset($_SESSION['loggedin'])){
+    header('location: index.php');
+  }
 ?>
-<!DOCTYPE html>
-<html>
-<link rel="stylesheet" type="text/css" href="../css/style.css">
-<body>
 <?php
-  require_once('./include/navbar.php');
+ require_once('./include/sidebar.php');
+ require_once('./include/profile-nav.php');
+ require_once('./pages/profile.html');
+ require_once('./include/navfooter.php');
 ?>
-  <div>
-  <?php 
-
-  require_once('./pages/profile.html');
-  ?>
-</div>
-<?php
-  require_once('./include/footer.html');
-?>
-</body>
-</html>

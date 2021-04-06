@@ -9,7 +9,7 @@ $form_PASSWORD = $_POST['PASSWORD'];
 
 try {
     $sql = ("SELECT * FROM user 
-    LEFT JOIN authentication ON user.userID = authentication.userID WHERE username = :username");
+    LEFT JOIN authentication ON user.userID = authentication.userID WHERE username = :username OR email = :username");
     $stmt = $db->connection->prepare($sql);
     $stmt->bindParam(':username', $form_USERNAME);
     $stmt->execute();

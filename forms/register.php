@@ -9,6 +9,8 @@ $FORM_PASSWORD = password_hash(trim($_POST['PASSWORD']), PASSWORD_DEFAULT);
 $FORM_EMAIL = $_POST['EMAIL'];
 $FORM_FIRSTNAME = $_POST['FIRST_NAME'];
 $FORM_LASTNAME = $_POST['LAST_NAME']; 
+$FORM_SUFFIX = $_POST['suffix']; 
+$FORM_CLASSIFICATION = $_POST['classification']; 
 $USERTYPE = 'user';
 $TOKEN = bin2hex(random_bytes(50)); //Generate token used for email verification
 $DATE = date("y-m-d");
@@ -51,7 +53,8 @@ $DATE = date("y-m-d");
          $stmt->bindParam(5, $TOKEN);
          $stmt->bindParam(6, $DATE);
          $stmt->bindParam(7, $FORM_SUFFIX);
-         $stmt->bindParam(8, $USERTYPE);
+         $stmt->bindParam(8, $FORM_SUFFIX);
+         $stmt->bindParam(9, $USERTYPE);
          $stmt->execute();
          $lastID = $db->connection->lastInsertId();
         

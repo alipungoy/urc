@@ -50,7 +50,7 @@
             <a class="nav-link disabled">Welcome!<?php echo $_SESSION['user_type']?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../admin-home.php">Profile</a>
+                <a class="nav-link" href="../profile.php">Profile</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../logout.php">Logout</a>
