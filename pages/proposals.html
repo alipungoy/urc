@@ -111,7 +111,7 @@ $.ajax({
 
 
 //search
-$(document).ready(function(){
+
   $("#tableSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#myTable tr").filter(function() {
@@ -119,9 +119,7 @@ $(document).ready(function(){
       $(this).toggle(result > -1)
     });
   });
-}); 
 
-$(document).ready(function(){
   $("#filter").change(function() {
     var value = $(this).val().toLowerCase();
     $("#myTable tr").filter(function() {
@@ -129,6 +127,6 @@ $(document).ready(function(){
       $(this).toggle(result > -1)
     });
   });
-});  
+
 
 </script>

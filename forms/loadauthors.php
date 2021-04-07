@@ -12,11 +12,13 @@ $return_arr = array();
 
 
   while ($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
-    $authorid = $row['authorID'];
+    $id = $row['authorID'];
     $name = $row['fullname'];
+    $dept = $row['department'];
 
-  $return_arr[] = array("id" => $authorid,
-  "fullname" => $name);
+  $return_arr[] = array('id' => $id,
+              "fullname" => $name,
+              "dept" => $dept);
 }
  
 echo json_encode($return_arr);

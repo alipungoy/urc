@@ -44,7 +44,7 @@ $DATE = date("y-m-d");
          }
      } else {
          //if email or username is not existing in database run this code
-         $sql = "INSERT INTO user (username, first_name, last_name, email, token, dateCreated, suffix, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+         $sql = "INSERT INTO user (username, first_name, last_name, email, token, dateCreated, suffix, classification, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
          $stmt = $db->connection->prepare($sql);
          $stmt->bindParam(1, $FORM_USERNAME);
          $stmt->bindParam(2, $FORM_FIRSTNAME);
@@ -53,7 +53,7 @@ $DATE = date("y-m-d");
          $stmt->bindParam(5, $TOKEN);
          $stmt->bindParam(6, $DATE);
          $stmt->bindParam(7, $FORM_SUFFIX);
-         $stmt->bindParam(8, $FORM_SUFFIX);
+         $stmt->bindParam(8, $FORM_CLASSIFICATION);
          $stmt->bindParam(9, $USERTYPE);
          $stmt->execute();
          $lastID = $db->connection->lastInsertId();

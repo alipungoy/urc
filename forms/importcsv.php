@@ -18,6 +18,7 @@ $db = new db();
 
    while(($result = fgetcsv($opencsv)) !== FALSE){
      $name = $result[0];
+     $dept = $result[1];
 
      $check = ("SELECT fullname FROM authors WHERE fullname = '".$result[0]."'");
      $stmt = $db->connection->prepare($check);
@@ -31,7 +32,7 @@ $db = new db();
      }
      else
      {
-      $insert = ("INSERT INTO authors (fullname) VALUES ('".$name."')");
+      $insert = ("INSERT INTO authors (fullname, department) VALUES ('".$name."', '".$dept."')");
       $stmt = $db->connection->prepare($insert);
       $stmt->execute();
       

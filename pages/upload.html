@@ -10,7 +10,7 @@
   <form id="form" method="post" enctype="multipart/form-data">
   <div class="form-group">
   <label for="name">Research title</label>
-  <textarea type="text" class="form-control" id="title" name="title"  cols="30" rows="3" required /></textarea>
+  <textarea type="text" class="form-control" id="title" name="title"  cols="30" rows="3" required></textarea>
   </div>
   <div class="form-group">
     <label for="funding">Funding Type:</label>
@@ -21,16 +21,8 @@
   </div>
   <div class="form-group">
     <div id="addAuthor">    
-    <label for="author">Main author</label>
-    <select class="form-control" name="mainAuthor" id="mainAuthor" required></select>
-    <br>
-    <div class=" d-flex justify-content-end">
-      <button class=" btn btn-sm" id="addcoAuthor"><span id="coauthortext">Click here to add co-author</span> <i class="far fa-plus-square"> </i></button>
-    </div>
-    <div id="coAuthorMenu"  style="display:none">
-      <select class="form-control" name="coAuthor[]" id="coAuthor" multiple="multiple" size="5"></select>
-      <small>Hold control + click to select multiple Co Authors</small>
-    </div>
+      <button class="btn btn-primary form-control mb-2" id="addMainAuthor">Add Main Author</button>
+      <button class="btn btn-primary form-control" id="addCoAuthor">Add Co Author</button>
   </div>
   </div>
   <div id="filename"></div>
@@ -48,8 +40,110 @@
   </div>
 </div>
 
+<div class="modal fade" id="mainAuthorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-primary" id="exampleModalLabel">Select Main Author</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card-body" id="">
+              <form
+              class="navbar-search" id="mainAuthForm">
+              <div class="input-group">
+                  <input type="text" id="authorSearch" class="form-control bg-light border-0 small" placeholder="Search for Main Author"
+                      aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                      </button>
+                  </div>
+              </div>
+              <select class="form-group mx-sm-3 mb-2" name="mainAuthorFilter" id="mainAuthorFilter">
+                <option disabled selected="selectHelper" value="">Filter By College</option>
+                <option value="College of Computer Studies">College of Computer Studies</option>
+                <option value="">Test3</option>
+              </select>
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Department</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="mainAuthorBody"></tbody>
+    </table>
+    <button class="btn btn-primary" id="addAsMainAuthor">Add As Main Author</button>
+  </div>
+          </form>
+                  </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="coAuthorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-primary" id="exampleModalLabel">Select Co Author</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card-body" id="">
+              <form
+              class="navbar-search" id="coAuthForm">
+              <div class="input-group">
+                  <input type="text" id="authorSearch" class="form-control bg-light border-0 small" placeholder="Search for Main Author"
+                      aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                      </button>
+                  </div>
+              </div>
+              <select class="form-group mx-sm-3 mb-2" name="mainAuthorFilter" id="mainAuthorFilter">
+                <option disabled selected="selectHelper" value="">Filter By College</option>
+                <option value="College of Computer Studies">College of Computer Studies</option>
+                <option value="">Test3</option>
+              </select>
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Department</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="coAuthorBody"></tbody>
+    </table>
+    <button class="btn btn-primary" id="addAsCoAuthor" type="submit">Add As Co Author</button>
+  </div>
+          </form>
+                  </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
 
 
+
+  
+  
   <script>
  $(function() {
       $('#fileSelect').on('click',function(e){
@@ -82,36 +176,82 @@
 // });
 
     $(function(){
+      $('#addMainAuthor').on('click', function(e){
+      e.preventDefault();
+      $('#mainAuthorModal').modal('show');
+    });
     $.ajax({
         url: '../forms/loadauthors.php',
         type: 'post',
         dataType: 'JSON',
         success: function(response){
-            response.forEach(({ fullname, id }) => {
-              var author=`<option value="${id}">${fullname}</option>`;
+            response.forEach(({ fullname, dept, id }) => {
+              var author=`<tr>
+        <td align='center'>${fullname}</td>
+        <td align='center'>${dept}</td>
+        <td><input type ='checkbox' id='mainAuthCb' value='${id}' PID='${id}'></td>
+      </tr>`;
 
-              $("#mainAuthor").append(author);
-              $("#coAuthor").append(author);
+              $("#mainAuthorBody").append(author);
             })
         }
     });
 });
 
-$('#addcoAuthor').on('click', function(e){
- e.preventDefault();
-  $('#coAuthorMenu').toggle('fast', function(){
-    $('#coauthortext').toggle('fast');
-  });
-})
+$(function(){
+    $('#addCoAuthor').on('click', function(e){
+      e.preventDefault();
+      $('#coAuthorModal').modal('show');
+    });
+    $.ajax({
+        url: '../forms/loadauthors.php',
+        type: 'post',
+        dataType: 'JSON',
+        success: function(response){
+            response.forEach(({ fullname, dept, id }) => {
+              var author=`<tr>
+        <td align='center'>${fullname}</td>
+        <td align='center'>${dept}</td>
+        <td><input type ='checkbox' name="coAuthorCb[]" id='coAuthCb' value='${id}' PID='${id}'></td>
+      </tr>`;
+              $("#coAuthorBody").append(author);
+            })
+        }
+    });
+});
 
-  
- $("#form").on('submit',(function(e) {
+//  multiple
+$(function(){
+  $('#addAsCoAuthor').on('click', function(e){
+    e.preventDefault();
+    var coauths = [];
+    $('input[id="coAuthCb"]:checked').each(function(){
+      coauths.push($(this).val());
+    })
+    console.log(coauths)
+
+});
+  })
+
+  //Array being by ajax as string
+  $(function () {
+  $("#form").on('submit',(function(e) {
   e.preventDefault();
   const formData = new FormData(this);
+  var mainAuth = [];
+    $('input[id="mainAuthCb"]:checked').map(function(){
+      mainAuth.push($(this).val());
+    })
+    formData.append('mainAuthor', mainAuth);
+  var coauths = [];
+    $('input[id="coAuthCb"]:checked').map(function(){
+      coauths.push($(this).val());
+    })
+  formData.append('coAuthor', coauths);
   console.log(formData);
 
   $.ajax({
-         url: "../forms/upload.php",
+   url:'../forms/upload.php',
    type: "POST",
    data:  formData,
    contentType: false,
@@ -147,18 +287,30 @@ $('#addcoAuthor').on('click', function(e){
       }          
     });
  }));
+  })
+
 
 $(function(){
-  $("#usersearch").on("keyup", function() {
+  $("#authorSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
-    $("#author tr").filter(function() {
+    $("#mainAuthorBody tr").filter(function() {
       var result = $(this).text().toLowerCase().indexOf(value);
       $(this).toggle(result > -1)
     });
   });
 });
 
-$("#checkall").on('click', function(){
-    $('input:checkbox').not(this).prop('checked', this.checked);
+$(function(){
+  $("#mainAuthorFilter").change(function() {
+    var value = $(this).val().toLowerCase();
+    $("#mainAuthorBody tr").filter(function() {
+      var result = $(this).text().toLowerCase().indexOf(value);
+      $(this).toggle(result > -1)
+    });
+  });
 });
+
+// $("#checkall").on('click', function(){
+//     $('input:checkbox').not(this).prop('checked', this.checked);
+// });
   </script>
