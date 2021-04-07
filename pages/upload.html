@@ -247,7 +247,7 @@ $(function(){
     $('input[id="coAuthCb"]:checked').map(function(){
       coauths.push($(this).val());
     })
-  formData.append('coAuthor', coauths);
+  formData.append('coAuthor', JSON.stringify(coauths));
   console.log(formData);
 
   $.ajax({
