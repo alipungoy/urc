@@ -105,7 +105,7 @@ aria-hidden="true">
               <form
               class="navbar-search" id="coAuthForm">
               <div class="input-group">
-                  <input type="text" id="authorSearch" class="form-control bg-light border-0 small" placeholder="Search for Main Author"
+                  <input type="text" id="coAuthorSearch" class="form-control bg-light border-0 small" placeholder="Search for Co Author"
                       aria-label="Search" aria-describedby="basic-addon2">
                   <div class="input-group-append">
                       <button class="btn btn-primary" type="button">
@@ -113,7 +113,7 @@ aria-hidden="true">
                       </button>
                   </div>
               </div>
-              <select class="form-group mx-sm-3 mb-2" name="mainAuthorFilter" id="mainAuthorFilter">
+              <select class="form-group mx-sm-3 mb-2" name="coAuthorFilter" id="coAuthorFilter">
                 <option disabled selected="selectHelper" value="">Filter By College</option>
                 <option value="College of Computer Studies">College of Computer Studies</option>
                 <option value="">Test3</option>
@@ -221,19 +221,19 @@ $(function(){
 });
 
 //  multiple
-$(function(){
-  $('#addAsCoAuthor').on('click', function(e){
-    e.preventDefault();
-    var coauths = [];
-    $('input[id="coAuthCb"]:checked').each(function(){
-      coauths.push($(this).val());
-    })
-    console.log(coauths)
+// $(function(){
+//   $('#addAsCoAuthor').on('click', function(e){
+//     e.preventDefault();
+//     var coauths = [];
+//     $('input[id="coAuthCb"]:checked').each(function(){
+//       coauths.push($(this).val());
+//     })
+//     $(coauths).css('backgroud-color: blue')
 
-});
-  })
+// });
+//   })
 
-  //Array being by ajax as string
+  //Array being sent by ajax as string
   $(function () {
   $("#form").on('submit',(function(e) {
   e.preventDefault();
@@ -304,6 +304,26 @@ $(function(){
   $("#mainAuthorFilter").change(function() {
     var value = $(this).val().toLowerCase();
     $("#mainAuthorBody tr").filter(function() {
+      var result = $(this).text().toLowerCase().indexOf(value);
+      $(this).toggle(result > -1)
+    });
+  });
+});
+
+$(function(){
+  $("#coAuthorSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#coAuthorBody tr").filter(function() {
+      var result = $(this).text().toLowerCase().indexOf(value);
+      $(this).toggle(result > -1)
+    });
+  });
+});
+
+$(function(){
+  $("#CoAuthorFilter").change(function() {
+    var value = $(this).val().toLowerCase();
+    $("#coAuthorBody tr").filter(function() {
       var result = $(this).text().toLowerCase().indexOf(value);
       $(this).toggle(result > -1)
     });

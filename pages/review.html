@@ -80,12 +80,12 @@ aria-hidden="true">
           <thead>
         <tr>
           <th>ID</th>
-          <th>Full Name</th>
-          <th>Classification</th>
-          <th></th>
+          <th>Title</th>
+          <th>Funding</th>
+          <th>Status</th>
         </tr>
       </thead>
-      <tbody id="reviewerBody"></tbody>
+      <tbody id="myTable"></tbody>
     </table>
     <button class="btn btn-primary" id="assgnRev" type="submit">Assign As Reviewer</button>
   </div>
@@ -99,122 +99,47 @@ aria-hidden="true">
 </div>
 
 
-
 <script>
-$(function() {
-$(".navItem").click(function(event) {
-    event.preventDefault();
-
-    $('.navItem').removeClass("active").removeClass("on");
-    $(this).addClass("active").addClass("on");
-    var panel = $(this).attr('panel-id');
-
-    $(".panel").hide();
-    $("#"+panel).show();
-});
-});
-
-//load data
-$(function() {
-function load_proposals(){
+    $(function() {
+        function load_proposals(){
 $.ajax({
-    url: '../include/displayproposal.php',
+    url: '../forms/review.php',
     type: 'get',
     dataType: 'JSON',
     success: function(response){
+        if(response.length == 0){
+           $('.card-body').html('<div class="d-flex justify-content-center"><h2> No Ongoing Research For Review</h2></div>')
+        }
+        else{
       response.forEach(({id, title, funding, status }) => {
       var author=`<tr>
         <td align='center'>${id}</td>
         <td align='center'>${title}</td>
         <td align='center'>${funding}</td>
         <td align='center'>${status}</td>
-        <td><button id='testbtn' class='btn btn-success' data-toggle='modal' data-target='#testmodal' value="${id}" PID="${id}">Assign Reviewer</button></td>
-        <td><button id='testbox' class='btn btn-danger' value="${id}" PID="${id}"><i class='fas fa-trash-alt'></i></button></td>
+        <td align='center'><button id='approved' class='btn btn-success' value="${id}"><i class="fas fa-check"></i></button></td>
       </tr>`;
             $("#myTable").append(author);
         }
     
       )}
+    }
     });
   }
     load_proposals();
+    })
     
-    function open_modal(){
-    $('#myTable').on('click', '#testbtn', function(e) {
-      e.preventDefault()
-      var PID = $(this).attr('PID');
-      console.log(PID)
-      $('#assignReviewer').modal('show');
-      $('#reviewerForm').append(`<input id="pid" name="PID" value="${PID}" hidden>`);
-    })
-  }
-  open_modal();
+    $('#myTable').on('click', '#approved', function(){
+        var thisbtn = $(this).attr('value');
+        console.log(thisbtn);
+        $.ajax({
+    url: '../forms/approved.php?id='+thisbtn,
+    type: 'post',
+    dataType: 'JSON',
+    success: function(response){
 
-     $.ajax({
-      url: '../forms/loadreviewers.php',
-      type: 'get',
-     dataType: 'JSON',
-      success: function(response){
-      response.forEach(({id, fName, lName, classification}) => {
-      var reviewer=`<tr>
-        <td align='center'>${id}</td>
-        <td align='center'>${fName} ${lName}</td>
-        <td align='center'>${classification}</td>
-        <td><input type ='checkbox' class='revCb' value='${id}'></td>
-        </tr>`;
-            $("#reviewerBody").append(reviewer);
-        }
-      )}
-    });
-    })
-
-    function close_modal(){
-      $("#closeModal").on('click', function(){
-        $('#assignReviewer').modal('hide');
-        $('#pid').remove();
-      })
     }
-    close_modal();
-
-    $('#reviewerForm').on('submit', function(e){
-      e.preventDefault();
-      var proposalid = $('#pid').attr('value');
-      var selected = [];
-      $('input[class="revCb"]:checked').map(function() {
-        selected.push($(this).val())
-      })
-      $.ajax({
-      url: '../forms/addreviewer.php?propid='+proposalid,
-      type: 'post',
-      data: {ids:selected},
-     dataType: 'json',
-      success: function(data){
-        if(data.ok){
-          alert('test')
-        }
-      }
     });
     })
-     
-
-
-//search
-
-  $("#tableSearch").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      var result = $(this).text().toLowerCase().indexOf(value);
-      $(this).toggle(result > -1)
-    });
-  });
-
-  $("#filter").change(function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      var result = $(this).text().toLowerCase().indexOf(value);
-      $(this).toggle(result > -1)
-    });
-  });
-
 
 </script>

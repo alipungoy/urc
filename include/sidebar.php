@@ -45,6 +45,7 @@
             <h6 class="collapse-header">Manage User:</h6>
             <a class="collapse-item" href="../sidenav.php">User status</a>
             <a class="collapse-item" href="../proposals.php">Research Proposals</a>
+            <a class="collapse-item" href="../review.php">Proposals Review</a>
         </div>
     </div>
 </li>
