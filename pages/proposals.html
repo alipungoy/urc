@@ -4,45 +4,19 @@
             <section>
                 <div>
                     <div class="container">
-                          <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">List of submitted proposal</h6>
-                                <div class="input-group">
-                                  <input type="text" id="tableSearch" class="form-control bg-light border-1 small" placeholder="Search for..."
-                                      aria-label="Search" aria-describedby="basic-addon2">
-                                  <div class="input-group-append">
-                                      <button class="btn btn-primary disabled" type="button">
-                                          <i class="fas fa-search fa-sm"></i>
-                                      </button>
-                                  </div>
-                              </div>
-                              <select name="filter" id="filter">
-                                <option value="">None</option>
-                                <option value="External">External</option>
-                                <option value="Internal">Internal</option>
-                                <option value="pending">Pending</option>
-                                <option value="approved">Approved</option>
-                              </select>
-    
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                             <tr>
-                              <th>Proposal ID</th>
-                              <th>title</th>
-                              <th>funding</th>
-                              <th>status</th>
+                              <th>Title</th>
+                              <th>Funding Type</th>
+                              <th>Status</th>
                               <th></th>
                             </tr>
                           </thead>
-                          <tbody id="myTable"></tbody>
                         </table>
-                      </div>
-                      </div>
-                      </div>
-                    </div>  
+                    </div> 
+                    </div>
+                    </div> 
             </section>
     </div>
 </div> <!-- /#page-content-wrapper -->
@@ -59,24 +33,9 @@ aria-hidden="true">
         </div>
         <div class="modal-body">
             <div class="card-body" id="">
-              <form
-              class="navbar-search" id="reviewerForm">
-              <div class="input-group">
-                  <input type="text" id="reviewersearch" class="form-control bg-light border-0 small" placeholder="Search for Main Author"
-                      aria-label="Search" aria-describedby="basic-addon2">
-                  <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                          <i class="fas fa-search fa-sm"></i>
-                      </button>
-                  </div>
-              </div>
-              <select class="form-group mx-sm-3 mb-2" name="mainAuthorFilter" id="mainAuthorFilter">
-                <option disabled selected="selectHelper" value="">Filter By College</option>
-                <option value="College of Computer Studies">College of Computer Studies</option>
-                <option value="">Test3</option>
-              </select>
+              <form class="navbar-search" id="reviewerForm">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="reviewerTable" width="100%" cellspacing="0">
           <thead>
         <tr>
           <th>ID</th>
@@ -85,9 +44,8 @@ aria-hidden="true">
           <th></th>
         </tr>
       </thead>
-      <tbody id="reviewerBody"></tbody>
     </table>
-    <button class="btn btn-primary" id="assgnRev" type="submit">Assign As Reviewer</button>
+    <button class="btn btn-primary" id="reviewerAssign" type="submit">Assign As Reviewer</button>
   </div>
           </form>
                   </div>
@@ -117,30 +75,26 @@ $(".navItem").click(function(event) {
 //load data
 $(function() {
 function load_proposals(){
-$.ajax({
-    url: '../include/displayproposal.php',
-    type: 'get',
-    dataType: 'JSON',
-    success: function(response){
-      response.forEach(({id, title, funding, status }) => {
-      var author=`<tr>
-        <td align='center'>${id}</td>
-        <td align='center'>${title}</td>
-        <td align='center'>${funding}</td>
-        <td align='center'>${status}</td>
-        <td><button id='testbtn' class='btn btn-success' data-toggle='modal' data-target='#testmodal' value="${id}" PID="${id}">Assign Reviewer</button></td>
-        <td><button id='testbox' class='btn btn-danger' value="${id}" PID="${id}"><i class='fas fa-trash-alt'></i></button></td>
-      </tr>`;
-            $("#myTable").append(author);
-        }
-    
-      )}
-    });
+  $("#dataTable").DataTable({
+  'processing': true,
+  'serverSide': true,
+  'dom': 'Bfrtip',
+  'serverMethod': 'post',
+  'ajax': {
+    'url': '../include/displayproposal.php'
+  },
+  'columns': [
+    {data: 'title'},
+    {data: 'funding'},
+    {data: 'status'},
+    {data: 'button'}
+  ]
+})
   }
     load_proposals();
     
     function open_modal(){
-    $('#myTable').on('click', '#testbtn', function(e) {
+    $('#dataTable').on('click', '#testbtn', function(e) {
       e.preventDefault()
       var PID = $(this).attr('PID');
       console.log(PID)
@@ -150,23 +104,43 @@ $.ajax({
   }
   open_modal();
 
-     $.ajax({
-      url: '../forms/loadreviewers.php',
-      type: 'get',
-     dataType: 'JSON',
-      success: function(response){
-      response.forEach(({id, fName, lName, classification}) => {
-      var reviewer=`<tr>
-        <td align='center'>${id}</td>
-        <td align='center'>${fName} ${lName}</td>
-        <td align='center'>${classification}</td>
-        <td><input type ='checkbox' class='revCb' value='${id}'></td>
-        </tr>`;
-            $("#reviewerBody").append(reviewer);
-        }
-      )}
-    });
-    })
+  
+  // $.ajax({
+  //     url: '../forms/loadreviewers.php',
+  //     type: 'get',
+  //    dataType: 'JSON',
+  //     success: function(response){
+  //     response.forEach(({id, fName, lName, classification}) => {
+  //     var reviewer=`<tr>
+  //       <td align='center'>${id}</td>
+  //       <td align='center'>${fName} ${lName}</td>
+  //       <td align='center'>${classification}</td>
+  //       <td><input type ='checkbox' class='revCb' value='${id}'></td>
+  //       </tr>`;
+  //           $("#reviewerBody").append(reviewer);
+  //       }
+  //     )}
+  //   });
+  // 
+
+// load reviewer data
+function load_reviewers(){
+  $("#reviewerTable").DataTable({
+  'processing': true,
+  'serverSide': true,
+  'serverMethod': 'post',
+  'ajax': {
+    'url': '../forms/loadreviewers.php'
+  },
+  'columns': [
+    {data: 'userID'},
+    {data: 'full_name'},
+    {data: 'classification'},
+    {data: 'checkbox'}
+  ]
+})
+  }
+    load_reviewers();
 
     function close_modal(){
       $("#closeModal").on('click', function(){
@@ -176,22 +150,27 @@ $.ajax({
     }
     close_modal();
 
+  })
+
+
     $('#reviewerForm').on('submit', function(e){
       e.preventDefault();
-      var proposalid = $('#pid').attr('value');
       var selected = [];
+      var proposalid = $('#pid').attr('value');
       $('input[class="revCb"]:checked').map(function() {
         selected.push($(this).val())
       })
+
+      // if(isEmpty(selected)){
+      //   alert('No Reviewer Chosen. Please Try Again')
+      // }
       $.ajax({
       url: '../forms/addreviewer.php?propid='+proposalid,
       type: 'post',
       data: {ids:selected},
      dataType: 'json',
       success: function(data){
-        if(data.ok){
-          alert('test')
-        }
+        alert(data.alert.msg);
       }
     });
     })
@@ -200,21 +179,21 @@ $.ajax({
 
 //search
 
-  $("#tableSearch").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      var result = $(this).text().toLowerCase().indexOf(value);
-      $(this).toggle(result > -1)
-    });
-  });
+  // $("#tableSearch").on("keyup", function() {
+  //   var value = $(this).val().toLowerCase();
+  //   $("#myTable tr").filter(function() {
+  //     var result = $(this).text().toLowerCase().indexOf(value);
+  //     $(this).toggle(result > -1)
+  //   });
+  // });
 
-  $("#filter").change(function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      var result = $(this).text().toLowerCase().indexOf(value);
-      $(this).toggle(result > -1)
-    });
-  });
+  // $("#filter").change(function() {
+  //   var value = $(this).val().toLowerCase();
+  //   $("#myTable tr").filter(function() {
+  //     var result = $(this).text().toLowerCase().indexOf(value);
+  //     $(this).toggle(result > -1)
+  //   });
+  // });
 
 
 </script>
