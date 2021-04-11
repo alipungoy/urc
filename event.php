@@ -1,4 +1,4 @@
-<?php require_once('./include/header.php'); ?>
+<?php require_once('./include/navheader.php'); ?>
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href="../css/style.css"/>

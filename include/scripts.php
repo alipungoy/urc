@@ -21,4 +21,4 @@
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="../vendor/js/moment.min.js"></script>
     <script src="../vendor/fullcalendar.min.js"></script>
-    <script src="../vendor/pagination.min.js"></script>
+   
