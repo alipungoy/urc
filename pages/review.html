@@ -47,49 +47,18 @@
     </div>
 </div> <!-- /#page-content-wrapper -->
 
-<div class="modal fade" id="assignReviewer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="approve" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
-<div class="modal-dialog modal-lg" role="document">
+<div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title text-primary" id="exampleModalLabel">Select Co Author</h5>
+            <h5 class="modal-title text-primary" id="exampleModalLabel">Schedule Research For Presentation</h5>
             <button class="close" id="closeModal" type="button">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
         <div class="modal-body">
-            <div class="card-body" id="">
-              <form
-              class="navbar-search" id="reviewerForm">
-              <div class="input-group">
-                  <input type="text" id="reviewersearch" class="form-control bg-light border-0 small" placeholder="Search for Main Author"
-                      aria-label="Search" aria-describedby="basic-addon2">
-                  <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                          <i class="fas fa-search fa-sm"></i>
-                      </button>
-                  </div>
-              </div>
-              <select class="form-group mx-sm-3 mb-2" name="mainAuthorFilter" id="mainAuthorFilter">
-                <option disabled selected="selectHelper" value="">Filter By College</option>
-                <option value="College of Computer Studies">College of Computer Studies</option>
-                <option value="">Test3</option>
-              </select>
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-        <tr>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Funding</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="myTable"></tbody>
-    </table>
-    <button class="btn btn-primary" id="assgnRev" type="submit">Assign As Reviewer</button>
-  </div>
-          </form>
+            <div class="card-body" id="testcalendar">
                   </div>
         </div>
         <div class="modal-footer">
@@ -129,17 +98,94 @@ $.ajax({
     load_proposals();
     })
     
+    
     $('#myTable').on('click', '#approved', function(){
         var thisbtn = $(this).attr('value');
         console.log(thisbtn);
-        $.ajax({
-    url: '../forms/approved.php?id='+thisbtn,
-    type: 'post',
-    dataType: 'JSON',
-    success: function(response){
+      bootbox.confirm("Do you really want to Approve This Research?", function(result) {
+        if(result){
+      $('#approve').modal('show');
+      var calendar = $('#testcalendar').fullCalendar({
+        editable:true,
+        eventColor: 'green',
+        eventDidMount: function(info) {
+        var tooltip = new Tooltip(info.el, {
+        title: info.event.extendedProps.description,
+        placement: 'top',
+        trigger: 'hover',
+        container: 'body'
+      });
+    },
+        events: '../forms/showevents.php',
+        selectable:true,
+        selectHelper:true,
+        eventClick: function(event)
+        {
+            var id = event.id;
+            $('#updateEvent').modal('show');
+            $('#updateID').append(`<div class="formid" data-id="${id}"/>`);
+            var dataid = $('#formid').attr('data-id');
+            
+            $(function() {
+          $('.updateEventForm').on('submit', function(e){
+         e.preventDefault();
+       var eventForm = $('.updateEventForm').serialize();
 
-    }
+             $.ajax({
+            type: 'post',
+            url: '../forms/updateEvent.php?id='+id,
+           data: eventForm,
+           dataType: 'json',
+          encode: true,
+          beforeSend: function(){
+         $('#updatesubmit').text("Updating Event....");
+             },
+            success: function(data){
+                    alert(data.msg)
+                    $('#updateEvent').modal('hide');
+                    calendar.fullCalendar('refetchEvents');
+                    $('#updatesubmit').text("Update");
+            }
+                });
+                })
+            })
+            
+        },
+        eventDrop: function(event, delta, revertFunc) {
+            if (!confirm("Are you sure about to move this event?")) {
+                 revertFunc();
+            } else {
+                var editedDate = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH-MM-SS");
+                $("#event-action-response").hide();
+                $.ajax({
+                    url:"../forms/dropupdate.php",
+                    type:"POST",
+                    data:{id:event.id, start:editedDate, end:editedDate},
+                    success:function(resource)
+                    {
+                     calendar.fullCalendar('refetchEvents');
+                     $("#event-action-response").html("Event moved Successfully");
+                     $("#event-action-response").show();
+                    }
+                })
+            }
+        },        
     });
-    })
+  }
+}); 
+  //     if(result){
+  //       $.ajax({
+  //   url: '../forms/approved.php?id='+thisbtn,
+  //   type: 'post',
+  //   dataType: 'JSON',
+  //   beforeSend: function() {
+  //     bootbox.alert('Research Approved')
+  //   },
+  //   success: function(response){
+  //     load_proposals()
+  //   }
+  //   });
+  // }
+})
 
 </script>

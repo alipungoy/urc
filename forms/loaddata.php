@@ -18,13 +18,15 @@ $searchArray = array();
 ## Search 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " AND (first_name LIKE :first_name or 
+   $searchQuery = " AND (first_name LIKE :first_name OR 
         email LIKE :email OR 
-        classification LIKE :classification ) ";
+        classification LIKE :classification OR last_name LIKE :last_name OR user_type LIKE :user_type) ";
    $searchArray = array( 
         'first_name'=>"%$searchValue%", 
+        'last_name'=>"%$searchValue%", 
         'email'=>"%$searchValue%",
-        'classification'=>"%$searchValue%"
+        'classification'=>"%$searchValue%",
+        'user_type'=>"%$searchValue%"
    );
 }
 
@@ -60,6 +62,7 @@ foreach($empRecords as $row){
      "last_name"=>$row['last_name'],
      "email"=>$row['email'],
      "classification"=>$row['classification'],
+     "user_type"=>$row['user_type'],
      "checkbox"=> '<input type="checkbox" value='.$row['userID'].'>'
   );
 }

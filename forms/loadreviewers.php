@@ -18,29 +18,27 @@ $searchArray = array();
 ## Search 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " AND (first_name LIKE :first_name or 
-        email LIKE :email OR 
+   $searchQuery = " AND (first_name LIKE :first_name OR
         classification LIKE :classification ) ";
    $searchArray = array( 
         'first_name'=>"%$searchValue%", 
-        'email'=>"%$searchValue%",
         'classification'=>"%$searchValue%"
    );
 }
 
 ## Total number of records without filtering
-$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM user ");
+$stmt = $db->connection->prepare("SELECT COUNT(user_type) AS allcount FROM user WHERE user_type = 'Reviewer' ");
 $stmt->execute();
 $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM user WHERE 1 ".$searchQuery);
+$stmt =  $db->connection->prepare("SELECT COUNT(user_type) AS allcount FROM user WHERE 1 ".$searchQuery);
 $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
-$stmt =  $db->connection->prepare("SELECT * FROM user WHERE 1 ".$searchQuery." && user_type = 'Reviewer' ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
+$stmt =  $db->connection->prepare("SELECT * FROM user WHERE user_type = 'Reviewer' && 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
 
 // Bind values
 foreach($searchArray as $key=>$search){
