@@ -5,6 +5,7 @@ $db = new db();
 
 $id = $_GET['id'];
 
+
 $insert = ("UPDATE proposal SET approvalDate = NOW(), status = 'Research Approved', approved = '1' ");
 $stmt = $db->connection->prepare($insert);
 $stmt->execute();

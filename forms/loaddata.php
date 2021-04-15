@@ -63,7 +63,7 @@ foreach($empRecords as $row){
      "email"=>$row['email'],
      "classification"=>$row['classification'],
      "user_type"=>$row['user_type'],
-     "checkbox"=> '<input type="checkbox" value='.$row['userID'].'>'
+     "checkbox"=> '<input type="checkbox" id="userCb" value='.$row['userID'].'>'
   );
 }
 

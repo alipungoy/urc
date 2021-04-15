@@ -176,7 +176,8 @@ $(function() {
             
         },
         eventDrop: function(event, delta, revertFunc) {
-            if (!confirm("Are you sure about to move this event?")) {
+            bootbox.confirm("Do You Really Want To Move This Event?", function(result) {
+        if(!result){
                  revertFunc();
             } else {
                 var editedDate = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH-MM-SS");
@@ -193,8 +194,31 @@ $(function() {
                     }
                 })
             }
+        })
         },        
     });
+    $(function() {
+          $('.eventform').on('submit', function(e){
+         e.preventDefault();
+       var eventForm = $('.eventform').serialize();
+
+             $.ajax({
+            type: 'post',
+            url: '../forms/createevent.php',
+           data: eventForm,
+           dataType: 'json',
+          encode: true,
+          beforeSend: function(){
+         $('#eventsubmit').text("Adding Event....");
+             },
+            success: function(data){
+                    alert(data.status.msg);
+                    $('#event').modal('hide');
+                   calendar.fullCalendar('refetchEvents');
+            }
+                });
+                })
+            })
 });  
 
 
@@ -217,28 +241,7 @@ $(function() {
 
 
             
-            $(function() {
-          $('.eventform').on('submit', function(e){
-         e.preventDefault();
-       var eventForm = $('.eventform').serialize();
 
-             $.ajax({
-            type: 'post',
-            url: '../forms/createevent.php',
-           data: eventForm,
-           dataType: 'json',
-          encode: true,
-          beforeSend: function(){
-         $('#eventsubmit').text("Adding Event....");
-             },
-            success: function(data){
-                    alert(data.status.msg);
-                    $('#event').modal('hide');
-                    
-            }
-                });
-                })
-            })
 
 // $(function(){
 //   $.ajax({

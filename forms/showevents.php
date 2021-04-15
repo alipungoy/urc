@@ -6,7 +6,7 @@ $db = new db();
 $return_arr = array();
 
 
-    $sql = ("SELECT id, event_title, events_information, event_from_time, event_to_time FROM events ORDER BY id ASC LIMIT 10");
+    $sql = ("SELECT id, event_title, events_information, event_from_time, event_to_time FROM events ORDER BY id ASC");
     $stmt =$db->connection->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();

@@ -56,7 +56,8 @@ foreach($empRecords as $row){
   $data[] = array(
      "fullname"=>$row['fullname'],
      "department"=>$row['department'],
-     "checkbox"=> '<input type ="checkbox" id="mainAuthCb" value='.$row['authorID'].' PID='.$row['authorID'].'>'
+     "mainAuthCb"=> '<input type ="checkbox" id="mainAuthCb" value='.$row['authorID'].' PID='.$row['authorID'].'>',
+     "coAuthCb"=> '<input type ="checkbox" id="coAuthCb" value='.$row['authorID'].' PID='.$row['authorID'].'>'
   );
 }
 

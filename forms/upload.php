@@ -51,14 +51,16 @@ if(move_uploaded_file($tmp,$path))
      $stmt->execute();
      $lastID = $db->connection->lastInsertId();
 
-     $sql4 = ("INSERT INTO proposal_authors (author_id, proposal_id, type) VALUES ('".$mainAuthor."', '".$lastID."', 'main_author')");
+     $sql4 = ("INSERT INTO proposal_authors (author_id, proposal_id, type) VALUES ('".$mainAuthor."', '".$lastID."', '1')");
      $stmt4 = $db->connection->prepare($sql4);
      $stmt4->execute();
 
+     $counter = 1;
     foreach($coAuthor as $coAuth){
-        $sql5 = ("INSERT INTO proposal_authors (author_id, proposal_id, type) VALUES ('".$coAuth."', '".$lastID."', 'co_author')");
+        $counter++;
+        $sql5 = ("INSERT INTO proposal_authors (author_id, proposal_id, type) VALUES ('".$coAuth."', '".$lastID."', '".$counter."')");
         $stmt =  $db->connection->prepare($sql5);
-        $stmt->execute();
+        $stmt->execute();  
     }
 
      if($stmt){

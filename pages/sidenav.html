@@ -36,6 +36,37 @@
 </div>
 
 
+<div class="modal fade" id="changeStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-primary" id="exampleModalLabel">Change User Status</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card-body">
+              <form
+              class="navbar-search" id="updateStatus">
+              <div class="idToUpdate"></div>
+              <div class="">
+                <select class="form-control" name="user_status">
+                <option value="Reviewer">Reviewer</option>
+                <option value="User">User</option>
+                <option value="Admin">Admin</option>
+              </select>
+              </div> <br>   
+              <button class="btn btn-primary" type="submit">Change</button>      
+          </form>
+        </div>
+                  </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
 
 
  <script>
@@ -100,6 +131,40 @@ $("#dataTable").DataTable({
     {data: 'user_type'},
     {data: 'checkbox'}
   ]
+});
+
+$('#assign').on('click', function(e){
+  e.preventDefault();
+  var counter =  $('input[id="userCb"]:checked').length;
+  var id = [];
+    $('input[id="userCb"]:checked').map(function(){
+      id.push($(this).val());
+    })
+
+    if(counter == 0){
+      alert('No User Chosen')
+    }
+    else
+    {
+      $('#changeStatus').modal('show');
+      $('.idToUpdate').append(`<input type="hidden" id="testid" name="updateId[]" value="${id}">`);
+    }
+});
+
+$('#updateStatus').on('submit', function(e){
+  e.preventDefault();
+  var formData = $('#updateStatus').serialize();
+  var arrid = $('#testid').val();
+   $.ajax({
+   url:'../forms/changestatus.php',
+   type: "POST",
+   data:  formData,
+   dataType: 'json',
+   processData: false,
+   success: function(data){
+
+   }
+});
 })
 
 

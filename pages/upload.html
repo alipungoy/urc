@@ -51,7 +51,9 @@ aria-hidden="true">
             </button>
         </div>
         <div class="modal-body">
-            <div class="card-body" id="">
+          <div class="selectedAuth col-lg-12">
+          </div>
+            <div class="card-body">
               <form
               class="navbar-search" id="mainAuthForm">
               </div>
@@ -87,25 +89,13 @@ aria-hidden="true">
             </button>
         </div>
         <div class="modal-body">
+          <div class="selectedCoAuth col-lg-12">
+          </div>
             <div class="card-body" id="">
               <form
               class="navbar-search" id="coAuthForm">
-              <div class="input-group">
-                  <input type="text" id="coAuthorSearch" class="form-control bg-light border-0 small" placeholder="Search for Co Author"
-                      aria-label="Search" aria-describedby="basic-addon2">
-                  <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                          <i class="fas fa-search fa-sm"></i>
-                      </button>
-                  </div>
-              </div>
-              <select class="form-group mx-sm-3 mb-2" name="coAuthorFilter" id="coAuthorFilter">
-                <option disabled selected="selectHelper" value="">Filter By College</option>
-                <option value="College of Computer Studies">College of Computer Studies</option>
-                <option value="">Test3</option>
-              </select>
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="coAuthorBody" width="100%" cellspacing="0">
           <thead>
         <tr>
           <th>Full Name</th>
@@ -113,9 +103,8 @@ aria-hidden="true">
           <th></th>
         </tr>
       </thead>
-      <tbody id="coAuthorBody"></tbody>
     </table>
-    <button class="btn btn-primary" id="addAsCoAuthor" type="submit">Add As Co Author</button>
+    <button class="btn btn-primary" id="addAsCoAuthor">Add As Co Author</button>
   </div>
           </form>
                   </div>
@@ -177,7 +166,7 @@ aria-hidden="true">
   'columns': [
     {data: 'fullname'},
     {data: 'department'},
-    {data: 'checkbox'},
+    {data: 'mainAuthCb'},
   ]
 })
   });
@@ -187,22 +176,21 @@ $(function(){
       e.preventDefault();
       $('#coAuthorModal').modal('show');
     });
-    $.ajax({
-        url: '../forms/loadauthors.php',
-        type: 'post',
-        dataType: 'JSON',
-        success: function(response){
-            response.forEach(({ fullname, dept, id }) => {
-              var author=`<tr>
-        <td align='center'>${fullname}</td>
-        <td align='center'>${dept}</td>
-        <td><input type ='checkbox' name="coAuthorCb[]" id='coAuthCb' value='${id}' PID='${id}'></td>
-      </tr>`;
-              $("#coAuthorBody").append(author);
-            })
-        }
-    });
-});
+    $("#coAuthorBody").DataTable({
+  'processing': true,
+  'serverSide': true,
+  'dom': 'Bfrtip',
+  'serverMethod': 'post',
+  'ajax': {
+    'url': '../forms/loadauthors.php'
+  },
+  'columns': [
+    {data: 'fullname'},
+    {data: 'department'},
+    {data: 'coAuthCb'},
+  ]
+})
+  });
 
 //  multiple
 // $(function(){
@@ -217,11 +205,82 @@ $(function(){
 // });
 //   })
 
+
+//Select main author and display selected
+$('#addAsMainAuthor').on('click', function(e){
+  e.preventDefault();
+  var values = new Array();
+  var counter =  $('input[id="mainAuthCb"]:checked').length;
+  $('.alert-danger').remove();
+  if(counter == 1){
+  $.each($('input[id="mainAuthCb"]:checked').closest('td').siblings('td:first-child'),function(){
+    values.push($(this).text());
+    })
+    console.log(values)
+    var display = `<div class='test-remove'><button class="btn btn-outline-primary btn-sm" id="remove">X</button><span class="badge badge-pill badge-primary">${values}</span></div>`;
+  $('.selectedAuth').append(display)
+  }
+  else{
+    $('.selectedAuth').append('<div class="alert alert-danger"> only 1 allowed</div>');
+  }
+
+});
+
+$('.selectedAuth').on('click', '#remove', function(e){
+  e.preventDefault();
+ $('.test-remove').remove();
+ $('input[id="mainAuthCb"]:checked').prop('checked', false);
+});
+
+//selec coAuhtor
+$('#addAsCoAuthor').on('click', function(e){
+  e.preventDefault();
+  var values = new Array();
+  var counter =  $('input[id="coAuthCb"]:checked').length;
+  $('.alert-danger').remove();
+  if(counter <= 9){
+  $.each($('input[id="coAuthCb"]:checked').closest('td').siblings('td:first-child'),function(){
+    values.push($(this).text());
+    })
+    console.log(values)
+    var display = `<div class='test-remove'><button class="btn btn-outline-primary btn-sm" id="remove">X</button><span class="badge badge-pill badge-primary">${values}</span></div>`;
+  $('.selectedCoAuth').append(display)
+  }
+  else{
+    $('.selectedCoAuth').append('<div class="alert alert-danger"> Maximum of 9 Co-Authors Allowed</div>');
+  }
+
+});
+
+//remove selected author
+$('.selectedAuth').on('click', '#remove', function(e){
+  e.preventDefault();
+ $('.test-remove').remove();
+ $('input[id="mainAuthCb"]:checked').prop('checked', false);
+});
+
+$('.selectedCoAuth').on('click', '#remove', function(e){
+  e.preventDefault();
+ $('.test-remove').remove();
+ $('input[id="coAuthCb"]:checked').prop('checked', false);
+});
+
+
   //Array being sent by ajax as string
   $(function () {
   $("#form").on('submit',(function(e) {
   e.preventDefault();
   const formData = new FormData(this);
+var coAuthCounter =  $('input[id="coAuthCb"]:checked').length;
+var mainAuthCounter =  $('input[id="mainAuthCb"]:checked').length;
+
+if(mainAuthCounter > 1){
+  alert('Only 1 Main Author allowed')
+}
+else if(coAuthCounter >= 9){
+  alert('A maximum of 9 Co-Authors is allowed')
+}
+else{ 
   var mainAuth = [];
     $('input[id="mainAuthCb"]:checked').map(function(){
       mainAuth.push($(this).val());
@@ -233,7 +292,6 @@ $(function(){
     })
   formData.append('coAuthor', JSON.stringify(coauths));
   console.log(formData);
-
   $.ajax({
    url:'../forms/upload.php',
    type: "POST",
@@ -243,6 +301,7 @@ $(function(){
    processData:false,
    beforeSend : function()
    {
+
     $("#err").fadeOut();
    },
    success: function(data)
@@ -270,6 +329,7 @@ $(function(){
     $("#err").html(e).fadeIn();
       }          
     });
+  }
  }));
   })
 
