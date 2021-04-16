@@ -1,22 +1,20 @@
-<?php
-include("./db/connection.php");
-$db = new db();
-
-$sql =("SELECT * FROM proposal");
-$stmt = $db->connection->prepare($sql);
-$stmt->execute();
- 
- 
-while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
-  $data[] = $row;
-}
- 
-print_r($data);
-$results = ["sEcho" => 1,
-        	"iTotalRecords" => count($data),
-        	"iTotalDisplayRecords" => count($data),
-        	"aaData" => $data ];
- 
- 
-echo json_encode($results);
-?>
+<script>
+	$(function() {
+function load_proposals(){
+  $("#proposals").DataTable({
+  'processing': true,
+  'serverSide': true,
+  'serverMethod': 'post',
+  'sDom': 'lBfrtip',
+  'ajax': {
+    'url': '../include/displayproposal.php'
+  },
+  'columns': [
+    {data: 'title'},
+    {data: 'funding'},
+    {data: 'status'},
+    {data: 'button'}
+  ]
+})
+  }
+</script>

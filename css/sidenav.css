@@ -119,6 +119,6 @@
     }
   }
   
-  .hidden {
-    display: none;
-  }
+  .dataTables_length {
+    display: block !important;
+}

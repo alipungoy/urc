@@ -13,7 +13,7 @@ $mainAuthor = $_POST['mainAuthor'];
 $coAuthor = json_decode($_POST['coAuthor']);
 $DATE = date("y-m-d h:i:sa");
 $notifType = '1';
-$ToUSER = 'Admin';
+$ToUSER = '39';
 
 $valid_extensions = array('pdf'); // valid extensions
 $path = '../uploads/'; // upload directory
@@ -51,14 +51,14 @@ if(move_uploaded_file($tmp,$path))
      $stmt->execute();
      $lastID = $db->connection->lastInsertId();
 
-     $sql4 = ("INSERT INTO proposal_authors (author_id, proposal_id, type) VALUES ('".$mainAuthor."', '".$lastID."', '1')");
+     $sql4 = ("INSERT INTO proposal_authors (author_id, proposal_id, ordinal) VALUES ('".$mainAuthor."', '".$lastID."', '1')");
      $stmt4 = $db->connection->prepare($sql4);
      $stmt4->execute();
 
      $counter = 1;
     foreach($coAuthor as $coAuth){
         $counter++;
-        $sql5 = ("INSERT INTO proposal_authors (author_id, proposal_id, type) VALUES ('".$coAuth."', '".$lastID."', '".$counter."')");
+        $sql5 = ("INSERT INTO proposal_authors (author_id, proposal_id, ordinal) VALUES ('".$coAuth."', '".$lastID."', '".$counter."')");
         $stmt =  $db->connection->prepare($sql5);
         $stmt->execute();  
     }

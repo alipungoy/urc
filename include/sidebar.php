@@ -46,6 +46,7 @@
             <a class="collapse-item" href="../sidenav.php">User status</a>
             <a class="collapse-item" href="../proposals.php">Research Proposals</a>
             <a class="collapse-item" href="../review.php">Proposals Review</a>
+            <a class="collapse-item" href="../approvedresearch.php">Approved Researches</a>
         </div>
     </div>
 </li>

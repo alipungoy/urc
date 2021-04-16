@@ -18,25 +18,27 @@ $searchArray = array();
 ## Search 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " AND (fullname LIKE :fullname) ";
+   $searchQuery = " AND (title LIKE :title OR 
+        funding LIKE :funding";
    $searchArray = array( 
-        'fullname'=>"%$searchValue%", 
+        'title'=>"%$searchValue%", 
+        'funding'=>"%$searchValue%"
    );
 }
 
 ## Total number of records without filtering
-$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM authors");
+$stmt = $db->connection->prepare("SELECT COUNT(status) AS allcount FROM proposal ");
 $stmt->execute();
 $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM authors WHERE 1 ".$searchQuery);
+$stmt =  $db->connection->prepare("SELECT COUNT(status) AS allcount FROM proposal WHERE status = 'Research Approved' && 1 ".$searchQuery);
 $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
-$stmt =  $db->connection->prepare("SELECT * FROM authors WHERE 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
+$stmt =  $db->connection->prepare("SELECT * FROM proposal WHERE status = 'Research Approved' ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
 
 // Bind values
 foreach($searchArray as $key=>$search){
@@ -52,9 +54,10 @@ $data = array();
 
 foreach($empRecords as $row){
   $data[] = array(
-     "fullname"=>$row['fullname'],
-     "mainAuthCb"=> '<input type ="checkbox" id="mainAuthCb" value='.$row['authorID'].' PID='.$row['authorID'].'>',
-     "coAuthCb"=> '<input type ="checkbox" id="coAuthCb" value='.$row['authorID'].' PID='.$row['authorID'].'>'
+     "title"=>$row['title'],
+     "funding"=>$row['funding'],
+     "approvalDate"=>$row['approvalDate'],
+     "button"=> '<button class="btn btn-primary" id="apprvdBtn" value='.$row['proposalID'].'>Schedule for Presentation</button>'
   );
 }
 

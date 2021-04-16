@@ -2,6 +2,9 @@
 include('../db/connection.php');
 $db = new db();
 
+session_start();
+$id = $_SESSION['userid'];
+
 if(isset($_POST['view'])){
 // update notifications to seen
 if($_POST["view"] != '')
@@ -13,7 +16,7 @@ if($_POST["view"] != '')
 
 // load notifications
 $sql = ("SELECT user.username, notification.notifMsg, notification.notifdate, notiftype.type FROM ((notification LEFT JOIN
- notiftype ON notification.notifTypeID=notiftype.notifTypeID) LEFT JOIN user on notification.fromUser=user.userID) ORDER BY notifdate DESC LIMIT 5");
+ notiftype ON notification.notifTypeID=notiftype.notifTypeID) LEFT JOIN user on notification.fromUser=user.userID) WHERE toUser = '".$id."' ORDER BY notifdate DESC LIMIT 5");
 $stmt =$db->connection->prepare($sql);
 $stmt->execute();  
 $notif ="";
@@ -41,7 +44,7 @@ else
 }
 
 
-$sql2 = ("SELECT * FROM notification WHERE status=0");
+$sql2 = ("SELECT * FROM notification WHERE toUser = '".$id."' && status=0");
 $stmt = $db->connection->prepare($sql2);
 $stmt->execute();
 $count = $stmt->rowCount();

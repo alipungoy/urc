@@ -1,0 +1,109 @@
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Schedul For Presentation</h1>
+                    </div>
+                    <div class="row">
+                         <div class="col-lg-12">
+                          <!-- Dropdown Card Example -->
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <!-- Card Body -->
+                                <div class="container mt-3">
+                                    <div id="presentaion">
+
+                                    </div>
+        
+                                    <!-- <table class="table table-bordered table-striped" id="dataTable">
+                                      <thead>
+                                        <tr>
+                                        <th>Title</th>
+                                        <th>Event Details</th>
+                                        <th>date</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="myTable">
+        
+                                        </tbody>
+                                    </table> -->
+                                  </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    
+
+<script>
+    $(function(){
+      var calendar = $('#presentaion').fullCalendar({
+        editable:true,
+        eventColor: 'blue',
+        eventDidMount: function(info) {
+        var tooltip = new Tooltip(info.el, {
+        title: info.event.extendedProps.description,
+        placement: 'top',
+        trigger: 'hover',
+        container: 'body'
+      });
+    },
+        events: '../forms/showevents.php',
+        selectable:true,
+        selectHelper:true,
+        dayClick: function(event)
+        {
+            var id = event.id;
+        $("#schedPresentation").modal('hide');
+         $("#schedModal").modal('show');
+            
+            $(function() {
+          $('.updateEventForm').on('submit', function(e){
+         e.preventDefault();
+       var eventForm = $('.updateEventForm').serialize();
+
+             $.ajax({
+            type: 'post',
+            url: '../forms/updateEvent.php?id='+id,
+           data: eventForm,
+           dataType: 'json',
+          encode: true,
+          beforeSend: function(){
+         $('#updatesubmit').text("Updating Event....");
+             },
+            success: function(data){
+                    alert(data.msg)
+                    $('#updateEvent').modal('hide');
+                    calendar.fullCalendar('refetchEvents');
+                    $('#updatesubmit').text("Update");
+            }
+                });
+                })
+            })
+            
+        },
+        eventDrop: function(event, delta, revertFunc) {
+            if (!confirm("Are you sure about to move this event?")) {
+                 revertFunc();
+            } else {
+                var editedDate = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH-MM-SS");
+                $("#event-action-response").hide();
+                $.ajax({
+                    url:"../forms/dropupdate.php",
+                    type:"POST",
+                    data:{id:event.id, start:editedDate, end:editedDate},
+                    success:function(resource)
+                    {
+                     calendar.fullCalendar('refetchEvents');
+                     $("#event-action-response").html("Event moved Successfully");
+                     $("#event-action-response").show();
+                    }
+                })
+            }
+        },        
+    });
+  }
+); 
+</script>

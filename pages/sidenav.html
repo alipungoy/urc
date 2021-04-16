@@ -4,7 +4,7 @@
                 <section>
                     <div>
                         <div class="container">
-                            <table class="table table-bordered table-striped" id="dataTable">
+                            <table class="table table-bordered table-striped"  id="dataTable">
                               <thead>
                                 <tr>
                                 <th>Firstname</th>
@@ -120,6 +120,9 @@ $("#dataTable").DataTable({
   'processing': true,
   'serverSide': true,
   'serverMethod': 'post',
+  'lengthChange': true,
+  "scrollY": "500px",
+  'pageLength': 100,
   'ajax': {
     'url': '../forms/loaddata.php'
   },
@@ -167,6 +170,7 @@ $('#updateStatus').on('submit', function(e){
 });
 })
 
+$('.dataTables_length').css('display:block')
 
 // $("#dataTable_length").addClass('display:none');
 
