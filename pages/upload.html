@@ -15,16 +15,17 @@
   <div class="form-group">
     <label for="funding">Funding Type:</label>
     <select class="form-control" name="funding" id="funding">
+      <option value="0">Select Funding Type</option>
       <option value="Externally Funded Research">Externally Funded Research</option>
       <option value="Internally Funded Research">Internally Funded Research</option>
     </select><br>
   </div>
-  <div class="form-group">
-    <div id="addAuthor">    
-      <button class="btn btn-primary form-control mb-2" id="addMainAuthor">Add Main Author</button>
-      <button class="btn btn-primary form-control" id="addCoAuthor">Add Co Author</button>
-  </div>
-  </div>
+  <div>
+    <select class="form-control" name="mainAuth" id="selectAuthor">
+</select><br>
+<select class="form-control" name="coAuth[]" id="selectCoAuthor">
+</select><br>
+  </div>   
   <div id="filename"></div>
   <div class="text-danger" id="err"></div>
   <div class="text-success" id="success"></div>
@@ -40,7 +41,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="mainAuthorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- <div class="modal fade" id="mainAuthorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -111,7 +112,7 @@ aria-hidden="true">
         </div>
     </div>
 </div>
-</div>
+</div> -->
 
 
 
@@ -130,6 +131,54 @@ aria-hidden="true">
   $("#filename").html('<i class="fas fa-file-pdf fa-10x"></i>' + filename);
 });
 
+$('#funding').select2({
+  minimumResultsForSearch: Infinity
+});
+
+$('#selectAuthor').select2({
+            placeholder: 'Select Main Author',
+            ajax: {
+        url: "../forms/loadauthors.php",
+        type: "post",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+           return {
+              searchTerm: params.term // search term
+           };
+        },
+        processResults: function (response) {
+           return {
+              results: response
+           };
+        },
+        cache: true
+      }
+   });
+
+
+        $('#selectCoAuthor').select2({
+          multiple: true,
+          maximumSelectionLength: 9,
+            placeholder: 'Select Co Author',
+            ajax: {
+                url: '../forms/loadauthors.php',
+                type: "post",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results:response
+                    };
+                },
+                cache: true
+            }
+        });
 // $(function (){
 //   var max_option = 10;
 //   var x = 1;
@@ -148,45 +197,45 @@ aria-hidden="true">
 //   })
 // });
 
-    $(function(){
-      $('#addMainAuthor').on('click', function(e){
-      e.preventDefault();
-      $('#mainAuthorModal').modal('show');
-    });
-    $("#mainAuthorBody").DataTable({
-  'processing': true,
-  'serverSide': true,
-  'dom': 'Bfrtip',
-  'serverMethod': 'post',
-  'ajax': {
-    'url': '../forms/loadauthors.php'
-  },
-  'columns': [
-    {data: 'fullname'},
-    {data: 'mainAuthCb'},
-  ]
-})
-  });
+//     $(function(){
+//       $('#addMainAuthor').on('click', function(e){
+//       e.preventDefault();
+//       $('#mainAuthorModal').modal('show');
+//     });
+//     $("#mainAuthorBody").DataTable({
+//   'processing': true,
+//   'serverSide': true,
+//   'dom': 'Bfrtip',
+//   'serverMethod': 'post',
+//   'ajax': {
+//     'url': '../forms/loadauthors.php'
+//   },
+//   'columns': [
+//     {data: 'fullname'},
+//     {data: 'mainAuthCb'},
+//   ]
+// })
+//   });
 
-$(function(){
-    $('#addCoAuthor').on('click', function(e){
-      e.preventDefault();
-      $('#coAuthorModal').modal('show');
-    });
-    $("#coAuthorBody").DataTable({
-  'processing': true,
-  'serverSide': true,
-  'dom': 'Bfrtip',
-  'serverMethod': 'post',
-  'ajax': {
-    'url': '../forms/loadauthors.php'
-  },
-  'columns': [
-    {data: 'fullname'},
-    {data: 'coAuthCb'},
-  ]
-})
-  });
+// $(function(){
+//     $('#addCoAuthor').on('click', function(e){
+//       e.preventDefault();
+//       $('#coAuthorModal').modal('show');
+//     });
+//     $("#coAuthorBody").DataTable({
+//   'processing': true,
+//   'serverSide': true,
+//   'dom': 'Bfrtip',
+//   'serverMethod': 'post',
+//   'ajax': {
+//     'url': '../forms/loadauthors.php'
+//   },
+//   'columns': [
+//     {data: 'fullname'},
+//     {data: 'coAuthCb'},
+//   ]
+// })
+//   });
 
 //  multiple
 // $(function(){
@@ -202,64 +251,64 @@ $(function(){
 //   })
 
 
-//Select main author and display selected
-$('#addAsMainAuthor').on('click', function(e){
-  e.preventDefault();
-  var values = new Array();
-  var counter =  $('input[id="mainAuthCb"]:checked').length;
-  $('.alert-danger').remove();
-  if(counter == 1){
-  $.each($('input[id="mainAuthCb"]:checked').closest('td').siblings('td:first-child'),function(){
-    values.push($(this).text());
-    })
-    console.log(values)
-    var display = `<div class='test-remove'><button class="btn btn-outline-primary btn-sm" id="remove">X</button><span class="badge badge-pill badge-primary">${values}</span></div>`;
-  $('.selectedAuth').append(display)
-  }
-  else{
-    $('.selectedAuth').append('<div class="alert alert-danger"> only 1 allowed</div>');
-  }
+// //Select main author and display selected
+// $('#addAsMainAuthor').on('click', function(e){
+//   e.preventDefault();
+//   var values = new Array();
+//   var counter =  $('input[id="mainAuthCb"]:checked').length;
+//   $('.alert-danger').remove();
+//   if(counter == 1){
+//   $.each($('input[id="mainAuthCb"]:checked').closest('td').siblings('td:first-child'),function(){
+//     values.push($(this).text());
+//     })
+//     console.log(values)
+//     var display = `<div class='test-remove'><button class="btn btn-outline-primary btn-sm" id="remove">X</button><span class="badge badge-pill badge-primary">${values}</span></div>`;
+//   $('.selectedAuth').append(display)
+//   }
+//   else{
+//     $('.selectedAuth').append('<div class="alert alert-danger"> only 1 allowed</div>');
+//   }
 
-});
+// });
 
-$('.selectedAuth').on('click', '#remove', function(e){
-  e.preventDefault();
- $('.test-remove').remove();
- $('input[id="mainAuthCb"]:checked').prop('checked', false);
-});
+// $('.selectedAuth').on('click', '#remove', function(e){
+//   e.preventDefault();
+//  $('.test-remove').remove();
+//  $('input[id="mainAuthCb"]:checked').prop('checked', false);
+// });
 
-//selec coAuhtor
-$('#addAsCoAuthor').on('click', function(e){
-  e.preventDefault();
-  var values = new Array();
-  var counter =  $('input[id="coAuthCb"]:checked').length;
-  $('.alert-danger').remove();
-  if(counter <= 9){
-  $.each($('input[id="coAuthCb"]:checked').closest('td').siblings('td:first-child'),function(){
-    values.push($(this).text());
-    })
-    console.log(values)
-    var display = `<div class='test-remove'><button class="btn btn-outline-primary btn-sm" id="remove">X</button><span class="badge badge-pill badge-primary">${values}</span></div>`;
-  $('.selectedCoAuth').append(display)
-  }
-  else{
-    $('.selectedCoAuth').append('<div class="alert alert-danger"> Maximum of 9 Co-Authors Allowed</div>');
-  }
+// //selec coAuhtor
+// $('#addAsCoAuthor').on('click', function(e){
+//   e.preventDefault();
+//   var values = new Array();
+//   var counter =  $('input[id="coAuthCb"]:checked').length;
+//   $('.alert-danger').remove();
+//   if(counter <= 9){
+//   $.each($('input[id="coAuthCb"]:checked').closest('td').siblings('td:first-child'),function(){
+//     values.push($(this).text());
+//     })
+//     console.log(values)
+//     var display = `<div class='test-remove'><button class="btn btn-outline-primary btn-sm" id="remove">X</button><span class="badge badge-pill badge-primary">${values}</span></div>`;
+//   $('.selectedCoAuth').append(display)
+//   }
+//   else{
+//     $('.selectedCoAuth').append('<div class="alert alert-danger"> Maximum of 9 Co-Authors Allowed</div>');
+//   }
 
-});
+// });
 
-//remove selected author
-$('.selectedAuth').on('click', '#remove', function(e){
-  e.preventDefault();
- $('.test-remove').remove();
- $('input[id="mainAuthCb"]:checked').prop('checked', false);
-});
+// //remove selected author
+// $('.selectedAuth').on('click', '#remove', function(e){
+//   e.preventDefault();
+//  $('.test-remove').remove();
+//  $('input[id="mainAuthCb"]:checked').prop('checked', false);
+// });
 
-$('.selectedCoAuth').on('click', '#remove', function(e){
-  e.preventDefault();
- $('.test-remove').remove();
- $('input[id="coAuthCb"]:checked').prop('checked', false);
-});
+// $('.selectedCoAuth').on('click', '#remove', function(e){
+//   e.preventDefault();
+//  $('.test-remove').remove();
+//  $('input[id="coAuthCb"]:checked').prop('checked', false);
+// });
 
 
   //Array being sent by ajax as string
@@ -267,27 +316,6 @@ $('.selectedCoAuth').on('click', '#remove', function(e){
   $("#form").on('submit',(function(e) {
   e.preventDefault();
   const formData = new FormData(this);
-var coAuthCounter =  $('input[id="coAuthCb"]:checked').length;
-var mainAuthCounter =  $('input[id="mainAuthCb"]:checked').length;
-
-if(mainAuthCounter > 1){
-  alert('Only 1 Main Author allowed')
-}
-else if(coAuthCounter >= 9){
-  alert('A maximum of 9 Co-Authors is allowed')
-}
-else{ 
-  var mainAuth = [];
-    $('input[id="mainAuthCb"]:checked').map(function(){
-      mainAuth.push($(this).val());
-    })
-    formData.append('mainAuthor', mainAuth);
-  var coauths = [];
-    $('input[id="coAuthCb"]:checked').map(function(){
-      coauths.push($(this).val());
-    })
-  formData.append('coAuthor', JSON.stringify(coauths));
-  console.log(formData);
   $.ajax({
    url:'../forms/upload.php',
    type: "POST",
@@ -326,7 +354,7 @@ else{
       }          
     });
   }
- }));
+ ));
   })
 
 

@@ -12,7 +12,3 @@ input#importcsv {
     height:auto;
     display:inline-block;
 }
-
-.dataTables_length {
-    display: none;
-}
