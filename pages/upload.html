@@ -23,9 +23,12 @@
   <div>
     <select class="form-control" name="mainAuth" id="selectAuthor">
 </select><br>
-<select class="form-control" name="coAuth[]" id="selectCoAuthor">
-</select><br>
-  </div>   
+  </div> 
+  <div class="form-group mt-3">
+    <select class="form-control" name="coAuth[]" id="selectCoAuthor">
+  </select><br> 
+  <small style="font-style:italic;color:blue">*Choose Co-Authors If Available</small>
+  </div> 
   <div id="filename"></div>
   <div class="text-danger" id="err"></div>
   <div class="text-success" id="success"></div>
@@ -179,6 +182,8 @@ $('#selectAuthor').select2({
                 cache: true
             }
         });
+
+        
 // $(function (){
 //   var max_option = 10;
 //   var x = 1;

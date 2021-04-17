@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
     <a class="navbar-brand font-weight-bold text-secondary">
         <img src="../assets/images/logo.png" width="30" height="30" class="d-inline-block align-top"
             alt="">
@@ -37,10 +37,10 @@
         if(!isset($_SESSION['loggedin'])) {
           ?>
             <li class="nav-item">
-                <a class="nav-link" href="../register.php">Register</a>
+                <a class="nav-link" id="register" href="#">Register</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../login.php">Login</a>
+                <a class="nav-link" id="login" href="#">Login</a>
             </li>
         <?php
         } elseif($_SESSION['user_type'] == 'Admin'){
@@ -74,3 +74,146 @@
         </ul>
     </div>
 </nav>
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-md" role="document">
+    <!-- <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-primary" id="exampleModalLabel">Login</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <br>
+        <div class="modal-body">
+          <div>
+          </div>
+              <div class="container auth-form mb-5">
+    <br> -->
+    <div class="container auth-form modal-content">
+        <div class="d-flex justify-content-end mt-3 ml-4">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    <h2 class="text-primary">Sign In</h2>
+    <br>
+    <form id="frmLogin">
+        <div class="form-group">
+            <input id="frmLoginUsername" type="text" class="form-control" name="USERNAME" placeholder="Username or Email" required="required" value="">
+        </div>
+        <div class="form-group">
+            <input id="frmLoginPassword" type="password" class="form-control" name="PASSWORD" placeholder="Password" required="required"
+                value="" autocomplete="current-password">
+                <small><a href="">Forgot Password?</a></small>
+        </div>
+        <div class="form-group">
+            <button id="frmBtnLogin" type="submit" class="btn btn-primary btn-md btn-block mb-1">Log in</button>
+            <small class="text-info">Dont Have An Account?<a href="#"> Click Here</a></small>
+        </div>
+        <br>
+    </form>
+</div>
+                  </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="regModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-md" role="document">
+    <!-- <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-primary" id="exampleModalLabel">Login</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <br> -->
+    <div class="container auth-form modal-content">
+        <div class="d-flex justify-content-end mt-3 ml-4">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    <h2 class="text-primary">Register</h2>
+    <p class="hint-text">Create your account. </p>
+    <form id="frmRegister">
+        <div class="form-group">
+            <input type="text" id="frmRegisterUsername" class="form-control" name="USERNAME" placeholder="Username" required="required" value="">
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-6">
+                    <input type="text" class="form-control" name="FIRST_NAME" placeholder="First Name"
+                        required="required" value="">
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control" name="LAST_NAME" placeholder="Last Name" required="required"
+                        value="">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="suffix" placeholder="Suffix" value="">
+        </div>
+        <div class="form-group">
+           <select class="form-control" name="classification" id="classification">
+            <option selected="selected" disabled>Choose User Classification</option>
+               <option value="faculty">Faculty</option>
+               <option value="staff">Staff</option>
+           </select>
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control" name="EMAIL" placeholder="E-mail" required="required" value="">
+        </div>
+        <div class="form-group">
+            <input id="frmRegisterPassword" type="password" class="form-control" name="PASSWORD"
+                placeholder="Password" required="required" value="">
+        </div>
+        <div class="form-group">
+            <input id="frmRegisterConfirmPassword" type="password" class="form-control" name="CONFIRM_PASSWORD"
+                placeholder="Confirm Password" required="required">
+        </div>
+        <div class="form-group">
+            <button id="frmBtnRegister" type="submit" class="btn btn-primary btn-lg btn-block">Register Now</button>
+        </div>
+        <div class="text-center">Already have an account? <a href="../login.php">Sign in</a></div>
+    </form>
+</div>
+
+<!-- <div id="testModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>A verification link has been sent your email</p>
+  </div>
+</div>
+</div>
+                  </div> -->
+        <!-- </div> -->
+    </div>
+</div>
+</div>
+
+<script>
+    $(function() {
+        $('#login').on('click', function(e){
+            e.preventDefault();
+            $('#loginModal').modal('show');
+        });
+
+        $('#register').on('click', function(e){
+            e.preventDefault();
+            $('#regModal').modal('show');
+        })
+    })
+</script>
