@@ -13,7 +13,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Blank</title>
+    <title>University Research Center</title>
 
     <!-- Custom fonts for this template-->
     <link

@@ -10,10 +10,6 @@ session_start();
     <title>University Research Center</title>
     <base href="<$path />">
     <link rel="stylesheet" type="text/css" href="../css/base.css">
-    <link rel="stylesheet" type="text/css" href="../css/style-responsive.css">
-    <link rel="stylesheet" type="text/css" href="../vendor/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../vendor/css/sb-admin-2.min.css">
-    <script src="../vendor/js/jquery.min.js"></script>
-    <script src="../vendor/js/bootstrap.bundle.min.js"></script>
+    <?php include('scripts.php');?>
     <script src="https://kit.fontawesome.com/51a1170881.js" crossorigin="anonymous"></script>
 </head>

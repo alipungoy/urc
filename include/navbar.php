@@ -110,7 +110,7 @@ aria-hidden="true">
         </div>
         <div class="form-group">
             <button id="frmBtnLogin" type="submit" class="btn btn-primary btn-md btn-block mb-1">Log in</button>
-            <small class="text-info">Dont Have An Account?<a href="#"> Click Here</a></small>
+            <small class="text-info" style="font-style:italic">Dont Have An Account?<a id="chngReg" href="#"> Click Here</a></small>
         </div>
         <br>
     </form>
@@ -180,7 +180,7 @@ aria-hidden="true">
         <div class="form-group">
             <button id="frmBtnRegister" type="submit" class="btn btn-primary btn-lg btn-block">Register Now</button>
         </div>
-        <div class="text-center">Already have an account? <a href="../login.php">Sign in</a></div>
+        <div class="text-center">Already have an account? <a id="chgSgnIn" href="#">Sign in</a></div>
     </form>
 </div>
 
@@ -215,5 +215,96 @@ aria-hidden="true">
             e.preventDefault();
             $('#regModal').modal('show');
         })
-    })
+    });
+
+    $('#chgSgnIn').on('click', function(e){
+        e.preventDefault();
+        $('#regModal').modal('hide');
+            $('#loginModal').modal('show');
+    });
+
+    $('#chngReg').on('click', function(e){
+        e.preventDefault();
+        $('#loginModal').modal('hide');
+            $('#regModal').modal('show');
+    });
+
+
+    //login form
+    $('#frmLogin').on('submit', function (e) {
+            e.preventDefault();
+            var FormData = $('#frmLogin').serialize();
+
+            $.ajax({
+                type: 'post',
+                url: '../forms/login.php',
+                data: FormData,
+                dataType: 'json',
+                encode: true,
+                beforeSend: function () {
+                    $('#frmBtnLogin').text("Logging in");
+                },
+                success: function (data) {
+                    if (data.error) {
+                        $('#frmLoginPassword').text('');
+                        $('#frmBtnLogin').text("Log in");
+
+                        bootbox.alert({
+                            title: 'ERROR!',
+                            message: data.error.msg,
+                        });
+                    } else {
+                        location.reload();
+                            
+                    }
+
+                }
+            });
+        });
+
+        //register form
+        $('#frmRegister').on('submit', function (e) {
+            e.preventDefault();
+            var FormData = $('#frmRegister').serialize();
+            var formPassword = $('#frmRegisterPassword');
+            var formConfirmPassword = $('#frmRegisterConfirmPassword');
+            
+            if(formPassword.val().length < 6) {
+                alert('Password must be longer than 6 characters');
+                formPassword.val('');
+                formConfirmPassword.val('');
+
+                return;
+            }
+
+            if(formPassword.val() != formConfirmPassword.val()) {
+                alert("Password doesn't match");
+                formConfirmPassword.val('');
+
+                return;
+            }
+
+            $.ajax({
+                type: 'post',
+                url: '../forms/register.php',
+                data: FormData,
+                dataType: 'json',
+                encode: true,
+                beforeSend: function () {
+                    $('#frmBtnRegister').text("Registering..");
+                },
+                success: function (data) {
+                    if (data.error) {
+                         $('#frmLoginUsername').text('');
+
+                         alert(data.error.msg);
+                    } else {
+                       bootbox.alert(data.result)
+                        $('#frmRegister').trigger("reset");
+                    }
+
+                    $('#frmBtnRegister').text("Register");
+                }
+            });
+        });
 </script>

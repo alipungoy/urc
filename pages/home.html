@@ -1,193 +1,47 @@
-<section class="section gray-bg">
-  <div class="container">
-      <div class="row justify-content-center">
-          <div class="col-lg-7 text-center">
-              <div class="section-title">
-                  <h2>Events and Latest Announcements</h2>
-                  <p>These are the latest Events and Announcements</p>
-              </div>
-          </div>
-      </div>
-      <div class="row" id="events">
-         
-          <!-- <div class="col-lg-4">
-              <div class="blog-grid">
-                  <div class="blog-img">
-                      <div class="date">04 FEB</div>
-                      <a href="#">
-                          <img src="https://via.placeholder.com/350x280/87CEFA/000000" title="" alt="">
-                      </a>
-                  </div>
-                  <div class="blog-info">
-                      <h5><a href="#">Prevent 75% of visitors from google analytics</a></h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                      <div class="btn-bar">
-                          <a href="#" class="px-btn-arrow">
-                              <span>Read More</span>
-                              <i class="arrow"></i>
-                          </a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4">
-              <div class="blog-grid">
-                  <div class="blog-img">
-                      <div class="date">04 FEB</div>
-                      <a href="#">
-                          <img src="https://via.placeholder.com/350x280/FF7F50/000000" title="" alt="">
-                      </a>
-                  </div>
-                  <div class="blog-info">
-                      <h5><a href="#">Prevent 75% of visitors from google analytics</a></h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                      <div class="btn-bar">
-                          <a href="#" class="px-btn-arrow">
-                              <span>Read More</span>
-                              <i class="arrow"></i>
-                          </a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div> -->
-  <!-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-7 text-center">
-            <div class="section-title">
-                <h2>PATUBAS</h2>
-                <p>Patubas is an Ilonggo word for "product" or "fruit". It is a fitting description for this multidisciplinary 
-                    research journal which is indeed, a product or fruit of our labors as researchers or "seekers" of
-                     truth in its varied dimensions.</p>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="blog-grid">
-                <div class="blog-img">
-                    <div class="date">04 FEB</div>
-                    <a href="#">
-                        <img src="https://via.placeholder.com/350x280/FFB6C1/000000" title="" alt="">
-                    </a>
-                </div>
-                <div class="blog-info">
-                    <h5><a href="#">Prevent 75% of visitors from google analytics</a></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                    <div class="btn-bar">
-                        <a href="#" class="px-btn-arrow">
-                            <span>Read More</span>
-                            <i class="arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="blog-grid">
-                <div class="blog-img">
-                    <div class="date">04 FEB</div>
-                    <a href="#">
-                        <img src="https://via.placeholder.com/350x280/87CEFA/000000" title="" alt="">
-                    </a>
-                </div>
-                <div class="blog-info">
-                    <h5><a href="#">Prevent 75% of visitors from google analytics</a></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                    <div class="btn-bar">
-                        <a href="#" class="px-btn-arrow">
-                            <span>Read More</span>
-                            <i class="arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="blog-grid">
-                <div class="blog-img">
-                    <div class="date">04 FEB</div>
-                    <a href="#">
-                        <img src="https://via.placeholder.com/350x280/FF7F50/000000" title="" alt="">
-                    </a>
-                </div>
-                <div class="blog-info">
-                    <h5><a href="#">Prevent 75% of visitors from google analytics</a></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                    <div class="btn-bar">
-                        <a href="#" class="px-btn-arrow">
-                            <span>Read More</span>
-                            <i class="arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-</section>
-
+<div class="owl-carousel">
+</div>
 <script>
-            $(function(){
-    $.ajax({
-        url: '../forms/displayevents.php',
-        type: 'post',
-        dataType: 'JSON',
-        success: function(response){
-            response.forEach(({id, title, details, date, startTime, endTime }) => {
-              var events=` <div class="col-lg-4">
-              <div class="blog-grid" id="blog">
-                  <div class="blog-img">
-                      <div class="date">${date}</div>
-                      <a href="#">
-                          <img src="../assets/images/download.jpg"  title="${title}" alt="${title}">
-                      </a>
-                  </div>
-                  <div class="blog-info">
-                      <h5><a href="#">${title}</a></h5>
-                      <p style="
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    max-width: 100ch;">${details}</p>
-                      <div class="btn-bar">
-                          <a href="../eventsfull.php${'?=blogid#'}${id}" id="test" class="px-btn-arrow" name="${id}">
-                              <span>View details</span>
-                              <i class="arrow"></i>
-                          </a>
-                      </div>
-                  </div>
-              </div>
-          </div>`;
-
-              $("#events").append(events);
-
-            })
-        }
-    });
+$(function(){
+    var html = '';   
+		var owl = $('.owl-carousel').owlCarousel({
+		    loop:true,
+		    smartSpeed: 100,
+		    autoplay: true,
+		    autoplaySpeed: 100,
+		    mouseDrag: false,
+		    margin:10,
+		    animateIn: 'slideInUp',
+		    animateOut: 'fadeOut',
+		    nav:false,
+		    responsive:{
+		        0:{
+		            items:1
+		        },
+		        600:{
+		            items:1
+		        },
+		        1000:{
+		            items:1
+		        }
+		    }
+		});
+		$.ajax({
+		  url: '../forms/eventsshow.php',
+		  dataType: 'json',
+		  success: function(data) {
+		    console.log(data);
+		    $.each(data, function() {
+			  	var random_num =  Math.floor(Math.random()*60);
+                  owl.trigger('add.owl.carousel', [jQuery('<div class="blog"> <img src="../assets/images/download.jpg" class="user-image" wi alt=""> <div class="title">'+data+'<span class="lighter">${details}</span></div> <div class="bought-details">Bought This <br>'+random_num+' minutes ago</div> </div>')]);
+			});
+			owl.trigger('refresh.owl.carousel');
+			
+			
+		
+			
+			
+		  }
+		});
 });
-
-// $('#events').on('click', '#test', function(e){
-//     e.preventDefault();
-//     var url = window.location.href;
-//     var blogpost = $(this).attr('name');
-
-//   $location = window.location = $(this).attr('href') + '?=blogid#' + blogpost;
-//   // var url = $(this).attr('href');
-// })
-
-// $('#events').on('click', function(e)
-// {
-//     e.preventDefault();
-//     window.location = $(this).attr('href') + '?sessionid=XYX';
-// });
-
-// $('#test').on('click',function(e){
-//          e.preventDefault();
-//          $("#preview").fadeOut();
-//          $('#uploadFile').trigger('click');
-//      });
-
 
 </script>
