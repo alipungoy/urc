@@ -15,6 +15,7 @@
         type: 'post',
         dataType: 'JSON',
         success: function(response){
+            console.log(response)
             response.forEach(({id, title, funding, status}) => {
               var events=`    <div class="row align-items-center event-block no-gutters margin-40px-bottom">
         <div class="col-lg-5 col-sm-12">
