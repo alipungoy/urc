@@ -4,13 +4,12 @@
             <section>
                 <div>
                     <div class="container">
-                                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                             <tr>
+                              <th>Authors</th>
                               <th>Title</th>
-                              <th>Funding Type</th>
                               <th>Status</th>
-                              <th></th>
                             </tr>
                           </thead>
                         </table>
@@ -84,11 +83,17 @@ function load_proposals(){
     'url': '../include/displayproposal.php'
   },
   'columns': [
+    {data: 'fullname'},
     {data: 'title'},
-    {data: 'funding'},
     {data: 'status'},
-    {data: 'button'}
-  ]
+  ],
+  rowGroup: {
+        dataSrc: 'title',
+                startRender: function (rows, title) {
+                  var rTitle = title.toUpperCase();
+            return `<h4 class="text-primary">${rTitle}</h4>`;
+        },
+    }
 })
   }
     load_proposals();

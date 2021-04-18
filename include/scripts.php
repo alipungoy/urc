@@ -15,6 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="../vendor/owl.carousel.min.css" rel="stylesheet">
     <link href="../vendor/owl.theme.default.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css">
     <script src="../vendor/js/jquery.min.js"></script>
     <script src="../vendor/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/sp-1.2.2/datatables.min.js"></script>
@@ -26,3 +27,4 @@
     <script src="../vendor/bootbox.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../vendor/owl.carousel.min.js"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>

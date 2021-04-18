@@ -18,29 +18,29 @@ $searchArray = array();
 ## Search 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " AND (first_name LIKE :first_name or 
-        email LIKE :email OR 
-        classification LIKE :classification ) ";
+   $searchQuery = " AND (fullname LIKE :fullname or 
+        title LIKE :title OR 
+        status LIKE :status ) ";
    $searchArray = array( 
-        'first_name'=>"%$searchValue%", 
-        'email'=>"%$searchValue%",
-        'classification'=>"%$searchValue%"
+        'fullname'=>"%$searchValue%", 
+        'title'=>"%$searchValue%",
+        'status'=>"%$searchValue%"
    );
 }
 
 ## Total number of records without filtering
-$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM proposal ");
+$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM( authors Left JOIN proposal_authors ON authors.authorID=proposal_authors.author_id) LEFT JOIN proposal ON proposal_authors.proposal_id=proposal.proposalID ");
 $stmt->execute();
 $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM proposal WHERE 1 ".$searchQuery);
+$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM( authors Left JOIN proposal_authors ON authors.authorID=proposal_authors.author_id) LEFT JOIN proposal ON proposal_authors.proposal_id=proposal.proposalID WHERE 1 ".$searchQuery);
 $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
-$stmt =  $db->connection->prepare("SELECT * FROM proposal WHERE 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
+$stmt =  $db->connection->prepare("SELECT proposal.proposalID, proposal.title, proposal.status, authors.fullname FROM( proposal Left JOIN proposal_authors ON proposal.proposalID=proposal_authors.proposal_id) LEFT JOIN authors ON proposal_authors.author_id=authors.authorID  WHERE 1 ".$searchQuery." ORDER BY title LIMIT :limit,:offset");
 
 // Bind values
 foreach($searchArray as $key=>$search){
@@ -56,10 +56,10 @@ $data = array();
 
 foreach($empRecords as $row){
   $data[] = array(
+     "fullname" => $row['fullname'],
      "title"=>$row['title'],
-     "funding"=>$row['funding'],
      "status"=>$row['status'],
-     "button"=> "<button id='testbtn' class='btn btn-success' data-toggle='modal' data-target='#testmodal' value=".$row['proposalID']." PID=".$row['proposalID'].">Assign Reviewer</button>"
+     "id"=>$row['proposalID']
   );
 }
 
