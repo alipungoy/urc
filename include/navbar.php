@@ -43,7 +43,7 @@
                 <a class="nav-link" id="login" href="#">Login</a>
             </li>
         <?php
-        } elseif($_SESSION['user_type'] == 'Admin'){
+        } elseif($_SESSION['user_type'] == 'Admin' || $_SESSION['user_type'] == 'Reviewer'){
         ?>
 
             <li class="nav-item">

@@ -56,9 +56,11 @@ $data = array();
 
 while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
   $data[] = array(
-    "button"=> '<button class="btn btn-success" id="showMore" value="'.$row['proposalID'].'"> + </button>', 
+    "button"=> '<button class="btn btn-primary" id="showMore" value="'.$row['proposalID'].'"> + </button>', 
      "title"=>$row['title'],
      "status"=>$row['status'],
+     "assign"=>'<button class="btn btn-success" id="revAssign" PID="'.$row['proposalID'].'">Assign Reviewer</button>',
+     "approve"=>'<button class="btn btn-success" id="approve" value="'.$row['proposalID'].'">Approve</button>',
   );
 }
 

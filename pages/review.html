@@ -6,8 +6,8 @@
                   <div class="container">
                         <div class="card shadow mb-4">
                           <div class="card-header py-3">
-                              <h6 class="m-0 font-weight-bold text-primary">List of submitted proposal</h6>
-                              <div class="input-group">
+                              <h6 class="m-0 font-weight-bold text-primary">Assigned Research For Review</h6>
+                              <!-- <div class="input-group">
                                 <input type="text" id="tableSearch" class="form-control bg-light border-1 small" placeholder="Search for..."
                                     aria-label="Search" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
@@ -22,7 +22,7 @@
                               <option value="Internal">Internal</option>
                               <option value="pending">Pending</option>
                               <option value="approved">Approved</option>
-                            </select>
+                            </select> -->
   
                           </div>
                           <div class="card-body">
@@ -30,10 +30,9 @@
                                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                       <thead>
                           <tr>
-                            <th>Proposal ID</th>
-                            <th>title</th>
-                            <th>funding</th>
-                            <th>status</th>
+                            <th>Title</th>
+                            <th>Funding</th>
+                            <th>Status</th>
                             <th></th>
                           </tr>
                         </thead>
@@ -113,7 +112,6 @@ $.ajax({
       else{
     response.forEach(({id, title, funding, status }) => {
     var author=`<tr>
-      <td align='center'>${id}</td>
       <td align='center'>${title}</td>
       <td align='center'>${funding}</td>
       <td align='center'>${status}</td>

@@ -33,12 +33,12 @@ $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$stmt =  $db->connection->prepare("SELECT COUNT(status) AS allcount FROM proposal WHERE status = 'Research Approved' && 1 ".$searchQuery);
+$stmt =  $db->connection->prepare("SELECT COUNT(status) AS allcount FROM proposal WHERE status = 'Approved By Researcher' && 1 ".$searchQuery);
 $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
-$stmt =  $db->connection->prepare("SELECT * FROM proposal WHERE status = 'Research Approved' ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
+$stmt =  $db->connection->prepare("SELECT * FROM proposal WHERE status = 'Approved By Researcher' ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
 
 // Bind values
 foreach($searchArray as $key=>$search){

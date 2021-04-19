@@ -11,6 +11,8 @@
                               <th></th>
                               <th>Title</th>
                               <th>Status</th>
+                              <th>Assign Reviewer</th>
+                              <th>Approve Research</th>
                             </tr>
                           </thead>
                         </table>
@@ -56,6 +58,24 @@ aria-hidden="true">
 </div>
 </div>
 
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="card-body" id="">
+              <form class="navbar-search" id="approveForm">
+                <input type="date" name="approvalDate" id="">
+                <button class="btn btn-primary" type="submit">Approve Research</button>
+          </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
+
 
 
 <script>
@@ -69,7 +89,6 @@ $(".navItem").click(function(event) {
 
     $(".panel").hide();
     $("#"+panel).show();
-});
 });
 
 // var table = $("#dataTable").DataTable({
@@ -123,7 +142,9 @@ $(document).ready(function() {
   'processing': true,
   'serverSide': true,
   "columnDefs": [
-    { "width": "5%", "targets": 0 }
+    { "width": "5%", "targets": 0},
+    { "width": "16%", "targets": 3},
+    { "width": "16%", "targets": 4}
   ],
   'dom': 'Blfrtip',
   'serverMethod': 'post',
@@ -134,6 +155,8 @@ $(document).ready(function() {
     {data: 'button'},
     {data: 'title'},
     {data: 'status'},
+    {data: 'assign'},
+    {data: 'approve'}
   ],
   "order": [[1, 'asc']],
 })
@@ -161,7 +184,7 @@ var combinedData = table
 } );
     
     function open_modal(){
-    $('#dataTable').on('click', '#testbtn', function(e) {
+    $('#dataTable').on('click', '#revAssign', function(e) {
       e.preventDefault()
       var PID = $(this).attr('PID');
       console.log(PID)
@@ -244,9 +267,30 @@ function load_reviewers(){
       }
     });
   }
-})
+});
     })
      
+    $('#dataTable').on('click', '#approve', function(){
+      var btnid = $(this).val();
+      console.log(btnid);
+      $('#approveModal').modal('show');
+      $('#approveForm').append(`<input type="hidden" name="resId" value="${btnid}">`)
+    });
+
+
+    $('#approveForm').on('submit', function(e){
+      e.preventDefault();
+      var fd = $('#approveForm').serialize();
+      $.ajax({
+  url: '../forms/approveResearch.php',
+  type: 'post',
+  data: fd,
+  dataType: 'JSON',
+  success: function(response){
+    bootbox.alert('Research Approved');
+  }
+  });
+})
 
 
 //search
@@ -266,6 +310,7 @@ function load_reviewers(){
   //     $(this).toggle(result > -1)
   //   });
   // });
+  });
 
 
 </script>
