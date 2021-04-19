@@ -29,18 +29,18 @@ if($searchValue != ''){
 }
 
 ## Total number of records without filtering
-$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM( authors Left JOIN proposal_authors ON authors.authorID=proposal_authors.author_id) LEFT JOIN proposal ON proposal_authors.proposal_id=proposal.proposalID ");
+$stmt = $db->connection->prepare("SELECT COUNT(title) AS allcount FROM proposal");
 $stmt->execute();
 $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM( authors Left JOIN proposal_authors ON authors.authorID=proposal_authors.author_id) LEFT JOIN proposal ON proposal_authors.proposal_id=proposal.proposalID WHERE 1 ".$searchQuery);
+$stmt =  $db->connection->prepare("SELECT COUNT(title) as allcount FROM proposal WHERE 1 ".$searchQuery);
 $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
-$stmt =  $db->connection->prepare("SELECT proposal.proposalID, proposal.title, proposal.status, authors.fullname FROM( proposal Left JOIN proposal_authors ON proposal.proposalID=proposal_authors.proposal_id) LEFT JOIN authors ON proposal_authors.author_id=authors.authorID  WHERE 1 ".$searchQuery." ORDER BY title LIMIT :limit,:offset");
+$stmt =  $db->connection->prepare("SELECT proposal.proposalID, proposal.title, proposal.status FROM proposal WHERE 1 ".$searchQuery." LIMIT :limit,:offset");
 
 // Bind values
 foreach($searchArray as $key=>$search){
@@ -50,16 +50,15 @@ foreach($searchArray as $key=>$search){
 $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
 $stmt->bindValue(':offset', (int)$rowperpage, PDO::PARAM_INT);
 $stmt->execute();
-$empRecords = $stmt->fetchAll();
+
 
 $data = array();
 
-foreach($empRecords as $row){
+while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
   $data[] = array(
-     "fullname" => $row['fullname'],
+    "button"=> '<button class="btn btn-success" id="showMore" value="'.$row['proposalID'].'"> + </button>', 
      "title"=>$row['title'],
      "status"=>$row['status'],
-     "id"=>$row['proposalID']
   );
 }
 

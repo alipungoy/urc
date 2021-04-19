@@ -12,3 +12,13 @@ input#importcsv {
     height:auto;
     display:inline-block;
 }
+
+td.more-details {
+    background: url('../assets/images/plussymbol.jpg') no-repeat center center;
+    cursor: pointer;
+    width: 20px;
+    height: 30px;
+}
+tr.shown td.more-details {
+    background: url('../assets/images/minussymbol.jpg') no-repeat center center;
+}

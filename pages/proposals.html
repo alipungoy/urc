@@ -1,3 +1,4 @@
+
 <!-- Page Content -->
 <div id="page-content-wrapper">
     <div class="container-fluid">
@@ -7,7 +8,7 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                             <tr>
-                              <th>Authors</th>
+                              <th></th>
                               <th>Title</th>
                               <th>Status</th>
                             </tr>
@@ -71,32 +72,93 @@ $(".navItem").click(function(event) {
 });
 });
 
+// var table = $("#dataTable").DataTable({
+//   'processing': true,
+//   'serverSide': true,
+//   'dom': 'Blfrtip',
+//   'serverMethod': 'post',
+//   'ajax': {
+//     'url': '../include/displayproposal.php'
+//   },
+//   'columns': [
+//   {
+//      "className": 'details-control',
+//      "orderable":  false,
+//      "data": null,
+//         "defaultContent": '',
+//             },
+//     {data: 'fullname'},
+//     {data: 'title'},
+//     {data: 'status'},
+//   ],
+//   "order": [[1, 'asc']],
+//   rowGroup: {
+//         dataSrc: 'title',
+//                 startRender: function (rows, title) {
+//                   var rTitle = title.toUpperCase();
+//             return `<h4 class="text-primary">${rTitle}</h4>`;
+//         },
+//     }
+// })
+
 //load data
-$(function() {
-function load_proposals(){
-  $("#dataTable").DataTable({
+function format ( d ) {
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+            '<td>Authors:</td>'+
+            '<td>'+d.name+'</td>'+
+            '<td>'+d.name+'</td>'+
+
+        '</tr>'+
+        '<tr>'+
+            '<td>Reviewers</td>'+
+            '<td>'+d.extn+'</td>'+
+        '</tr>'+
+    '</table>';
+}
+ 
+$(document).ready(function() {
+  var table = $("#dataTable").DataTable({
   'processing': true,
   'serverSide': true,
+  "columnDefs": [
+    { "width": "5%", "targets": 0 }
+  ],
   'dom': 'Blfrtip',
   'serverMethod': 'post',
   'ajax': {
     'url': '../include/displayproposal.php'
   },
   'columns': [
-    {data: 'fullname'},
+    {data: 'button'},
     {data: 'title'},
     {data: 'status'},
   ],
-  rowGroup: {
-        dataSrc: 'title',
-                startRender: function (rows, title) {
-                  var rTitle = title.toUpperCase();
-            return `<h4 class="text-primary">${rTitle}</h4>`;
-        },
-    }
+  "order": [[1, 'asc']],
 })
-  }
-    load_proposals();
+var combinedData = table
+    .column( )
+    .data()
+    .join( ', ' );
+     
+    // Add event listener for opening and closing details
+    $('#dataTable tbody').on('click', '#showMore', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
+} );
     
     function open_modal(){
     $('#dataTable').on('click', '#testbtn', function(e) {
@@ -154,8 +216,6 @@ function load_reviewers(){
       })
     }
     close_modal();
-
-  })
 
 
     $('#reviewerForm').on('submit', function(e){
