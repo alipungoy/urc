@@ -10,6 +10,7 @@ session_start();
     <title>University Research Center</title>
     <base href="<$path />">
     <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css"> 
     <?php include('scripts.php');?>
     <script src="https://kit.fontawesome.com/51a1170881.js" crossorigin="anonymous"></script>
 </head>

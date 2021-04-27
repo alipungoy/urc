@@ -1,105 +1,56 @@
-
-
-.section {
-    padding: 50px 0;
-    position: relative;
+.post .article-v2 .entry-title {
+  font-size: 16px;
+  color: #666666;
+  font-weight: 600;
 }
 
-/* .container {
-  width: auto;
-  background-color: blue;
-  box-shadow: 3px 3px 5px 6px blue;
-  border-radius: 5px;
-  margin-bottom: 100px;
-} */
-
-
-
-/* Blog 
----------------------*/
-.blog-grid {
-  margin-top: 15px;
+.post .article-v2 .article-header {
   margin-bottom: 15px;
 }
-.blog-grid .blog-img {
+
+.post .article-v2 .article-content-main {
+  -webkit-box-shadow: 1px 0px 20px 1px rgba(0, 0, 0, 0.15);
+          box-shadow: 1px 0px 20px 1px rgba(0, 0, 0, 0.15);
+  padding: 30px;
   position: relative;
-  border-radius: 5px;
-  overflow: hidden;
+  background: #fff;
+  margin-top: -75px;
 }
-.blog-grid .blog-img .date {
-  position: absolute;
-  background: #3a3973;
-  color: #ffffff;
-  padding: 8px 15px;
-  left: 0;
-  top: 10px;
-  font-size: 14px;
+
+@media only screen and (max-width: 1024px) {
+  .post .article-v2 .article-content-main {
+    padding: 15px;
+    margin-bottom: 30px;
+  }
 }
-.blog-grid .blog-info {
-  box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
-  border-radius: 5px;
-  background: #ffffff;
-  padding: 20px;
-  margin: -30px 20px 0;
+
+.post .article-v2 .article-content p:last-of-type {
+  margin-bottom: 0;
+}
+
+.post .article-v2 .article-thumb {
   position: relative;
+  left: 25px;
+  margin-bottom: 0;
 }
-.blog-grid .blog-info h5 {
-  font-size: 22px;
-  font-weight: 500;
-  margin: 0 0 10px;
-}
-.blog-grid .blog-info h5 a {
-  color: #3a3973;
-}
-.blog-grid .blog-info p {
-  margin: 0;
-}
-.blog-grid .blog-info .btn-bar {
+
+.post .article-v2 .article-footer {
+  border-top: 1px solid #ebebeb;
+  padding-top: 15px;
   margin-top: 20px;
 }
 
-.px-btn-arrow {
-    padding: 0 50px 0 0;
-    line-height: 20px;
-    position: relative;
-    display: inline-block;
-    color: #fe4f6c;
-    -moz-transition: ease all 0.3s;
-    -o-transition: ease all 0.3s;
-    -webkit-transition: ease all 0.3s;
-    transition: ease all 0.3s;
+.post .article-v2 .article-footer .more-link {
+  color: #ffa800;
 }
 
-
-.px-btn-arrow .arrow {
-    width: 13px;
-    height: 2px;
-    background: currentColor;
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    right: 25px;
-    -moz-transition: ease right 0.3s;
-    -o-transition: ease right 0.3s;
-    -webkit-transition: ease right 0.3s;
-    transition: ease right 0.3s;
+.post .article-v2 .article-footer .footer-meta a {
+  color: #aaa;
+  font-size: 15px;
+  margin-right: 5px;
 }
 
-.px-btn-arrow .arrow:after {
-    width: 8px;
-    height: 8px;
-    border-right: 2px solid currentColor;
-    border-top: 2px solid currentColor;
-    content: "";
-    position: absolute;
-    top: -3px;
-    right: 0;
-    display: inline-block;
-    -moz-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
+.post .article-v2 .article-footer .footer-meta a i {
+  font-size: 16px;
+  margin-left: 2px;
 }

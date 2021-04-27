@@ -1,0 +1,16 @@
+<div class="counter">
+
+
+</div>
+
+<script>
+    $(function(){
+        $.ajax({
+            url: '../forms/userstat.php',
+            method: 'post',
+            success: function(data){
+                $('.counter').append(data)
+            }
+        })
+    })
+</script>

@@ -2,6 +2,9 @@
 input#uploadFile {
 	display: none;
 }
+input#uploadCoverPhoto {
+	display: none;
+}
 
 input#importcsv {
 	display: none;

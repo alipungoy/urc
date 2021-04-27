@@ -33,7 +33,8 @@
                             <th>Title</th>
                             <th>Funding</th>
                             <th>Status</th>
-                            <th></th>
+                            <th>Approve</th>
+                            <th>Download</th>
                           </tr>
                         </thead>
                         <tbody id="myTable"></tbody>
@@ -110,12 +111,13 @@ $.ajax({
          $('.card-body').html('<div class="d-flex justify-content-center"><h2> No Ongoing Research For Review</h2></div>')
       }
       else{
-    response.forEach(({id, title, funding, status }) => {
+    response.forEach(({id, title, funding, status, filename }) => {
     var author=`<tr>
       <td align='center'>${title}</td>
       <td align='center'>${funding}</td>
       <td align='center'>${status}</td>
       <td align='center'><button id='approved' class='btn btn-success' value="${id}"><i class="fas fa-check"></i></button></td>
+      <td align='center'><a href="../forms/download.php?fileName=${filename}">Download</a></td>
     </tr>`;
           $("#myTable").append(author);
       }
@@ -130,13 +132,14 @@ $.ajax({
   $('#myTable').on('click', '#approved', function(){
       var thisbtn = $(this).attr('value');
       console.log(thisbtn);
-      bootbox.confirm("Do you really want to Approve This Research?", function(result) {
+      bootbox.confirm("Approve This Research?", function(result) {
         if(result){
       $.ajax({
   url: '../forms/approved.php?id='+thisbtn,
   type: 'post',
   dataType: 'JSON',
   success: function(response){
+    bootbox.alert('Research Approved')
   }
   });
 }

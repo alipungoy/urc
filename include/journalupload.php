@@ -34,7 +34,7 @@ if(isset($_POST["submit"])) {
     $source_file = $target_file.'-'.$userID.'_'.$lName;
     $dest_file = "../uploads/".$target_file.'-'.$userID.'_'.$lName;
 }
- $sql = ("SELECT * FROM proposal LEFT JOIN documents ON proposal.proposalID = documents.proposalID");
+ $sql = ("SELECT * FROM proposal LEFT JOIN urc_documents ON proposal.proposalID = urc_documents.proposalID");
  $stmt = $db->connection->prepare($sql);
  $stmt->execute();
  $row=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -67,12 +67,12 @@ if(isset($_POST["submit"])) {
        $stmt->execute();
        $lastID = $db->connection->lastInsertId();
        if($stmt){
-         $sql2 = ("INSERT INTO documents (filename, proposalID, subDate) VALUES ('".$fileName."', '".$lastID."', '".$DATE."')");
+         $sql2 = ("INSERT INTO urc_documents (filename, proposalID, subDate) VALUES ('".$fileName."', '".$lastID."', '".$DATE."')");
          $stmt = $db->connection->prepare($sql2);
          $stmt->execute();
 
          if($stmt){
-            $sql3 = ("INSERT INTO notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
+            $sql3 = ("INSERT INTO urc_notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
              ('".$userID."', '".$ToUSER."', '".$upload."', '".$DATE."', '".$notifType."')");
             $stmt = $db->connection->prepare($sql3);
             $stmt->execute();

@@ -33,7 +33,29 @@
 
                         </div>
 
-                    </div>
+<div class="modal fade" id="schedPresentation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-primary" id="exampleModalLabel">Schedule Presentation</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card-body" id="testmodal">
+              <form id="schedForm">
+                <input  name="time" type="time">
+                <button class="btn btn-primary" id="schedPres">Ok</button>
+              </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
 
                     
 
@@ -53,35 +75,32 @@
         events: '../forms/showevents.php',
         selectable:true,
         selectHelper:true,
-        dayClick: function(event)
+        dayClick: function(date)
         {
-            var id = event.id;
-        $("#schedPresentation").modal('hide');
-         $("#schedModal").modal('show');
-            
-            $(function() {
-          $('.updateEventForm').on('submit', function(e){
-         e.preventDefault();
-       var eventForm = $('.updateEventForm').serialize();
+          alert(date)
+          var formatedDate =  $.fullCalendar.formatDate(date, "Y-MM-DD");
+          console.log(formatedDate)
+         $("#schedPresentation").modal('show');
+         $('#schedForm').append(`<input type="hidden" id="date" name="date" value="${formatedDate}">`);
+        
+         $('#schedForm').on('submit', function(e){
+          var id = window.location.hash.substr(1);
+          var fd = $('#schedForm').serialize();
+          var date = $('#date').val();
+          console.log(date)
 
-             $.ajax({
-            type: 'post',
-            url: '../forms/updateEvent.php?id='+id,
-           data: eventForm,
+           e.preventDefault();
+           $.ajax({
+           url: '../forms/schedulePresentation.php?id='+id,
+           type: 'post',
+           data: fd,
            dataType: 'json',
-          encode: true,
-          beforeSend: function(){
-         $('#updatesubmit').text("Updating Event....");
-             },
-            success: function(data){
-                    alert(data.msg)
-                    $('#updateEvent').modal('hide');
-                    calendar.fullCalendar('refetchEvents');
-                    $('#updatesubmit').text("Update");
-            }
-                });
-                })
-            })
+           success: function(data){
+
+           }
+         })
+        })
+              
             
         },
         eventDrop: function(event, delta, revertFunc) {

@@ -66,6 +66,7 @@
             <a class="collapse-item" href="utilities-border.html">Events</a>
             <a class="collapse-item" href="../importcsv.php">Import Csv</a>
             <a class="collapse-item" href="../eventscreation.php">Event Manager</a>
+            <a class="collapse-item" href="../addjournal.php">Add Journal</a>
         </div>
     </div>
 </li>
@@ -112,7 +113,7 @@
 
 <!-- Nav Item - Charts -->
 <li class="nav-item">
-    <a class="nav-link" href="charts.html">
+    <a class="nav-link" href="../userstats.php">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Website statistics</span></a>
 </li>

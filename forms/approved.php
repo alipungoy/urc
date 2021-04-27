@@ -8,6 +8,7 @@ session_start();
 $userid = $_SESSION['userid'];
 $ToUSER = '39';
 $notifType = '8';
+$DATE = date("y-m-d");
 
 $id = $_GET['id'];
 
@@ -17,7 +18,7 @@ $stmt = $db->connection->prepare($insert);
 $stmt->execute();
 
 if($stmt){
-    $sql3 = ("INSERT INTO notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
+    $sql3 = ("INSERT INTO urc_notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
      ('".$userid."', '".$ToUSER."', '".$resApprvd."', '".$DATE."', '".$notifType."')");
     $stmt = $db->connection->prepare($sql3);
     $stmt->execute();

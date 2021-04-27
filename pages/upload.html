@@ -12,7 +12,7 @@
   <label for="name">Research title</label>
   <textarea type="text" class="form-control" id="title" name="title"  cols="30" rows="3" required></textarea>
   </div>
-  <div class="form-group">
+  <div class="form-group mr-2">
     <label for="funding">Funding Type:</label>
     <select class="form-control" name="funding" id="funding">
       <option value="0">Select Funding Type</option>
@@ -20,10 +20,6 @@
       <option value="Internally Funded Research">Internally Funded Research</option>
     </select><br>
   </div>
-  <div>
-    <select class="form-control" name="mainAuth" id="selectAuthor">
-</select><br>
-  </div> 
   <div class="form-group mt-3">
     <select class="form-control" name="coAuth[]" id="selectCoAuthor">
   </select><br> 
@@ -138,26 +134,26 @@ $('#funding').select2({
   minimumResultsForSearch: Infinity
 });
 
-$('#selectAuthor').select2({
-            placeholder: 'Select Main Author',
-            ajax: {
-        url: "../forms/loadauthors.php",
-        type: "post",
-        dataType: 'json',
-        delay: 250,
-        data: function (params) {
-           return {
-              searchTerm: params.term // search term
-           };
-        },
-        processResults: function (response) {
-           return {
-              results: response
-           };
-        },
-        cache: true
-      }
-   });
+// $('#selectAuthor').select2({
+//             placeholder: 'Select Main Author',
+//             ajax: {
+//         url: "../forms/loadauthors.php",
+//         type: "post",
+//         dataType: 'json',
+//         delay: 250,
+//         data: function (params) {
+//            return {
+//               searchTerm: params.term // search term
+//            };
+//         },
+//         processResults: function (response) {
+//            return {
+//               results: response
+//            };
+//         },
+//         cache: true
+//       }
+//    });
 
 
         $('#selectCoAuthor').select2({

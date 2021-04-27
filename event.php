@@ -6,7 +6,7 @@
 <?php
   require_once('./include/navbar.php');
   require_once('./pages/event.html');
-  require_once('./include/footer.html');
+  require_once('./include/navfooter.php');
 ?>
 </body>
 </html>

@@ -6,7 +6,7 @@ $db = new db();
 session_start();
 
 $userID = $_SESSION['userid'];
-$DATE = date("y-m-d h:i:sa");
+$DATE = date("y-m-d H:i:s");
 $notifType = '7';
 $id =  $_POST['ids'];
 $proposalid = $_GET['propid'];
@@ -30,7 +30,7 @@ if($stmt){
 
     if($stmt){
         foreach ($id as $toUser) {
-            $notif = ("INSERT INTO notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
+            $notif = ("INSERT INTO urc_notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
             ('".$userID."', '".$toUser."', '".$pendingRes."', '".$DATE."', '".$notifType."')");
            $stmt = $db->connection->prepare($notif);
            $stmt->execute();

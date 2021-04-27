@@ -19,19 +19,19 @@ $db = new db();
    while(($result = fgetcsv($opencsv)) !== FALSE){
      $name = $result[0];
 
-     $check = ("SELECT fullname FROM authors WHERE fullname = '".$result[0]."'");
+     $check = ("SELECT fullname FROM urc_authors WHERE fullname = '".$result[0]."'");
      $stmt = $db->connection->prepare($check);
      $stmt->execute();
      $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
      if($row > 0){
-       $update = ("UPDATE authors SET fullname = '".$name."' ");
+       $update = ("UPDATE urc_authors SET fullname = '".$name."' ");
        $stmt = $db->connection->prepare($update);
        $stmt->execute();
      }
      else
      {
-      $insert = ("INSERT INTO authors (fullname) VALUES ('".$name."')");
+      $insert = ("INSERT INTO urc_authors (fullname) VALUES ('".$name."')");
       $stmt = $db->connection->prepare($insert);
       $stmt->execute();
       

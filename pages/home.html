@@ -1,25 +1,106 @@
+
+<style>
+    .post .article-v2 .entry-title {
+  font-size: 16px;
+  color: #666666;
+  font-weight: 600;
+}
+
+.post .article-v2 .article-header {
+  margin-bottom: 15px;
+}
+
+.post .article-v2 .article-content-main {
+  -webkit-box-shadow: 1px 0px 20px 1px rgba(0, 0, 0, 0.15);
+          box-shadow: 1px 0px 20px 1px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  position: relative;
+  background: #fff;
+  margin-top: -75px;
+  border: solid;
+  border-color: rgba(61, 59, 59, 0.15);
+}
+
+@media only screen and (max-width: 1024px) {
+  .post .article-v2 .article-content-main {
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+}
+
+.post .article-v2 .article-content p:last-of-type {
+  margin-bottom: 0;
+}
+
+.post .article-v2 .article-thumb {
+  position: relative;
+  left: 8px;
+  margin-bottom: 0;
+}
+
+.post .article-v2 .article-footer {
+  border-top: 1px solid #ebebeb;
+  padding-top: 15px;
+  margin-top: 20px;
+}
+
+.post .article-v2 .article-footer .more-link {
+  color: #ffa800;
+}
+
+.post .article-v2 .article-footer .footer-meta a {
+  color: #aaa;
+  font-size: 15px;
+  margin-right: 5px;
+}
+
+.post .article-v2 .article-footer .footer-meta a i {
+  font-size: 16px;
+  margin-left: 2px;
+}
+</style>
 <div class="container mx-auto">
     <div class="row justify-content-center">
-        <div class="col-lg-7 text-center">
+        <div class="col-lg-7 mt-5 text-center">
             <div class="section-title">
-                <h2>Latest News</h2>
+                <h2 class="text-primary">Latest News</h2>
                 <p></p>
             </div>
         </div>
     </div>
-    <div class="owl-carousel owl-theme">
+    <div class="owl-carousel owl-theme" id="carousel1">
     </div> 
     </div>
-    <span class="d-flex justify-content-end">
-        <button class="btn btn-primary">View More Events</button>
-    </span>
 </div>
+
+<div class="container mx-auto">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 mt-5 text-center">
+            <div class="section-title">
+                <h2 class="text-primary">Patubas</h2>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div class="owl-carousel owl-theme" id="carousel2">
+    </div> 
+    </div>
+</div>
+
+<!-- <iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY">
+</iframe>
+<iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY">
+</iframe>
+<iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY">
+</iframe> -->
 
 
 <script>
 $(function(){
-    var html = '';   
-		var owl = $('.owl-carousel').owlCarousel({
+		var carousel1 = $('#carousel1').owlCarousel({
 		    loop:true,
             number: 10,
             center: true,
@@ -29,7 +110,7 @@ $(function(){
 		    mouseDrag: true,
             autoplayHoverPause: true,
             nav: true,
-            navText : ["<i class='fa fa-chevron-left fa-lg'</i>","<i class='fa fa-chevron-right fa-lg'></i>"],
+            navText : ["<h5 class='text-primary'>Prev</h5>","<h5 class='text-primary'>Next</h5>"],
 		    margin:10,
 		    responsive:{
 		        0:{
@@ -50,38 +131,161 @@ $(function(){
 		  success: function(response) {
             console.log(response)
 		    response.forEach(({id, title, details, start, end}) => {
-                owl.trigger('add.owl.carousel', [jQuery(`<div class="item">
-                    <div>
-                        <div class="blog-grid">
-                            <div class="blog-img">
-                                <div class="date">${start}</div>
+                carousel1.trigger('add.owl.carousel', [jQuery(`
+                    <article class="post">
+                        <div class="article-v2">
+                            <figure class="article-thumb">
                                 <a href="#">
-                                    <img src="../assets/images/download.jpg" title="" alt="">
+                                    <img src="../assets/images/download.jpg" alt="blog image" />
                                 </a>
-                            </div>
-                            <div class="blog-info">
-                                <h5><a href="#">${title}</a></h5>
-                                <p>${details}</p>
-                                <div class="btn-bar">
-                                    <a href="#" class="px-btn-arrow">
-                                        <span>Read More</span>
-                                        <i class="arrow"></i>
-                                    </a>
+                            </figure>
+                            <!-- /.article-thumb -->
+                            <div class="article-content-main">
+                                <div class="article-header">
+                                    <h2 class="entry-title"><a href="#">${title}</a></h2>
+                                    <div class="entry-meta">
+                                        <div class="entry-date">${start}</div>
+                                        <!-- /.entry-date -->
+                                        <div class="entry-cat">
+                                            <p class="fas fa-user" href="#"> URC</p>
+                                        </div>
+                                        <!--  /.entry-cat -->
+                                    </div>
+                                    <!-- /.entry-meta -->
                                 </div>
+                                <!-- /.article-header -->
+                                <div class="article-content">
+                                    <p>${details}</p>
+                                </div>
+                                <!--  /.article-content -->
+                                <div class="article-footer">
+                                    <div class="row">
+                                        <div class="col-6 text-left footer-link">
+                                            <a href="#" class="more-link" id="showMore" value="${id}">Read More</a>
+                                        </div>
+                                        <!--  /.col-6 -->
+                                        <div class="col-6 text-right footer-meta">
+                                            <a href="#">65 <i class="pe-7s-comment"></i></a>
+                                            <a href="#">50 <i class="pe-7s-share"></i></a>
+                                        </div>
+                                        <!--  /.col-6 -->
+                                    </div>
+                                    <!--  /.row -->
+                                </div>
+                                <!--  /.article-footer -->
                             </div>
+                            <!--  /.article-content-main -->
                         </div>
-                    </img></div>`)]);
-                owl.trigger('refresh.owl.carousel');
+                        <!--  /.article-v2 -->
+                    </article>
+                    <!--  /.post -->`)]);
+                    carousel1.trigger('refresh.owl.carousel');
             });
-
-
-			
-			
-		
-			
 			
 		  }
 		});
+
+        var carousel2 = $('#carousel2').owlCarousel({
+		    loop:true,
+            number: 10,
+            center: true,
+		    smartSpeed: 100,
+		    autoplay: true,
+		    autoplaySpeed: 1000,
+		    mouseDrag: true,
+            autoplayHoverPause: true,
+            nav: true,
+            navText : ["<h5 class='text-primary'>Prev</h5>","<h5 class='text-primary'>Next</h5>"],
+		    margin:10,
+		    responsive:{
+		        0:{
+		            items:3
+		        },
+		        600:{
+		            items:3
+		        },
+		        1000:{
+		            items:3
+		        }
+		    }
+		});
+		$.ajax({
+		  url: '../forms/journalshow.php',
+		  dataType: 'json',
+          method: 'post',
+		  success: function(response) {
+            console.log(response)
+		    response.forEach(({id, type, date, vol, cp}) => {
+                carousel2.trigger('add.owl.carousel', [jQuery(`
+                    <article class="post">
+                        <div class="article-v2">
+                            <figure class="article-thumb">
+                                <a href="#">
+                                    <img src="../upload/${cp}" alt="blog image" />
+                                </a>
+                            </figure>
+                            <!-- /.article-thumb -->
+                            <div class="article-content-main">
+                                <div class="article-header">
+                                    <h2 class="entry-title"><a href="#">Volume: ${vol}</a></h2>
+                                    <div class="entry-meta">
+                                        <div class="entry-date">${date}</div>
+                                        <!-- /.entry-date -->
+                                        <div class="entry-cat">
+                                            <p class="fas fa-user" href="#"> URC</p>
+                                        </div>
+                                        <!--  /.entry-cat -->
+                                    </div>
+                                    <!-- /.entry-meta -->
+                                </div>
+                                <!-- /.article-header -->
+                                <div class="article-content">
+                                    <p></p>
+                                </div>
+                                <!--  /.article-content -->
+                                <div class="article-footer">
+                                    <div class="row">
+                                        <div class="col-6 text-left footer-link">
+                                            <a href="#" class="more-link" id="patubas" value="${id}">Read More</a>
+                                        </div>
+                                        <!--  /.col-6 -->
+                                        <div class="col-6 text-right footer-meta">
+                                            <a href="#">65 <i class="pe-7s-comment"></i></a>
+                                            <a href="#">50 <i class="pe-7s-share"></i></a>
+                                        </div>
+                                        <!--  /.col-6 -->
+                                    </div>
+                                    <!--  /.row -->
+                                </div>
+                                <!--  /.article-footer -->
+                            </div>
+                            <!--  /.article-content-main -->
+                        </div>
+                        <!--  /.article-v2 -->
+                    </article>
+                    <!--  /.post -->`)]);
+                    carousel2.trigger('refresh.owl.carousel');
+            });
+			
+		  }
+		});
+
+        $(document).on('click', '#showMore', function(e){
+            e.preventDefault()
+            var id = $(this).attr('value');
+            console.log(id)
+            
+            window.location.href = '../eventsfull.php#'+id
+        });
+
+        $(document).on('click', '#patubas', function(e){
+            e.preventDefault()
+            var id = $(this).attr('value');
+            console.log(id)
+            
+            window.location.href = '../showjournal.php#'+id
+        });
+        
 });
 
 </script>

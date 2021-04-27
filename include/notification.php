@@ -9,14 +9,14 @@ if(isset($_POST['view'])){
 // update notifications to seen
 if($_POST["view"] != '')
   {
-   $update = ("UPDATE notification SET status=1 WHERE status=0");
+   $update = ("UPDATE urc_notification SET status=1 WHERE status=0");
    $stmt = $db->connection->prepare($update);
    $stmt->execute();
  }
 
 // load notifications
-$sql = ("SELECT user.username, notification.notifMsg, notification.notifdate, notiftype.type FROM ((notification LEFT JOIN
- notiftype ON notification.notifTypeID=notiftype.notifTypeID) LEFT JOIN user on notification.fromUser=user.userID) WHERE toUser = '".$id."' ORDER BY notifdate DESC LIMIT 5");
+$sql = ("SELECT user.username, urc_notification.notifMsg, urc_notification.notifdate, notiftype.type FROM ((urc_notification LEFT JOIN
+ notiftype ON urc_notification.notifTypeID=notiftype.notifTypeID) LEFT JOIN user on urc_notification.fromUser=user.userID) WHERE toUser = '".$id."' ORDER BY notifdate DESC LIMIT 5");
 $stmt =$db->connection->prepare($sql);
 $stmt->execute();  
 $notif ="";
@@ -44,7 +44,7 @@ else
 }
 
 
-$sql2 = ("SELECT * FROM notification WHERE toUser = '".$id."' && status=0");
+$sql2 = ("SELECT * FROM urc_notification WHERE toUser = '".$id."' && status=0");
 $stmt = $db->connection->prepare($sql2);
 $stmt->execute();
 $count = $stmt->rowCount();
