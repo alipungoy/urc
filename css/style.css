@@ -25,3 +25,12 @@ td.more-details {
 tr.shown td.more-details {
     background: url('../assets/images/minussymbol.jpg') no-repeat center center;
 }
+
+a.dropdown-item:hover{
+    color: rgb(230, 226, 19);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+ }

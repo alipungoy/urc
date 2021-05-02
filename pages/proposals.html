@@ -91,6 +91,27 @@ $(".navItem").click(function(event) {
     $("#"+panel).show();
 });
 
+
+$('#dataTable').on('click', '#showMore', function(){
+var value = $(this).val();
+console.log(value)
+$.ajax({
+      url: '../forms/loadmoreinfo.php?id='+value,
+      type: 'get',
+     dataType: 'JSON',
+      success: function(response){
+        console.log(response)
+        var dataval = '<tr>'+
+            '<td>Authors:</td>'+
+            '<td>'+response.fullname+'</td>'+
+            '</tr>';
+
+    $('#testtable').append(dataval)
+}
+    });
+});
+
+
 // var table = $("#dataTable").DataTable({
 //   'processing': true,
 //   'serverSide': true,
@@ -123,17 +144,8 @@ $(".navItem").click(function(event) {
 //load data
 function format ( d ) {
     // `d` is the original data object for the row
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr>'+
-            '<td>Authors:</td>'+
-            '<td>'+d.name+'</td>'+
-            '<td>'+d.name+'</td>'+
-
-        '</tr>'+
-        '<tr>'+
-            '<td>Reviewers</td>'+
-            '<td>'+d.extn+'</td>'+
-        '</tr>'+
+    
+    return '<table cellpadding="5" cellspacing="0" id="testtable" border="0" style="padding-left:50px;">'+
     '</table>';
 }
  
@@ -195,23 +207,7 @@ var combinedData = table
   open_modal();
 
   
-  // $.ajax({
-  //     url: '../forms/loadreviewers.php',
-  //     type: 'get',
-  //    dataType: 'JSON',
-  //     success: function(response){
-  //     response.forEach(({id, fName, lName, classification}) => {
-  //     var reviewer=`<tr>
-  //       <td align='center'>${id}</td>
-  //       <td align='center'>${fName} ${lName}</td>
-  //       <td align='center'>${classification}</td>
-  //       <td><input type ='checkbox' class='revCb' value='${id}'></td>
-  //       </tr>`;
-  //           $("#reviewerBody").append(reviewer);
-  //       }
-  //     )}
-  //   });
-  // 
+
 
 // load reviewer data
 function load_reviewers(){

@@ -20,7 +20,10 @@
       <option value="Internally Funded Research">Internally Funded Research</option>
     </select><br>
   </div>
+  <div class="form-group" id="mainAuth">
+  </div>
   <div class="form-group mt-3">
+    <label for="selectCoAuthor">Co Author</label>
     <select class="form-control" name="coAuth[]" id="selectCoAuthor">
   </select><br> 
   <small style="font-style:italic;color:blue">*Choose Co-Authors If Available</small>
@@ -134,26 +137,25 @@ $('#funding').select2({
   minimumResultsForSearch: Infinity
 });
 
-// $('#selectAuthor').select2({
-//             placeholder: 'Select Main Author',
-//             ajax: {
-//         url: "../forms/loadauthors.php",
-//         type: "post",
-//         dataType: 'json',
-//         delay: 250,
-//         data: function (params) {
-//            return {
-//               searchTerm: params.term // search term
-//            };
-//         },
-//         processResults: function (response) {
-//            return {
-//               results: response
-//            };
-//         },
-//         cache: true
-//       }
-//    });
+$(function () {
+  $.ajax({
+   url:'../forms/loadname.php',
+   type: "POST",
+    dataType: 'json',
+   success: function(data)
+      {
+        console.log(data)
+        data.forEach(({fName, lName})=> {
+
+         var mainAuthor = `<label for="country">Main Author</label>
+    <input class="form-control" type="text" id="" name="mainAuthor" value="${fName} ${lName}" readonly>`;
+         
+          $('#mainAuth').append(mainAuthor)
+        })
+      }        
+    });
+  }
+ );
 
 
         $('#selectCoAuthor').select2({

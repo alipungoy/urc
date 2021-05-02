@@ -64,31 +64,28 @@ $DATE = date("y-m-d");
             $stmt->bindParam(1, $FORM_PASSWORD);
             $stmt->bindParam(2, $lastID);
             $stmt->execute();  
-         }
 
-
-         
-
- /*        $transport = (new Swift_SmtpTransport('smtp.google.com', 465))
-         ->setUsername('mfaulan@gmail.com')
-         ->setPassword('p455w0rd12')
+        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
+         ->setUsername('urc.thesis.test@gmail.com')
+         ->setPassword('w33d1sl4yf12')
        ;
        
 
        $mailer = new Swift_Mailer($transport);
 
        $message = (new Swift_Message('Wonderful Subject'))
-         ->setFrom(['mfaulan@gmail.com' => 'URC'])
+         ->setFrom(['urc.thesis.test@gmail.com' => 'URC'])
          ->setTo([$FORM_EMAIL])
          ->setBody('Please click this link to verify account http://127.0.0.1/urc/pages/confirmation.php?token='.$TOKEN);
 
        $sendmail = $mailer->send($message);
          
 
-        if($sendmail){*/
+        if($sendmail){
         die(json_encode(array('result' => 'success')));
-//echo "success";
-//}
+echo "success";
+        }
+}
      }
  } catch (PDOException $e) {
      die(json_encode(array(

@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$db = "urc";
+$db = "urcdb";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $db);
@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 echo $link;
 $token = "82da150ddfd65c4667d22c5a83667aaa2d69fcf5617a03cae5b7093f509c602649425c1593f789492e9c3584cef6f514443a";*/
 if(isset($_POST['submit'])){
-   $sql = "UPDATE user_login SET verified = '1' 
+   $sql = "UPDATE user SET verified = '1' 
     WHERE token ='".$_GET['token']."'";
     if($conn->query($sql) === TRUE){
         echo "update successful";

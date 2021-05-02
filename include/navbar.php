@@ -409,8 +409,9 @@ aria-hidden="true">
 
                          alert(data.error.msg);
                     } else {
-                       bootbox.alert(data.result)
+                       bootbox.alert('A Confirmation has been sent to the email you provided')
                         $('#frmRegister').trigger("reset");
+                        $('#regModal').modal("hide");
                     }
 
                     $('#frmBtnRegister').text("Register");
@@ -422,7 +423,7 @@ aria-hidden="true">
         var dropdownMenu = $(this).children(".dropdown-menu");
         if(dropdownMenu.is(":visible")){
             dropdownMenu.parent().toggleClass("show");
-            console.log(dropdownMenu)
+            // console.log(dropdownMenu)
         }
     });
      
