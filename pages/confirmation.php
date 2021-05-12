@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$db = "urcdb";
+$db = "cpu_researchcenter_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $db);

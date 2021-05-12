@@ -31,12 +31,12 @@
   <div id="filename"></div>
   <div class="text-danger" id="err"></div>
   <div class="text-success" id="success"></div>
-  </div>
   <div id="preview"></div>
   <button class="btn btn-primary" id="fileSelect">Choose File</button>
   <input id="uploadFile" type="file"  name="ftu" />
   <input class="btn btn-success" type="submit" value="Upload">
   </form>
+</div>
   <div id="preview"></div>
   <hr>
   </div>
@@ -335,26 +335,21 @@ $(function () {
       {
         console.log(data);
         if(data=='empty'){
-          $("#err").html("No File Selected. Please select file").fadeIn(); 
+          bootbox.alert('No File Selected!')
         }
        else if(data=='existing'){
-          $("#err").html("File already exist").fadeIn(); 
+          bootbox.alert('File Already Exists')
         }
     else if(data=='invalid')
     {
      // invalid file format.
-     $("#err").html("Only PDF files are allowed").fadeIn();
+     bootbox.alert('Only PDF Files Allowed!')
     }
     else if (data=='ok')
-    {
-      $("#success").html("File upload success").fadeIn();
-     $("#form")[0].reset(); 
+    { 
+      bootbox.alert('File Upload Successful');
     }
       },
-     error: function(e) 
-      {
-    $("#err").html(e).fadeIn();
-      }          
     });
   }
  ));

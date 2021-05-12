@@ -10,7 +10,7 @@ $numberofrecords = 10;
 if(!isset($_POST['searchTerm'])){
 
    // Fetch records
-   $stmt = $db->connection->prepare("SELECT * FROM urc_authors ORDER BY fullname LIMIT :limit");
+   $stmt = $db->connection->prepare("SELECT * FROM faculty ORDER BY firstName LIMIT :limit");
    $stmt->bindValue(':limit', (int)$numberofrecords, PDO::PARAM_INT);
    $stmt->execute();
    $name = $stmt->fetchAll();
@@ -20,7 +20,7 @@ if(!isset($_POST['searchTerm'])){
    $search = $_POST['searchTerm'];// Search text
 
    // Fetch records
-   $stmt = $db->connection->prepare("SELECT * FROM urc_authors WHERE fullname like :fullname ORDER BY fullname LIMIT :limit");
+   $stmt = $db->connection->prepare("SELECT * FROM faculty WHERE firstName like :fullname ORDER BY firstName LIMIT :limit");
    $stmt->bindValue(':fullname', '%'.$search.'%', PDO::PARAM_STR);
    $stmt->bindValue(':limit', (int)$numberofrecords, PDO::PARAM_INT);
    $stmt->execute();
@@ -33,8 +33,8 @@ $response = array();
 // Read Data
 foreach($name as $authors){
    $response[] = array(
-     "id" => $authors['fullname'],
-      "text" => $authors['fullname']
+     "id" => $authors['firstName'].' '.$authors['middleInitial'].' '.$authors['lastName'],
+      "text" => $authors['firstName'].' '.$authors['middleInitial'].' '.$authors['lastName']
    );
 }
 

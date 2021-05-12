@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="suffix" placeholder="Suffix" value="">
+            <input type="text" class="form-control" name="suffix" placeholder="Middle Initial" value="">
         </div>
         <div class="form-group">
            <select class="form-control" name="classification" id="classification">
@@ -100,6 +100,7 @@
                          alert(data.error.msg);
                     } else {
                         $(".modal-header > .modal-title ").html(data.result);
+                        $("#regModal").modal('hide');
                         $("#testModal").modal('show');
                         setTimeout(function() {$('#testModal').modal('hide');}, 2000);
                         $('#frmRegister').trigger("reset");

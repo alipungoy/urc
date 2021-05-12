@@ -268,7 +268,7 @@ aria-hidden="true">
             </div>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="suffix" placeholder="Suffix" value="">
+            <input type="text" class="form-control" name="suffix" placeholder="Middle Initial" value="">
         </div>
         <div class="form-group">
            <select class="form-control" name="classification" id="classification">

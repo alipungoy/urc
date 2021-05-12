@@ -5,6 +5,7 @@ require_once('./include/header.php');
   require_once('./include/navbar.php');
   require_once('./pages/home.html');
   require_once('./include/navfooter.php');
+  require_once('./pages/userstat.html');
 ?>
 </body>
 </html>
