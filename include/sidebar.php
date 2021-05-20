@@ -47,6 +47,7 @@
             <a class="collapse-item" href="../proposals.php">Research Proposals</a>
             <a class="collapse-item" href="../review.php">Assigned Proposals</a>
             <a class="collapse-item" href="../approvedresearch.php">Approved By Reviewer</a>
+            <a class="collapse-item" href="../reviewer_panel.php">Reviewer/Panel</a>
         </div>
     </div>
 </li>
