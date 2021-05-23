@@ -92,24 +92,25 @@ $(".navItem").click(function(event) {
 });
 
 
-$('#dataTable').on('click', '#showMore', function(){
-var value = $(this).val();
-console.log(value)
-$.ajax({
-      url: '../forms/loadmoreinfo.php?id='+value,
-      type: 'get',
-     dataType: 'JSON',
-      success: function(response){
-        console.log(response)
-        var dataval = '<tr>'+
-            '<td>Authors:</td>'+
-            '<td>'+response.fullname+'</td>'+
-            '</tr>';
+// $('#dataTable').on('click', '#showMore', function(){
+// var value = $(this).val();
+// console.log(value)
+// $.ajax({
+//       url: '../forms/loadmoreinfo.php?id='+value,
+//       type: 'get',
+//      dataType: 'JSON',
+//       success: function(response){
+//         console.log(response)
+//         response.forEach((r) => format(r))
+//         var dataval = '<tr>'+
+//             '<td>Authors:</td>'+
+//             '<td>'+response.fullname+'</td>'+
+//             '</tr>';
 
-    $('#testtable').append(dataval)
-}
-    });
-});
+//     $('#testtable').append(dataval)
+// }
+//     });
+// });
 
 
 // var table = $("#dataTable").DataTable({
@@ -154,6 +155,7 @@ $(document).ready(function() {
   'processing': true,
   'serverSide': true,
   "columnDefs": [
+    {"className": "dt-body-center"},
     { "width": "5%", "targets": 0},
     { "width": "16%", "targets": 3},
     { "width": "16%", "targets": 4}
@@ -171,6 +173,7 @@ $(document).ready(function() {
     {data: 'approve'}
   ],
   "order": [[1, 'asc']],
+  
 })
 var combinedData = table
     .column( )
@@ -189,7 +192,17 @@ var combinedData = table
         }
         else {
             // Open this row
-            row.child( format(row.data()) ).show();
+            var value = $(this).val();
+            console.log(value)
+            $.ajax({
+            url: '../forms/loadmoreinfo.php?id='+value,
+            type: 'get',
+          dataType: 'JSON',
+            success: function(response){
+              console.log(response)
+              row.child( `<td><strong>Authors:</strong> <i>${response.aaData.map((r) => r.fullname)}</i></td>` ).show();
+          }
+          });
             tr.addClass('shown');
         }
     } );

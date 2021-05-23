@@ -278,6 +278,25 @@ aria-hidden="true">
            </select>
         </div>
         <div class="form-group">
+           <select class="form-control" name="dept" id="dept">
+            <option selected="selected" disabled>Department</option>
+               <option value="SENIOR HIGH SCHOOL">SENIOR HIGH SCHOOL</option>
+               <option value="COLLEGE OF AGRICULTURE, RESOURCES AND ENVIRONMENTAL SCIENCES">COLLEGE OF AGRICULTURE, RESOURCES AND ENVIRONMENTAL SCIENCES</option>
+               <option value="COLLEGE OF ARTS & SCIENCES">COLLEGE OF ARTS & SCIENCES</option>
+               <option value="COLLEGE OF BUSINESS & ACCOUNTANCY">COLLEGE OF BUSINESS & ACCOUNTANCY</option>
+               <option value="COLLEGE OF COMPUTER STUDIES">COLLEGE OF COMPUTER STUDIES</option>
+               <option value="COLLEGE OF EDUCATION">COLLEGE OF EDUCATION</option>
+               <option value="COLLEGE OF ENGINEERING">COLLEGE OF ENGINEERING</option>
+               <option value="COLLEGE OF HOSPITALITY MANAGEMENT">COLLEGE OF HOSPITALITY MANAGEMENT</option>
+               <option value="COLLEGE OF MEDICAL LABORATORY SCIENCE">COLLEGE OF MEDICAL LABORATORY SCIENCE</option>
+               <option value="COLLEGE OF NURSING">COLLEGE OF NURSING</option>
+               <option value="COLLEGE OF PHARMACY">COLLEGE OF PHARMACY</option>
+               <option value="COLLEGE OF LAW">COLLEGE OF LAW</option>
+               <option value="COLLEGE OF MEDICINE">COLLEGE OF MEDICINE</option>
+               <option value="COLLEGE OF THEOLOGY">COLLEGE OF THEOLOGY</option>
+           </select>
+        </div>
+        <div class="form-group">
             <input type="email" class="form-control" name="EMAIL" placeholder="E-mail" required="required" value="">
         </div>
         <div class="form-group">
