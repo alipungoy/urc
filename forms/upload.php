@@ -25,6 +25,8 @@ $tmp = $_FILES['ftu']['tmp_name'];
 $filename = ($lName.'-'.$img);
 $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
 
+if(!empty($img)) {
+
 $select = ("SELECT first_name, last_name FROM user WHERE userID = :userid");
 $stmt = $db->connection->prepare($select);
 $stmt->bindParam(':userid', $userID);
@@ -96,5 +98,9 @@ echo 'invalid';
 }
 else {
     echo 'existing';
+}
+}
+else{
+    echo 'empty';
 }
 ?>

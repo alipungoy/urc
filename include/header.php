@@ -8,6 +8,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>University Research Center</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png" sizes="32x32">
     <base href="<$path />">
     <link rel="stylesheet" type="text/css" href="../css/base.css">
     <link rel="stylesheet" type="text/css" href="../css/style.css"> 

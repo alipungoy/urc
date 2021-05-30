@@ -26,13 +26,15 @@
 </li>
 
 <!-- Divider -->
-<hr class="sidebar-divider">
+<!-- <hr class="sidebar-divider"> -->
 
 <!-- Heading -->
-<div class="sidebar-heading">
+<!-- <div class="sidebar-heading">
     Interface
-</div>
+</div> -->
 
+<?php if($_SESSION['user_type'] == 'Admin')
+{ ?>
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -45,14 +47,57 @@
             <h6 class="collapse-header">Manage User:</h6>
             <a class="collapse-item" href="../sidenav.php">User status</a>
             <a class="collapse-item" href="../proposals.php">Research Proposals</a>
-            <a class="collapse-item" href="../review.php">Assigned Proposals</a>
             <a class="collapse-item" href="../approvedresearch.php">Approved By Reviewer</a>
             <a class="collapse-item" href="../reviewer_panel.php">Reviewer/Panel</a>
         </div>
     </div>
 </li>
+<?php } ?>
+
+
+<?php if($_SESSION['user_type'] == 'Reviewer')
+{ ?>
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-users"></i>
+        <span>Assigned Proposal</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manage User:</h6>
+            <a class="collapse-item" href="../review.php">Assigned Proposals</a>
+        </div>
+    </div>
+</li>
+<?php } ?>
+
+<?php
+if($_SESSION['user_type'] == 'Admin'){
+?>
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+        aria-expanded="true" aria-controls="collapseThree">
+        <i class="fas fa-folder-open"></i>
+        <span>Requests</span>
+    </a>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingUtilities"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Download Requests:</h6>
+            <a class="collapse-item" href="utilities-color.html">Download Requests</a>
+            <h6 class="collapse-header">Citation Requests:</h6>
+            <a class="collapse-item" href="utilities-color.html">Citation Requests</a>
+        </div>
+    </div>
+</li>
+<?php } ?>
+
 
 <!-- Nav Item - Utilities Collapse Menu -->
+<?php
+if($_SESSION['user_type'] == 'Admin'){
+?>
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
         aria-expanded="true" aria-controls="collapseThree">
@@ -71,14 +116,16 @@
         </div>
     </div>
 </li>
+<?php } ?>
 
 <!-- Divider -->
 <hr class="sidebar-divider">
 
 <!-- Heading -->
-<div class="sidebar-heading">
+<!-- <div class="sidebar-heading">
     Test
-</div>
+</div> -->
+
 <!-- Nav Item - user setting Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseSettings" aria-expanded="true"
@@ -97,27 +144,41 @@
 </li>
 
 <!-- Nav Item - Pages Collapse Menu -->
+<?php
+if($_SESSION['user_type'] == 'User'){
+?>
 <li class="nav-item">
     <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
         aria-controls="collapsePages">
         <i class="fas fa-fw fa-folder"></i>
-        <span>Pages</span>
+        <span>Researches</span>
     </a>
     <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Research Submission:</h6>
             <a class="collapse-item" href="../upload.php">Upload</a>
+            <h6 class="collapse-header">Research Tracker:</h6>
+            <a class="collapse-item" href="../upload.php">Research Progress</a>
         </div>
     </div>
 </li>
+<?php
+}
+?>
 
+<?php
+if($_SESSION['user_type'] == 'Admin'){
+?>
 <!-- Nav Item - Charts -->
 <li class="nav-item">
     <a class="nav-link" href="../userstats.php">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Website statistics</span></a>
 </li>
+<?php
+}
+?>
 
 <!-- Nav Item - Tables -->
 <li class="nav-item">

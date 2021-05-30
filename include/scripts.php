@@ -16,7 +16,7 @@
     <link href="../vendor/owl.carousel.min.css" rel="stylesheet">
     <link href="../vendor/owl.theme.default.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <script src="../vendor/js/jquery.min.js"></script>
     <script src="../vendor/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/sp-1.2.2/datatables.min.js"></script>
@@ -29,4 +29,4 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../vendor/owl.carousel.min.js"></script>
     <script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>

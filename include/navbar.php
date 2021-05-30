@@ -82,7 +82,7 @@
                 <a class="nav-link" id="login" href="#">Login</a>
             </li>
         <?php
-        } elseif($_SESSION['user_type'] == 'Admin' || $_SESSION['user_type'] == 'Reviewer' || $_SESSION['user_type'] == 'user'){
+        } elseif($_SESSION['user_type'] == 'Admin' || $_SESSION['user_type'] == 'Reviewer' || $_SESSION['user_type'] == 'User'){
         ?>
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
@@ -275,6 +275,7 @@ aria-hidden="true">
             <option selected="selected" disabled>Choose User Classification</option>
                <option value="faculty">Faculty</option>
                <option value="staff">Staff</option>
+               <option value="Student">Student</option>
            </select>
         </div>
         <div class="form-group">

@@ -14,8 +14,8 @@
   </div>
   <div class="form-group mr-2">
     <label for="funding">Funding Type:</label>
-    <select class="form-control" name="funding" id="funding">
-      <option value="0">Select Funding Type</option>
+    <select class="form-control" name="funding" id="funding" required>
+      <option value="">Select Funding Type</option>
       <option value="Externally Funded Research">Externally Funded Research</option>
       <option value="Internally Funded Research">Internally Funded Research</option>
     </select><br>
@@ -23,7 +23,7 @@
   <div class="form-group" id="mainAuth">
   </div>
   <div class="form-group mt-3">
-    <label for="selectCoAuthor">Co Author</label>
+    <label for="selectCoAuthor">Co-Author</label>
     <select class="form-control" name="coAuth[]" id="selectCoAuthor">
   </select><br> 
   <small style="font-style:italic;color:blue">*Choose Co-Authors If Available</small>
@@ -133,9 +133,9 @@ aria-hidden="true">
   $("#filename").html('<i class="fas fa-file-pdf fa-10x"></i>' + filename);
 });
 
-$('#funding').select2({
-  minimumResultsForSearch: Infinity
-});
+// $('#funding').select2({
+//   minimumResultsForSearch: Infinity
+// });
 
 $(function () {
   $.ajax({
@@ -161,7 +161,7 @@ $(function () {
         $('#selectCoAuthor').select2({
           multiple: true,
           maximumSelectionLength: 9,
-            placeholder: 'Select Co Author',
+            placeholder: 'Select Co-Author',
             ajax: {
                 url: '../forms/loadauthors.php',
                 type: "post",
@@ -338,7 +338,15 @@ $(function () {
           bootbox.alert('No File Selected!')
         }
        else if(data=='existing'){
-          bootbox.alert('File Already Exists')
+          bootbox.alert({
+            message: 'A Research With The Same Title Has Already Been Submitted!',
+            buttons: {
+              ok: {
+                label: 'Understood',
+                className: 'btn-danger'
+              }
+            }
+          })
         }
     else if(data=='invalid')
     {
