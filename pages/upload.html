@@ -18,7 +18,7 @@
       <option value="">Select Funding Type</option>
       <option value="Externally Funded Research">Externally Funded Research</option>
       <option value="Internally Funded Research">Internally Funded Research</option>
-    </select><br>
+    </select>
   </div>
   <div class="form-group" id="mainAuth">
   </div>
@@ -28,13 +28,14 @@
   </select><br> 
   <small style="font-style:italic;color:blue">*Choose Co-Authors If Available</small>
   </div> 
-  <div id="filename"></div>
-  <div class="text-danger" id="err"></div>
-  <div class="text-success" id="success"></div>
-  <div id="preview"></div>
-  <button class="btn btn-primary" id="fileSelect">Choose File</button>
-  <input id="uploadFile" type="file"  name="ftu" />
-  <input class="btn btn-success" type="submit" value="Upload">
+  <div class="container">
+  <button class="btn btn-sm btn-primary mt-3 mr-2" id="fileSelect">Upload File</button>
+  <input id="uploadFile" type="file" accept="application/pdf" name="ftu" />
+   <span id="filename"></span>
+  <div>
+  <input class="btn btn-success mt-5" type="submit" value="Submit Research">
+  </div>
+  </div>
   </form>
 </div>
   <div id="preview"></div>
@@ -130,7 +131,7 @@ aria-hidden="true">
   });
   $("#uploadFile").change(function() {
   filename = this.files[0].name
-  $("#filename").html('<i class="fas fa-file-pdf fa-10x"></i>' + filename);
+  $("#filename").html(filename);
 });
 
 // $('#funding').select2({

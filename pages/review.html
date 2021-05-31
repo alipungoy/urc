@@ -48,9 +48,9 @@
 </div>
 </div> <!-- /#page-content-wrapper -->
 
-<div class="modal fade" id="assignReviewer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="approveReview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
-<div class="modal-dialog modal-lg" role="document">
+<div class="modal-dialog modal-sm" role="document">
   <div class="modal-content">
       <div class="modal-header">
           <h5 class="modal-title text-primary" id="exampleModalLabel">Select Co Author</h5>
@@ -61,35 +61,14 @@ aria-hidden="true">
       <div class="modal-body">
           <div class="card-body" id="">
             <form
-            class="navbar-search" id="reviewerForm">
+            class="navbar-search" id="approveForm">
             <div class="input-group">
-                <input type="text" id="reviewersearch" class="form-control bg-light border-0 small" placeholder="Search for Main Author"
-                    aria-label="Search" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
+              <select name="status" id="reviewedStatus">
+                <option value="Reviewed For Presentation">Reviewed For Presentation</option>
+                <option value="Reviewed W/Revisions">Reviewed W/Revisions</option>
+              </select>
             </div>
-            <select class="form-group mx-sm-3 mb-2" name="mainAuthorFilter" id="mainAuthorFilter">
-              <option disabled selected="selectHelper" value="">Filter By College</option>
-              <option value="College of Computer Studies">College of Computer Studies</option>
-              <option value="">Test3</option>
-            </select>
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Funding</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="myTable"></tbody>
-  </table>
-  <button class="btn btn-primary" id="assgnRev" type="submit">Assign As Reviewer</button>
-</div>
+            <button class="btn btn-primary mt-2" id="submitRev">Approve</button>
         </form>
                 </div>
       </div>
@@ -130,21 +109,45 @@ $.ajax({
   load_proposals();
   })
   
-  $('#myTable').on('click', '#approved', function(){
-      var thisbtn = $(this).attr('value');
-      console.log(thisbtn);
-      bootbox.confirm("Approve This Research?", function(result) {
-        if(result){
-      $.ajax({
-  url: '../forms/approved.php?id='+thisbtn,
+//   $('#myTable').on('click', '#approved', function(){
+//       var thisbtn = $(this).attr('value');
+//       console.log(thisbtn);
+//       bootbox.confirm("Approve This Research?", function(result) {
+//         if(result){
+//       $.ajax({
+//   url: '../forms/approved.php?id='+thisbtn,
+//   type: 'post',
+//   dataType: 'JSON',
+//   success: function(response){
+//     bootbox.alert('Research Approved')
+//   }
+//   });
+// }
+//   })
+//   })
+
+  $(document).on('click', '#approved', function(e) {
+    e.preventDefault();
+    var thisbtn = $(this).attr('value');
+    var reviewId = $()
+    $('#approveReview').modal('show');
+    $('#approveForm').append(`<input hidden name="id" value="${thisbtn}"> `);
+  });
+
+  $('#submitRev').on('click', function(e) {
+    e.preventDefault();
+    var FormData = $('#approveForm').serialize();
+          $.ajax({
+  url: '../forms/approved.php',
   type: 'post',
+  data: FormData,
   dataType: 'JSON',
   success: function(response){
     bootbox.alert('Research Approved')
   }
   });
-}
   })
-  })
+
+
 
 </script>

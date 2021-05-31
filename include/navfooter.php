@@ -1,7 +1,7 @@
 
     </div>
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="bg-white fixed-bottom py-3">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy;CPU-URC 2021</span>

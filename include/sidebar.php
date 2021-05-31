@@ -99,12 +99,12 @@ if($_SESSION['user_type'] == 'Admin'){
 if($_SESSION['user_type'] == 'Admin'){
 ?>
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
         aria-expanded="true" aria-controls="collapseThree">
         <i class="fas fa-fw fa-wrench"></i>
         <span>Site Settings</span>
     </a>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingUtilities"
+    <div id="collapseFour" class="collapse" aria-labelledby="headingUtilities"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Site Settings:</h6>
@@ -145,7 +145,7 @@ if($_SESSION['user_type'] == 'Admin'){
 
 <!-- Nav Item - Pages Collapse Menu -->
 <?php
-if($_SESSION['user_type'] == 'User'){
+if($_SESSION['user_type'] == 'User' || $_SESSION['user_type'] == 'Reviewer'){
 ?>
 <li class="nav-item">
     <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
@@ -159,7 +159,7 @@ if($_SESSION['user_type'] == 'User'){
             <h6 class="collapse-header">Research Submission:</h6>
             <a class="collapse-item" href="../upload.php">Upload</a>
             <h6 class="collapse-header">Research Tracker:</h6>
-            <a class="collapse-item" href="../upload.php">Research Progress</a>
+            <a class="collapse-item" href="../ongoingresearches.php">Research Progress</a>
         </div>
     </div>
 </li>

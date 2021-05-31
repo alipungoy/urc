@@ -59,11 +59,11 @@
   margin-left: 2px;
 }
 </style>
-<div class="container mx-auto">
+<div class="container mx-auto pb-5 my-5">
     <div class="row justify-content-center">
         <div class="col-lg-7 mt-5 text-center">
             <div class="section-title">
-                <h2 class="text-primary">Latest News</h2>
+                <h1 class="text-primary mb-5 font-weight-bold">Latest News</h1>
                 <p></p>
             </div>
         </div>
@@ -72,11 +72,11 @@
     </div> 
     </div>
 
-<div class="container mx-auto">
+<div class="container mx-auto my-5">
     <div class="row justify-content-center">
         <div class="col-lg-7 mt-5 text-center">
             <div class="section-title">
-                <h2 class="text-primary">Patubas</h2>
+                <h1 class="text-primary font-weight-bold mb-5">Patubas</h1>
                 <p></p>
             </div>
         </div>
@@ -85,22 +85,27 @@
     </div> 
     </div>
 
-    <div class="container mx-auto">
+    <div class="container mx-auto my-5">
         <div class="row justify-content-center">
             <div class="col-lg-7 mt-5 text-center">
                 <div class="section-title">
-                    <h2 class="text-primary">Videos</h2>
-                    <p></p>
+                    <h1 class="text-primary font-weight-bold mb-5">Videos</h1>
                 </div>
             </div>
         </div>
-          <iframe width="420" height="315"
-        src="https://www.youtube.com/embed/Eeccb4dc28I">
+        
+
+        <div class="mb-3 text-center">
+        <iframe width="800" height="315" src="https://www.youtube.com/embed/Eeccb4dc28I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </iframe>
-        <iframe width="420" height="315"
-        src="https://www.youtube.com/embed/I-RrjMK4K98">
-       </iframe>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/cTsGbJShBVw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="mb-3 text-center">
+        <iframe width="800" height="315" src="https://www.youtube.com/embed/I-RrjMK4K98" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+       </iframe> 
+        </div>
+        <div class="mb-3 text-center">
+            <iframe width="800" height="315" src="https://www.youtube.com/embed/cTsGbJShBVw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+        </div>
         </div>
        
 
@@ -154,19 +159,18 @@ $(function(){
                         <div class="article-v2">
                             <figure class="article-thumb">
                                 <a href="#">
-                                    <img src="../assets/images/download.jpg" alt="blog image" />
+                                    <img src="../assets/images/download.jpg" style="height: 17rem" alt="blog image" />
                                 </a>
                             </figure>
                             <!-- /.article-thumb -->
                             <div class="article-content-main">
+                                <small class="entry-date">${new Date(start).toDateString()}</small>
                                 <div class="article-header">
-                                    <h2 class="entry-title"><a href="#">${title}</a></h2>
+                                    <h2 class="font-weight-bold mb-5"><a href="#">${title}</a></h2>
                                     <div class="entry-meta">
-                                        <div class="entry-date">${start}</div>
-                                        <!-- /.entry-date -->
                                         <div class="entry-cat">
-                                            <p class="fas fa-user" href="#"> URC</p>
                                         </div>
+                                        <!-- /.entry-date -->
                                         <!--  /.entry-cat -->
                                     </div>
                                     <!-- /.entry-meta -->
@@ -183,8 +187,7 @@ $(function(){
                                         </div>
                                         <!--  /.col-6 -->
                                         <div class="col-6 text-right footer-meta">
-                                            <a href="#">65 <i class="pe-7s-comment"></i></a>
-                                            <a href="#">50 <i class="pe-7s-share"></i></a>
+                                            <small href="#"> CPUURC</small>
                                         </div>
                                         <!--  /.col-6 -->
                                     </div>
@@ -239,15 +242,15 @@ $(function(){
                         <div class="article-v2">
                             <figure class="article-thumb">
                                 <a href="#">
-                                    <img src="../upload/${cp}" alt="blog image" />
+                                    <img src="../upload/${cp}" style="height: 17rem" alt="blog image" />
                                 </a>
                             </figure>
                             <!-- /.article-thumb -->
                             <div class="article-content-main">
+                                <small class="entry-date">${new Date(date).toDateString()}</small>
                                 <div class="article-header">
                                     <h2 class="entry-title"><a href="#">Volume: ${vol}</a></h2>
                                     <div class="entry-meta">
-                                        <div class="entry-date">${date}</div>
                                         <!-- /.entry-date -->
                                         <div class="entry-cat">
                                             <p class="fas fa-user" href="#"> URC</p>

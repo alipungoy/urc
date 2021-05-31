@@ -1,0 +1,43 @@
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+            <section>
+                <div>
+                    <div class="container">
+                        <table class="table table-bordered table-striped"  id="dataTable">
+                          <thead>
+                            <tr>
+                            <th>Title</th>
+                            <th>Status</th>
+                            </tr>
+                            </thead>
+                        </table>
+                      </div>
+                </div>
+            </section>
+    </div>
+</div> <!-- /#page-content-wrapper -->
+</div>
+
+
+
+
+
+<script>
+
+$("#dataTable").DataTable({
+'processing': true,
+'serverSide': true,
+'serverMethod': 'post',
+'lengthChange': true,
+'ajax': {
+'url': '../forms/loadresearches.php'
+},
+'columns': [
+{data: 'title'},
+{data: 'status'}
+]
+});
+
+
+</script>

@@ -1,9 +1,9 @@
 <?php
 session_start();
-$test = $_SESSION['loggedin'];
 include('../db/connection.php');
 $db = new db();
 
+$id = $_SESSION['userid'];
 $draw = $_POST['draw'];
 $row = $_POST['start'];
 $rowperpage = $_POST['length'];
@@ -19,26 +19,26 @@ $searchArray = array();
 $searchQuery = " ";
 if($searchValue != ''){
    $searchQuery = " AND (title LIKE :title OR 
-        funding LIKE :funding";
+        status LIKE :status) ";
    $searchArray = array( 
-        'title'=>"%$searchValue%", 
-        'funding'=>"%$searchValue%"
+        'title'=>"%$searchValue%",
+        'status'=>"%$searchValue%"
    );
 }
 
 ## Total number of records without filtering
-$stmt = $db->connection->prepare("SELECT COUNT(status) AS allcount FROM proposal ");
+$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM proposal WHERE userID = $id  ");
 $stmt->execute();
 $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$stmt =  $db->connection->prepare("SELECT COUNT(status) AS allcount FROM proposal WHERE status = 'Reviewed For Presentation' && 1 ".$searchQuery);
+$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM proposal WHERE 1 && userID = $id ".$searchQuery);
 $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
-$stmt =  $db->connection->prepare("SELECT * FROM proposal WHERE status = 'Reviewed For Presentation' ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
+$stmt =  $db->connection->prepare("SELECT * FROM proposal WHERE 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
 
 // Bind values
 foreach($searchArray as $key=>$search){
@@ -55,9 +55,7 @@ $data = array();
 foreach($empRecords as $row){
   $data[] = array(
      "title"=>$row['title'],
-     "funding"=>$row['funding'],
-     "approvalDate"=>$row['approvalDate'],
-     "button"=> '<button class="btn btn-primary" id="apprvdBtn" value='.$row['proposalID'].'>Schedule for Presentation</button>'
+     "status"=>$row['status']
   );
 }
 

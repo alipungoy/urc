@@ -40,7 +40,7 @@ if ($result->rowCount() > 0) {
   }
 }
 
-$reout = '<div id="uvon"><h4>Online: '. ($nrusr+$nrvst). '</h4>Visitors: '. $nrvst. '<br/>Users: '. $nrusr. $usron. '</div>';
+$reout = '<div id="uvon" class="pb-5"><h4>Online: '. ($nrusr+$nrvst). '</h4>Visitors: '. $nrvst. '<br/>Users: '. $nrusr. $usron. '</div>';
 
 // if access from <script>, with GET 'uvon=showon', adds the string to return into a JS statement
 // in this way the script can also be included in .html files
