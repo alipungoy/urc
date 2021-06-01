@@ -55,7 +55,8 @@ $data = array();
 foreach($empRecords as $row){
   $data[] = array(
      "title"=>$row['title'],
-     "status"=>$row['status']
+     "status"=>$row['status'],
+     "id"=>$row['proposalID']
   );
 }
 

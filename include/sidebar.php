@@ -145,7 +145,7 @@ if($_SESSION['user_type'] == 'Admin'){
 
 <!-- Nav Item - Pages Collapse Menu -->
 <?php
-if($_SESSION['user_type'] == 'User' || $_SESSION['user_type'] == 'Reviewer'){
+if($_SESSION['user_type'] == 'user' || $_SESSION['user_type'] == 'Reviewer'){
 ?>
 <li class="nav-item">
     <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"

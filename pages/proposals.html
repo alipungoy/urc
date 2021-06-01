@@ -173,6 +173,23 @@ $(document).ready(function() {
     {data: 'approve'}
   ],
   "order": [[1, 'asc']],
+  'columnDefs': [{
+    className: 'text-center',
+    targets: [-1], render: function (a, b, data, d) {
+      if (data.status == 'Reviewed For Presentation') {
+        return `<button class="btn btn-primary" id="approve" value="${data.propid}">Approve</button>`;
+      }
+      return '';
+    }
+  },
+    {
+      className: 'text-center',
+      targets: [3], render: function (a, b, data, d) {
+      if(data.status == 'Pending') {
+        return `<button class="btn btn-success" id="revAssign" PID="${data.propid}">Assign Reviewer</button>`;
+      }
+      return '';
+    }}],
   
 })
 var combinedData = table

@@ -59,7 +59,7 @@ while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
     "button"=> '<button class="btn btn-primary" id="showMore" value="'.$row['proposalID'].'"> + </button>', 
      "title"=>$row['title'],
      "status"=>$row['status'],
-     "assign"=>'<button class="btn btn-success" id="revAssign" PID="'.$row['proposalID'].'">Assign Reviewer</button>',
+     "propid"=>$row['proposalID'],
      "approve"=>'<button class="btn btn-success" id="approve" value="'.$row['proposalID'].'">Approve</button>',
   );
 }

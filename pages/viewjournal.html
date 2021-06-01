@@ -1,11 +1,18 @@
 <div class="container">
-    <h1 id="title"></h1>
+    <h2 id="title"></h2>
     <small id="date"></small>
     <p id="info"></p>
-    <div class="container-fluid" id="test">
-
-       
+    <div class="container-fluid" id="test">    
     </div>
+    <div class="col-sm-2 mt-2">
+    <small>Patubas is published once a year under the auspices of Central Philippine University, Jaro, Iloilo City, Philippines.</small>
+    <small>Copyright © 2017 by individual authors and Patubas.</small>
+    <small>Published in 2017 Central Philippine University Lopez Jaena, St., Jaro, Iloilo City</small>
+    <small>All rights reserved. No part of this publication may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopy, recording or any information storage and retrieval system, without permission in writing from the authors or publisher.</small>
+    <small>For Print ISSN 1908-515X
+        Publication ISSN 2672-3611</small>
+        <small>Opinions and facts contained in the articles published in this issue of Patubas are the sole responsibility of the individual authors and not of the Editorial Board, Patubas or Central Philippine University.</small>
+</div>
 </div>
 
 
@@ -24,13 +31,12 @@ $(function () {
             const type = data.type
             const date = data.date 
             const vol = data.volume
-            const image = `<img class="img-thumbnail" src="../upload/${data.cp}">`
+            const image = `<img class="img-thumbnail" style="width: 206px; height: 300px" src="../upload/${data.cp}">`
             const download = `<a href="../forms/download.php?fileName=${data.name}">Download</a>`
 
             console.log(image)
-            $("#title").append(type + vol);
-            $("#date").append(date);
-            $("#info").append(vol);
+            $("#title").append(type+' Volume '+ vol );
+            $("#date").append('<i class="far fa-user"></i> cpuurc- '+'<i class="far fa-calendar-alt"></i> '+ new Date(date).toDateString() + ' - ' + '<i class="far fa-folder"></i> '+type);
             $("#test").append(image);
             $("#test").append(download);
         }

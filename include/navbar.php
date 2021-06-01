@@ -29,7 +29,7 @@
             aria-haspopup="true" aria-expanded="false">
             About Us
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <div class="dropdown-menu dropMenu dropDownMenu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="../about.php">Background & Rationale</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../about.php">Legal Bases</a>
@@ -54,7 +54,7 @@
             aria-haspopup="true" aria-expanded="false">
             Researches
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <div class="dropdown-menu dropDownMenu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="../about.php">Faculty Research</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../about.php">Student Research</a>
@@ -82,7 +82,7 @@
                 <a class="nav-link" id="login" href="#">Login</a>
             </li>
         <?php
-        } elseif($_SESSION['user_type'] == 'Admin' || $_SESSION['user_type'] == 'Reviewer' || $_SESSION['user_type'] == 'User'){
+        } elseif($_SESSION['user_type'] == 'Admin' || $_SESSION['user_type'] == 'Reviewer' || $_SESSION['user_type'] == 'user'){
         ?>
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
@@ -439,13 +439,14 @@ aria-hidden="true">
             });
         });
 
-        $(".dropdown").hover(function(){
-        var dropdownMenu = $(this).children(".dropdown-menu");
-        if(dropdownMenu.is(":visible")){
-            dropdownMenu.parent().toggleClass("show");
-            // console.log(dropdownMenu)
-        }
-    });
+    //     $(".dropdown").hover(function(){
+    //     var dropdownMenu = $(this).children(".dropdown-menu");
+    //     if(dropdownMenu.is(":visible")){
+    //         dropdownMenu.parent().toggleClass("show");
+    //         // console.log(dropdownMenu)
+    //     }
+    // });
      
+    
     });
 </script>

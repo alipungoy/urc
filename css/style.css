@@ -30,7 +30,24 @@ a.dropdown-item:hover{
     color: rgb(230, 226, 19);
 }
 
-.dropdown:hover .dropdown-menu {
+.dropMenu{
+    width: 220px !important;
+    height: 320px !important;
+}
+
+.dropdown:hover .dropDownMenu {
     display: block;
     margin-top: 0;
  }
+
+.postDetails {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    padding: 5px;
+    font-size: 1.3rem;
+    margin: 0;
+    background: white;
+  }
