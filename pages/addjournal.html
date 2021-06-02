@@ -1,117 +1,112 @@
 <div class="row d-flex justify-content-center">
-    <div class="col-lg-6">
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
+  <div class="col-lg-6">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Research</h6>
-    </div>
-    <div class="card-body">
-    <h1 class="text text-primary">Add Journal</h1>
-    <hr> 
-    <form id="addJournal" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-    <label for="type">Journal Type</label>
-        <select class="form-control" name="journalType" id="type">
-            <option value="0">Select Journal Type</option>
-            <option value="Scientia Et Fides">Scientia Et Fides</option>
-            <option value="Patubas">Patubas</option>
-        </select>
-    </div>
-    <div class="form-group">
-      <label for="volume">Volume Number</label>
-        <input class="form-control" type="text" name="volume">
-    </div>
-    <div class="form-group">
-        <label for="pubDate">Publication Date</label>
-          <input class="form-control" type="date" name="pubDate">
       </div>
+      <div class="card-body">
+        <h1 class="text text-primary">Add Journal</h1>
+        <hr>
+        <form id="addJournal" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="type">Journal Type</label>
+            <select class="form-control" name="journalType" id="type">
+              <option value="0">Select Journal Type</option>
+              <option value="Scientia Et Fides">Scientia Et Fides</option>
+              <option value="Patubas">Patubas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="volume">Volume Number</label>
+            <input class="form-control" type="text" name="volume">
+          </div>
+          <div class="form-group">
+            <label for="pubDate">Publication Date</label>
+            <input class="form-control" type="date" name="pubDate">
+          </div>
 
-    <div id="journalName"></div>
-    <div id="coverPhotoName"></div>
-    <button class="btn btn-primary" id="fileSelect">Choose File</button>
-    <button class="btn btn-primary" id="cpSelect">Choose Cover Photo</button>
-    <input id="uploadFile" type="file"  name="jtu" />
-    <input id="uploadCoverPhoto" type="file"  name="cp" />
-    <input class="btn btn-success" type="submit" value="Upload" />
-    </form>
-    </div>
-    <div id="preview"></div>
-    <hr>
-    </div>
+          <div id="journalName"></div>
+          <div id="coverPhotoName"></div>
+          <button class="btn btn-primary" id="fileSelect">Choose File</button>
+          <button class="btn btn-primary" id="cpSelect">Choose Cover Photo</button>
+          <input id="uploadFile" type="file" name="jtu" />
+          <input id="uploadCoverPhoto" type="file" name="cp" />
+          <input class="btn btn-success" type="submit" value="Upload" />
+        </form>
+      </div>
+      <div id="preview"></div>
+      <hr>
     </div>
   </div>
-  
-  
-  
-    
-    
-    <script>
-   $(function() {
-        $('#fileSelect').on('click',function(e){
-           e.preventDefault();
-           $("#preview").fadeOut();
-           $('#uploadFile').trigger('click');
-       });
-       
-    $("#uploadFile").change(function() {
-    filename = this.files[0].name
-    $("#journalName").html('<p> File Name: ' + filename + '</p>');
-  });
+</div>
 
-  $('#cpSelect').on('click',function(e){
-           e.preventDefault();
-           $("#preview").fadeOut();
-           $('#uploadCoverPhoto').trigger('click');
-       });
+
+
+
+
+<script>
+  $(function () {
+    $('#fileSelect').on('click', function (e) {
+      e.preventDefault();
+      $("#preview").fadeOut();
+      $('#uploadFile').trigger('click');
     });
-    $("#uploadCoverPhoto").change(function() {
+
+    $("#uploadFile").change(function () {
+      filename = this.files[0].name
+      $("#journalName").html('<p> File Name: ' + filename + '</p>');
+    });
+
+    $('#cpSelect').on('click', function (e) {
+      e.preventDefault();
+      $("#preview").fadeOut();
+      $('#uploadCoverPhoto').trigger('click');
+    });
+  });
+  $("#uploadCoverPhoto").change(function () {
     coverphoto = this.files[0].name
     $("#coverPhotoName").html('<p> Cover Photo Name: ' + coverphoto + '</p>');
   });
 
-    //Array being sent by ajax as string
-    $(function () {
-    $("#addJournal").on('submit',(function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    $.ajax({
-     url:'../forms/uploadJournal.php',
-     type: "POST",
-     data:  formData,
-     contentType: false,
-           cache: false,
-     processData:false,
-     beforeSend : function()
-     {
-        
-      $("#err").fadeOut();
-     },
-     success: function(data)
-        {
-          console.log(data);
-          if(data=='empty'){
-            $("#err").html("No File Selected. Please select file").fadeIn(); 
-          }
-         else if(data=='existing'){
-            $("#err").html("File already exist").fadeIn(); 
-          }
-      else if(data=='invalid')
-      {
-       // invalid file format.
-       $("#err").html("Only PDF files are allowed").fadeIn();
-      }
-      else if (data=='ok')
-      {
-        $("#success").html("File upload success").fadeIn();
-       $("#form")[0].reset(); 
-      }
+  //Array being sent by ajax as string
+  $(function () {
+    $("#addJournal").on('submit', (function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      $.ajax({
+        url: '../forms/uploadJournal.php',
+        type: "POST",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        beforeSend: function () {
+
+          $("#err").fadeOut();
         },
-       error: function(e) 
-        {
-      $("#err").html(e).fadeIn();
-        }          
+        success: function (data) {
+          console.log(data);
+          if (data == 'empty') {
+            $("#err").html("No File Selected. Please select file").fadeIn();
+          }
+          else if (data == 'existing') {
+            $("#err").html("File already exist").fadeIn();
+          }
+          else if (data == 'invalid') {
+            // invalid file format.
+            $("#err").html("Only PDF files are allowed").fadeIn();
+          }
+          else if (data == 'ok') {
+            $("#success").html("File upload success").fadeIn();
+            $("#form")[0].reset();
+          }
+        },
+        error: function (e) {
+          $("#err").html(e).fadeIn();
+        }
       });
     }
-   ));
-    })
-  
-    </script>
+    ));
+  })
+
+</script>
