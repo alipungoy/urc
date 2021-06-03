@@ -5,7 +5,6 @@ if(isset($_GET["fileName"])){
 
     /* Test whether the file name contains illegal characters
     such as "../" using the regular expression */
-    if(preg_match('/^[^.][-a-z0-9_.]+[a-z]$/s', $file)){
         $filepath = "../journals/" . $file;
 
         // Process download
@@ -24,8 +23,6 @@ if(isset($_GET["fileName"])){
             http_response_code(404);
 	        die();
         }
-    } else {
-        die("Invalid file name!");
-    }
+
 }
 ?>

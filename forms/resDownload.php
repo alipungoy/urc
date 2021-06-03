@@ -5,7 +5,7 @@ if(isset($_GET["fileName"])){
 
     /* Test whether the file name contains illegal characters
     such as "../" using the regular expression */
-    if(preg_match('/^[^.][-A-Za-z0-9_.]+[A-Za-z0-9]$/s', $file)){
+
         $filepath = "../uploads/" . $file;
 
         // Process download
@@ -22,10 +22,8 @@ if(isset($_GET["fileName"])){
             die();
         } else {
             http_response_code(404);
+            header("location: ../pages/filenotfound.html");
 	        die();
         }
-    } else {
-        die("Invalid file name!");
-    }
 }
 ?>
