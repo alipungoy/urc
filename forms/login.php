@@ -35,8 +35,7 @@ try {
                 ),
             )));
         }
-    
-    }else {
+    } else {
         die(json_encode(array(
             'error' => array(
                 'msg' => 'User not found'

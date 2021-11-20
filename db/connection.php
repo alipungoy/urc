@@ -11,12 +11,12 @@ class db
 
     public function __construct()
     {
-		try {
-			$connString = "mysql:host=$this->server;dbname=$this->database";
+        try {
+            $connString = "mysql:host=$this->server;dbname=$this->database";
 
             $this->connection = new PDO($connString, $this->username, $this->password);
-            $this->connection->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-		} catch (PDOException $e) {
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
             //throw $th;
             die("Connection failed: " .  $e->getMessage());
         }

@@ -4,87 +4,85 @@
         <button class="btn btn-primary" id="addNew">Add New Reviewer/Panel</button>
     </div>
     <div class="container-fluid">
-            <section>
-                <div>
-                    <div class="container">
-                        <table class="table table-bordered table-striped"  id="dataTable">
-                            <thead>
-                              <tr>
-                              <th>Name</th>
-                              <th>Department</th>
-                              </tr>
-                              </thead>
-                          </table>
-                      </div>
+        <section>
+            <div>
+                <div class="container">
+                    <table class="table table-bordered table-striped" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Department</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
-            </section>
+            </div>
+        </section>
     </div>
 </div> <!-- /#page-content-wrapper -->
 
 <div id="page-content-wrapper">
-  <div class="container-fluid">
-      <div class="hidden" id="tab2">
-          <section>
-          </section>
+    <div class="container-fluid">
+        <div class="hidden" id="tab2">
+            <section>
+            </section>
         </div>
     </div>
-</div>
 </div>
 
 
 <div class="modal fade" id="panel_reviewer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title text-primary" id="exampleModalLabel">Update Event</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="container">
-                <table class="table table-bordered table-striped"  id="dataTable">
-                    <thead>
-                      <tr>
-                      <th>Name</th>
-                      </tr>
-                      </thead>
-                  </table>
-              </div>
-        </div>
-        <div class="modal-footer">
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="exampleModalLabel">Update Event</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <table class="table table-bordered table-striped" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
         </div>
     </div>
 </div>
-</div>
-
 
 <script>
-    $(function(){
-       
-        $("#dataTable").DataTable({
-  'processing': true,
-  'serverSide': true,
-  'serverMethod': 'post',
-  'lengthChange': true,
-  "scrollY": "500px",
-  'ajax': {
-    'url': '../forms/load_reviewer_panel.php'
-  },
-  'columns': [
-    {data: 'first_name'},
-    {data: 'department'}
-  ],
-  order: [[1, 'asc']],
-        rowGroup: {
-            dataSrc: 'department'
-        }
-});
+    $(function () {
 
-$('#addNew').on('click', function(){
-    $('#panel_reviewer').modal('show');
-})
-});
-   
+        $("#dataTable").DataTable({
+            'processing': true,
+            'serverSide': true,
+            'serverMethod': 'post',
+            'lengthChange': true,
+            "scrollY": "500px",
+            'ajax': {
+                'url': '../forms/load_reviewer_panel.php'
+            },
+            'columns': [
+                { data: 'first_name' },
+                { data: 'department' }
+            ],
+            order: [[1, 'asc']],
+            rowGroup: {
+                dataSrc: 'department'
+            }
+        });
+
+        $('#addNew').on('click', function () {
+            $('#panel_reviewer').modal('show');
+        })
+    });
+
 </script>

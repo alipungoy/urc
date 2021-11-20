@@ -2,11 +2,12 @@
     <h2>Login</h2>
     <form id="frmLogin">
         <div class="form-group">
-            <input id="frmLoginUsername" type="text" class="form-control" name="USERNAME" placeholder="Username or Email" required="required" value="">
+            <input id="frmLoginUsername" type="text" class="form-control" name="USERNAME"
+                placeholder="Username or Email" required="required" value="">
         </div>
         <div class="form-group">
-            <input id="frmLoginPassword" type="password" class="form-control" name="PASSWORD" placeholder="Password" required="required"
-                value="" autocomplete="current-password">
+            <input id="frmLoginPassword" type="password" class="form-control" name="PASSWORD" placeholder="Password"
+                required="required" value="" autocomplete="current-password">
         </div>
         <div class="form-group">
             <button id="frmBtnLogin" type="submit" class="btn btn-info btn-lg btn-block">Log in</button>
@@ -37,11 +38,9 @@
                         alert(data.error.msg);
                     } else {
                         location.reload();
-                            
                     }
-
                 }
             });
         });
     });
-</script>   
+</script>

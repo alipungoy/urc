@@ -23,21 +23,16 @@ $tmp = $_FILES['rtu']['tmp_name'];
 $filename = ($lName.'-'.$img);
 $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
 
-if(!empty($img)){
+if (!empty($img)) {
     $check = ("SELECT rev_number FROM revisions WHERE proposalID = :id");
-$stmt = $db->connection->prepare($check);
-$stmt->bindParam(':id', $id);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt = $db->connection->prepare($check);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if($row < 1){
-
-}
-else if($row >= 1){
-    
-}
-}
-else{
+    if ($row < 1) {
+    } elseif ($row >= 1) {
+    }
+} else {
     echo 'empty';
 }
-?>

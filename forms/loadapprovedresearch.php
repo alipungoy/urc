@@ -15,13 +15,13 @@ $searchValue = $_POST['search']['value'];
 $searchArray = array();
 
 
-## Search 
+## Search
 $searchQuery = " ";
-if($searchValue != ''){
-   $searchQuery = " AND (title LIKE :title OR 
+if ($searchValue != '') {
+    $searchQuery = " AND (title LIKE :title OR 
         funding LIKE :funding";
-   $searchArray = array( 
-        'title'=>"%$searchValue%", 
+    $searchArray = array(
+        'title'=>"%$searchValue%",
         'funding'=>"%$searchValue%"
    );
 }
@@ -41,8 +41,8 @@ $totalRecordwithFilter = $records['allcount'];
 $stmt =  $db->connection->prepare("SELECT * FROM proposal WHERE status = 'Reviewed For Presentation' ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
 
 // Bind values
-foreach($searchArray as $key=>$search){
-  $stmt->bindValue(':'.$key, $search,PDO::PARAM_STR);
+foreach ($searchArray as $key=>$search) {
+    $stmt->bindValue(':'.$key, $search, PDO::PARAM_STR);
 }
 
 $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
@@ -52,8 +52,8 @@ $empRecords = $stmt->fetchAll();
 
 $data = array();
 
-foreach($empRecords as $row){
-  $data[] = array(
+foreach ($empRecords as $row) {
+    $data[] = array(
      "title"=>$row['title'],
      "funding"=>$row['funding'],
      "approvalDate"=>$row['approvalDate'],
@@ -72,5 +72,3 @@ $response = array(
 );
     
 echo json_encode($response);
-    
-?>

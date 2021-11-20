@@ -7,11 +7,9 @@ $db = new db();
 $return_arr = array();
 
 
-$file = fopen("./assets/test.csv","r");
-while(! feof($file))
-  {
-    
-  }
+$file = fopen("./assets/test.csv", "r");
+while (! feof($file)) {
+}
 fclose($file);
     
 ?>

@@ -1,131 +1,128 @@
-<!-- Page Content -->
 <div id="page-content-wrapper">
-    <div class="container-fluid">
-            <section>
-                <div>
-                    <div class="container">
-                        <table class="table table-bordered table-striped"  id="dataTable">
-                          <thead>
-                            <tr>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th></th>
-                            </tr>
-                            </thead>
-                        </table>
-                      </div>
-                </div>
-            </section>
-    </div>
-</div> 
-<!-- /#page-content-wrapper -->
-
+  <div class="container-fluid">
+    <section>
+      <div>
+        <div class="container">
+          <table class="table table-bordered table-striped" id="dataTable">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
 
 <div class="modal fade" id="revUpload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-md" role="document">
+  aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-primary" id="exampleModalLabel">Submit Revised Documents</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
+          <span aria-hidden="true">×</span>
         </button>
       </div>
-        <div class="modal-body mx-auto mt-5">
-          <div class="card-body" id="">
-            <div class="container mb-3">
-              <div id="fileName"></div>
-            </div>
+      <div class="modal-body mx-auto mt-5">
+        <div class="card-body" id="">
+          <div class="container mb-3">
+            <div id="fileName"></div>
+          </div>
           <form class="" id="revUploadForm">
             <input id="uploadRev" type="file" hidden accept="application/pdf" name="rtu" />
             <button class="btn btn-primary" id="fileUpload">File Upload</button>
             <input class="btn btn-success mt-5 my-auto" type="submit" value="Submit Revisions">
 
           </form>
-          </div>
         </div>
-        <div class="modal-footer">
-        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
     </div>
-</div>
+  </div>
 </div>
 
 
 
 
 <script>
-$(function (){
+  $(function () {
 
-$("#dataTable").DataTable({
-'processing': true,
-'serverSide': true,
-'serverMethod': 'post',
-'lengthChange': true,
-'ajax': {
-'url': '../forms/loadresearches.php'
-},
-'columns': [
-{data: 'title'},
-{data: 'status'}
-],
-  'columnDefs': [{
-    className: 'text-center',
-    targets: [2], render: function (a, b, data, d) {
-      if (data.status == 'Reviewed W/Revisions') {
-        return `<button class="btn btn-success" id="approve" value="${data.id}">Submit Revised Documents</button>`;
-      }
-      else if (data.status == 'Reviewed For Presentation'){
-        return 'Waiting For Schedule Of Presentation';
-      }
-      else {
-        return 'Waiting For Reviewer To Finish Reviewing Your Research Proposal'
-      }
-    }
-  }],
-});
+    $("#dataTable").DataTable({
+      'processing': true,
+      'serverSide': true,
+      'serverMethod': 'post',
+      'lengthChange': true,
+      'ajax': {
+        'url': '../forms/loadresearches.php'
+      },
+      'columns': [
+        { data: 'title' },
+        { data: 'status' }
+      ],
+      'columnDefs': [{
+        className: 'text-center',
+        targets: [2], render: function (a, b, data, d) {
+          if (data.status == 'Reviewed W/Revisions') {
+            return `<button class="btn btn-success" id="approve" value="${data.id}">Submit Revised Documents</button>`;
+          }
+          else if (data.status == 'Reviewed For Presentation') {
+            return 'Waiting For Schedule Of Presentation';
+          }
+          else {
+            return 'Waiting For Reviewer To Finish Reviewing Your Research Proposal'
+          }
+        }
+      }],
+    });
 
-$(document).on('click', '#approve', function(){
-  var id = $(this).val();
-  console.log(id)
-  $('#revUpload').modal('show');
-  $('#revUploadForm').append(`<input name="propId" hidden value="${id}">`)
-});
+    $(document).on('click', '#approve', function () {
+      var id = $(this).val();
+      console.log(id)
+      $('#revUpload').modal('show');
+      $('#revUploadForm').append(`<input name="propId" hidden value="${id}">`)
+    });
 
 
-$('#revUploadForm').on('submit', function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
+    $('#revUploadForm').on('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
 
-  $.ajax({
-    url: '../forms/revisions.php',
-    type: 'POST',
-    data: formData,
-    contentType: false,
-          cache: false,
-    processData: false,
-    beforeSend: function(){
+      $.ajax({
+        url: '../forms/revisions.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        beforeSend: function () {
 
-    },
-    success: function(data){
+        },
+        success: function (data) {
 
-    }
+        }
+      });
+    });
+
+
+
   });
-});
 
-
-
-});
-
-$(function() {
-      $('#fileUpload').on('click',function(e){
-         e.preventDefault();
-         $('#uploadRev').trigger('click');
-     });
+  $(function () {
+    $('#fileUpload').on('click', function (e) {
+      e.preventDefault();
+      $('#uploadRev').trigger('click');
+    });
   });
-  $("#uploadRev").change(function() {
-  filename = this.files[0].name
-  $("#fileName").html(filename);
-});
+  $("#uploadRev").change(function () {
+    filename = this.files[0].name
+    $("#fileName").html(filename);
+  });
 
 
 </script>

@@ -8,8 +8,8 @@ $stmt = $db->connection->prepare($show);
 $stmt->execute();
 $row = $stmt->fetchAll();
 
-foreach($row as $rows){
-$events[] = (array('id' => $rows['id'],
+foreach ($row as $rows) {
+    $events[] = (array('id' => $rows['id'],
                     'type' => $rows['type'],
                     'date' => $rows['publication_date'],
                     'vol' => $rows['volume'],

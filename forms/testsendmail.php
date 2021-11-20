@@ -18,8 +18,6 @@ $message = (new Swift_Message('Wonderful Subject'))
 
 $sendmail = $mailer->send($message);
 
-if($sendmail){
+if ($sendmail) {
     echo 'success';
 }
-
-?>

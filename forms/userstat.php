@@ -1,7 +1,9 @@
 <?php
 include('../db/connection.php');
 $db = new db();
-if(!isset($_SESSION)) session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 
 
@@ -23,21 +25,27 @@ $insert = "INSERT INTO userson (uvon, dt) VALUES ('".$uvon."', '".$dt."') ON DUP
 $select = "SELECT * FROM userson";
 
 // Execute each query
-if(!$db->connection->query($delete)) echo 'Error: ';
-if(!$db->connection->query($insert)) echo 'Error: ';
+if (!$db->connection->query($delete)) {
+    echo 'Error: ';
+}
+if (!$db->connection->query($insert)) {
+    echo 'Error: ';
+}
 $result = $db->connection->prepare($select);
 $result->execute();
 
 // if the $result contains at least one row
 if ($result->rowCount() > 0) {
-  // traverse the sets of results and set the number of online visitors and users ($nrvst, $nrusr)
-  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-    if(preg_match($rgxvst, $row['uvon'])) $nrvst++;       // increment the visitors
-    else {
-      $nrusr++;                   // increment the users
+    // traverse the sets of results and set the number of online visitors and users ($nrvst, $nrusr)
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        if (preg_match($rgxvst, $row['uvon'])) {
+            $nrvst++;
+        }       // increment the visitors
+        else {
+            $nrusr++;                   // increment the users
       $usron .= '<br/> - <i>'.$row['uvon']. '</i>';          // stores the user's name
+        }
     }
-  }
 }
 
 $reout = '<div id="uvon" class="pb-5"><h4>Online: '. ($nrusr+$nrvst). '</h4>Visitors: '. $nrvst. '<br/>Users: '. $nrusr. $usron. '</div>';
@@ -45,7 +53,8 @@ $reout = '<div id="uvon" class="pb-5"><h4>Online: '. ($nrusr+$nrvst). '</h4>Visi
 // if access from <script>, with GET 'uvon=showon', adds the string to return into a JS statement
 // in this way the script can also be included in .html files
 
-if(isset($_GET['uvon']) && $_GET['uvon']=='showon') $reout = "document.write('$reout');";
+if (isset($_GET['uvon']) && $_GET['uvon']=='showon') {
+    $reout = "document.write('$reout');";
+}
 
 echo $reout;             // output /display the result
-?>

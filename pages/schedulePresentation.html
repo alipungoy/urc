@@ -1,19 +1,19 @@
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Schedul For Presentation</h1>
-                    </div>
-                    <div class="row">
-                         <div class="col-lg-12">
-                          <!-- Dropdown Card Example -->
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <!-- Card Body -->
-                                <div class="container mt-3">
-                                    <div id="presentaion">
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Schedul For Presentation</h1>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <!-- Dropdown Card Example -->
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <!-- Card Body -->
+      <div class="container mt-3">
+        <div id="presentaion">
 
-                                    </div>
-        
-                                    <!-- <table class="table table-bordered table-striped" id="dataTable">
+        </div>
+
+        <!-- <table class="table table-bordered table-striped" id="dataTable">
                                       <thead>
                                         <tr>
                                         <th>Title</th>
@@ -27,102 +27,100 @@
         
                                         </tbody>
                                     </table> -->
-                                  </div>
-                                </div>
-                            </div>
+      </div>
+    </div>
+  </div>
 
-                        </div>
+</div>
 
 <div class="modal fade" id="schedPresentation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-sm" role="document">
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title text-primary" id="exampleModalLabel">Schedule Presentation</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
+      <div class="modal-header">
+        <h5 class="modal-title text-primary" id="exampleModalLabel">Schedule Presentation</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body" id="testmodal">
+          <form id="schedForm">
+            <input name="time" type="time">
+            <button class="btn btn-primary" id="schedPres">Ok</button>
+          </form>
         </div>
-        <div class="modal-body">
-            <div class="card-body" id="testmodal">
-              <form id="schedForm">
-                <input  name="time" type="time">
-                <button class="btn btn-primary" id="schedPres">Ok</button>
-              </form>
-            </div>
-        </div>
-        <div class="modal-footer">
-        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
     </div>
-</div>
+  </div>
 </div>
 
-                    
+
 
 <script>
-    $(function(){
-      var calendar = $('#presentaion').fullCalendar({
-        editable:true,
-        eventColor: 'blue',
-        eventDidMount: function(info) {
+  $(function () {
+    var calendar = $('#presentaion').fullCalendar({
+      editable: true,
+      eventColor: 'blue',
+      eventDidMount: function (info) {
         var tooltip = new Tooltip(info.el, {
-        title: info.event.extendedProps.description,
-        placement: 'top',
-        trigger: 'hover',
-        container: 'body'
-      });
-    },
-        events: '../forms/showevents.php',
-        selectable:true,
-        selectHelper:true,
-        dayClick: function(date)
-        {
-          alert(date)
-          var formatedDate =  $.fullCalendar.formatDate(date, "Y-MM-DD");
-          console.log(formatedDate)
-         $("#schedPresentation").modal('show');
-         $('#schedForm').append(`<input type="hidden" id="date" name="date" value="${formatedDate}">`);
-        
-         $('#schedForm').on('submit', function(e){
+          title: info.event.extendedProps.description,
+          placement: 'top',
+          trigger: 'hover',
+          container: 'body'
+        });
+      },
+      events: '../forms/showevents.php',
+      selectable: true,
+      selectHelper: true,
+      dayClick: function (date) {
+        alert(date)
+        var formatedDate = $.fullCalendar.formatDate(date, "Y-MM-DD");
+        console.log(formatedDate)
+        $("#schedPresentation").modal('show');
+        $('#schedForm').append(`<input type="hidden" id="date" name="date" value="${formatedDate}">`);
+
+        $('#schedForm').on('submit', function (e) {
           var id = window.location.hash.substr(1);
           var fd = $('#schedForm').serialize();
           var date = $('#date').val();
           console.log(date)
 
-           e.preventDefault();
-           $.ajax({
-           url: '../forms/schedulePresentation.php?id='+id,
-           type: 'post',
-           data: fd,
-           dataType: 'json',
-           success: function(data){
+          e.preventDefault();
+          $.ajax({
+            url: '../forms/schedulePresentation.php?id=' + id,
+            type: 'post',
+            data: fd,
+            dataType: 'json',
+            success: function (data) {
 
-           }
-         })
-        })
-              
-            
-        },
-        eventDrop: function(event, delta, revertFunc) {
-            if (!confirm("Are you sure about to move this event?")) {
-                 revertFunc();
-            } else {
-                var editedDate = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH-MM-SS");
-                $("#event-action-response").hide();
-                $.ajax({
-                    url:"../forms/dropupdate.php",
-                    type:"POST",
-                    data:{id:event.id, start:editedDate, end:editedDate},
-                    success:function(resource)
-                    {
-                     calendar.fullCalendar('refetchEvents');
-                     $("#event-action-response").html("Event moved Successfully");
-                     $("#event-action-response").show();
-                    }
-                })
             }
-        },        
+          })
+        })
+
+
+      },
+      eventDrop: function (event, delta, revertFunc) {
+        if (!confirm("Are you sure about to move this event?")) {
+          revertFunc();
+        } else {
+          var editedDate = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH-MM-SS");
+          $("#event-action-response").hide();
+          $.ajax({
+            url: "../forms/dropupdate.php",
+            type: "POST",
+            data: { id: event.id, start: editedDate, end: editedDate },
+            success: function (resource) {
+              calendar.fullCalendar('refetchEvents');
+              $("#event-action-response").html("Event moved Successfully");
+              $("#event-action-response").show();
+            }
+          })
+        }
+      },
     });
   }
-); 
+  );
 </script>

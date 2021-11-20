@@ -12,23 +12,21 @@ $return_arr = array();
     $result = $stmt->fetchAll();
 
 
-  foreach($result as $row) {
-    $id = $row['id'];
-    $title = $row['event_title'];
-    $details = $row['events_information'];
-    $from = $row['event_from_time'];
-    $to = $row['event_to_time'];
-    $color = $row['color'];
+  foreach ($result as $row) {
+      $id = $row['id'];
+      $title = $row['event_title'];
+      $details = $row['events_information'];
+      $from = $row['event_from_time'];
+      $to = $row['event_to_time'];
+      $color = $row['color'];
 
-  $return_arr[] = array(
+      $return_arr[] = array(
     "id" => $id,
   "title" => $title,
   "description" => $details,
   "start" => $from,
   "end" => $to,
   "color" => $color);
-}
+  }
     
 echo json_encode($return_arr);
-    
-?>

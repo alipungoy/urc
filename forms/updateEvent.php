@@ -13,7 +13,4 @@ $stmt->bindParam(':end', $end);
 $stmt->bindParam(':id', $id);
 $stmt->execute();
 
-echo json_encode(array('msg' => 'update succesful'))
-
-    
-?>
+echo json_encode(array('msg' => 'update succesful'));

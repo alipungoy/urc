@@ -1,30 +1,31 @@
- <main role="main" class="container">
-    <div class="row">
-      <div class="col-md-8 blog-main">
-        <h3 class="pb-3 mb-4 font-italic border-bottom">
-         Background & Rationale
-        </h3>
-    <p id ="aboutcontent">
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8 blog-main">
+      <h3 class="pb-3 mb-4 font-italic border-bottom">
+        Background & Rationale
+      </h3>
+      <p id="aboutcontent">
 
-    </p></div><!-- /.blog-post -->
-    </div><!-- /.blog-main -->
+      </p>
+    </div><!-- /.blog-post -->
+  </div><!-- /.blog-main -->
 
-    </div><!-- /.row -->
+  </div><!-- /.row -->
 
-  </main>
-  <hr>
+</main>
+<hr>
 
-  <script>
+<script>
 
-      $(function () {
-        $.ajax({
-            url: '../forms/loadabout.php',
-            type: 'get',
-            dataType: 'json',
-            success: function(data){
+  $(function () {
+    $.ajax({
+      url: '../forms/loadabout.php',
+      type: 'get',
+      dataType: 'json',
+      success: function (data) {
 
-                $('#aboutcontent').append(data);
-            }
-        })
-      })
-  </script>
+        $('#aboutcontent').append(data);
+      }
+    })
+  })
+</script>

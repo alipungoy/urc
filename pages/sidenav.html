@@ -1,164 +1,159 @@
 <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-                <section>
-                    <div>
-                        <div class="container">
-                            <table class="table table-bordered table-striped"  id="dataTable">
-                              <thead>
-                                <tr>
-                                <th>Firstname</th>
-                                <th>Lastname</th>
-                                <th>Email</th>
-                                <th>Classification</th>
-                                <th>User Type</th>
-                                <th></th>
-                                </tr>
-                                </thead>
-                            </table>
-                            <a href="#" class="btn btn-success" id="assign">
-                              <span class="text">Update User Status</span>
-                            </a>
-                          </div>
-                    </div>
-                </section>
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <section>
+      <div>
+        <div class="container">
+          <table class="table table-bordered table-striped" id="dataTable">
+            <thead>
+              <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Classification</th>
+                <th>User Type</th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+          <a href="#" class="btn btn-success" id="assign">
+            <span class="text">Update User Status</span>
+          </a>
         </div>
-    </div> <!-- /#page-content-wrapper -->
-</div>
-
-
+      </div>
+    </section>
+  </div>
+</div> <!-- /#page-content-wrapper -->
 
 <div class="modal fade" id="changeStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-sm" role="document">
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title text-primary" id="exampleModalLabel">Change User Status</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="card-body">
-              <form
-              class="navbar-search" id="updateStatus">
-              <div class="idToUpdate"></div>
-              <div class="">
-                <select class="form-control" name="user_status">
+      <div class="modal-header">
+        <h5 class="modal-title text-primary" id="exampleModalLabel">Change User Status</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+          <form class="navbar-search" id="updateStatus">
+            <div class="idToUpdate"></div>
+            <div class="">
+              <select class="form-control" name="user_status">
                 <option value="Reviewer">Reviewer</option>
                 <option value="User">User</option>
                 <option value="Admin">Admin</option>
               </select>
-              </div> <br>   
-              <button class="btn btn-primary" type="submit">Change</button>      
+            </div> <br>
+            <button class="btn btn-primary" type="submit">Change</button>
           </form>
         </div>
-                  </div>
-        </div>
-        <div class="modal-footer">
-        </div>
+      </div>
     </div>
+    <div class="modal-footer">
+    </div>
+  </div>
 </div>
 
 
- <script>
-//    $(function() {
-//     $(".navItem").click(function(event) {
-//         event.preventDefault();
+<script>
+  //    $(function() {
+  //     $(".navItem").click(function(event) {
+  //         event.preventDefault();
 
-//         $('.navItem').removeClass("active").removeClass("on");
-//         $(this).addClass("active").addClass("on");
-//         var panel = $(this).attr('panel-id');
+  //         $('.navItem').removeClass("active").removeClass("on");
+  //         $(this).addClass("active").addClass("on");
+  //         var panel = $(this).attr('panel-id');
 
-//         $(".panel").hide();
-//         $("#"+panel).show();
-//     });
-// });
+  //         $(".panel").hide();
+  //         $("#"+panel).show();
+  //     });
+  // });
 
-// //load data
-$(document).ready(function(){
-  // $.ajax({
-  //       url: '../forms/loaddata.php',
-  //       type: 'get',
-  //       dataType: 'JSON',
-  //       success: function(response){
-  //           var len = response.length;
-  //           for(var i=0; i<len; i++){
-  //               var id = response[i].id;
-  //               var firstname = response[i].firstname;
-  //               var lastname = response[i].lastname;
-  //               var email = response[i].email;
-  //               var type = response[i].type;
+  // //load data
+  $(document).ready(function () {
+    // $.ajax({
+    //       url: '../forms/loaddata.php',
+    //       type: 'get',
+    //       dataType: 'JSON',
+    //       success: function(response){
+    //           var len = response.length;
+    //           for(var i=0; i<len; i++){
+    //               var id = response[i].id;
+    //               var firstname = response[i].firstname;
+    //               var lastname = response[i].lastname;
+    //               var email = response[i].email;
+    //               var type = response[i].type;
 
-  //               var tr_str = 
-  //                               "<tr>" +
-  //                               "<td align='center'>" + id + "</td>" +
-  //                               "<td align='center'>" + firstname + "</td>" +
-  //                               "<td align='center'>" + lastname + "</td>" +
-  //                               "<td align='center'>" + email + "</td>" +
-  //                               "<td align='center'>" + type + "</td>" +
-  //                               "<td><input type ='checkbox' id='testbox' value="+ id +" PID="+ id +"></td>" +
-  //                               "</tr>";
+    //               var tr_str = 
+    //                               "<tr>" +
+    //                               "<td align='center'>" + id + "</td>" +
+    //                               "<td align='center'>" + firstname + "</td>" +
+    //                               "<td align='center'>" + lastname + "</td>" +
+    //                               "<td align='center'>" + email + "</td>" +
+    //                               "<td align='center'>" + type + "</td>" +
+    //                               "<td><input type ='checkbox' id='testbox' value="+ id +" PID="+ id +"></td>" +
+    //                               "</tr>";
 
-  //               $("#myTable").append(tr_str);
-              
-  //           }
+    //               $("#myTable").append(tr_str);
 
-  //       }
-  //   });
-});
+    //           }
 
-$("#dataTable").DataTable({
-  'processing': true,
-  'serverSide': true,
-  'serverMethod': 'post',
-  'lengthChange': true,
-  'ajax': {
-    'url': '../forms/loaddata.php'
-  },
-  'columns': [
-    {data: 'first_name'},
-    {data: 'last_name'},
-    {data: 'email'},
-    {data: 'classification'},
-    {data: 'user_type'},
-    {data: 'checkbox'}
-  ]
-});
+    //       }
+    //   });
+  });
 
-$('#assign').on('click', function(e){
-  e.preventDefault();
-  var counter =  $('input[id="userCb"]:checked').length;
-  var id = [];
-    $('input[id="userCb"]:checked').map(function(){
+  $("#dataTable").DataTable({
+    'processing': true,
+    'serverSide': true,
+    'serverMethod': 'post',
+    'lengthChange': true,
+    'ajax': {
+      'url': '../forms/loaddata.php'
+    },
+    'columns': [
+      { data: 'first_name' },
+      { data: 'last_name' },
+      { data: 'email' },
+      { data: 'classification' },
+      { data: 'user_type' },
+      { data: 'checkbox' }
+    ]
+  });
+
+  $('#assign').on('click', function (e) {
+    e.preventDefault();
+    var counter = $('input[id="userCb"]:checked').length;
+    var id = [];
+    $('input[id="userCb"]:checked').map(function () {
       id.push($(this).val());
     })
 
-    if(counter == 0){
+    if (counter == 0) {
       alert('No User Chosen')
     }
-    else
-    {
+    else {
       $('#changeStatus').modal('show');
       $('.idToUpdate').append(`<input type="hidden" id="testid" name="updateId[]" value="${id}">`);
     }
-});
+  });
 
-$('#updateStatus').on('submit', function(e){
-  e.preventDefault();
-  var formData = $('#updateStatus').serialize();
-  var arrid = $('#testid').val();
-   $.ajax({
-   url:'../forms/changestatus.php',
-   type: "POST",
-   data:  formData,
-   dataType: 'json',
-   processData: false,
-   success: function(data){
+  $('#updateStatus').on('submit', function (e) {
+    e.preventDefault();
+    var formData = $('#updateStatus').serialize();
+    var arrid = $('#testid').val();
+    $.ajax({
+      url: '../forms/changestatus.php',
+      type: "POST",
+      data: formData,
+      dataType: 'json',
+      processData: false,
+      success: function (data) {
 
-   }
-});
-})
+      }
+    });
+  })
 
 
 

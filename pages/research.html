@@ -1,23 +1,19 @@
 <div class="container events" id="events">
     <div class="Page-header">
-    <h1>News & Events</h1>
+        <h1>News & Events</h1>
     </div>
-    <!-- start event block -->
-    <!-- end event block -->
-
-
 </div>
 
 <script>
-              $(function(){
-    $.ajax({
-        url: '../include/displayproposal.php',
-        type: 'post',
-        dataType: 'JSON',
-        success: function(response){
-            console.log(response)
-            response.forEach(({id, title, funding, status}) => {
-              var events=`    <div class="row align-items-center event-block no-gutters margin-40px-bottom">
+    $(function () {
+        $.ajax({
+            url: '../include/displayproposal.php',
+            type: 'post',
+            dataType: 'JSON',
+            success: function (response) {
+                console.log(response)
+                response.forEach(({ id, title, funding, status }) => {
+                    var events = `    <div class="row align-items-center event-block no-gutters margin-40px-bottom">
         <div class="col-lg-5 col-sm-12">
             <div class="position-relative">
                 <img src="../assets/images/download.jpg" width="450px" height="250px" alt="">
@@ -35,10 +31,9 @@
         </div>
     </div> <br>`;
 
-              $("#events").append(events);
-
-            })
-        }
+                    $("#events").append(events);
+                })
+            }
+        });
     });
-});
 </script>

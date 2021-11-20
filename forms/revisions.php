@@ -32,77 +32,69 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $revTitle = $row['title'];
 
-if(!empty($img)) {
+if (!empty($img)) {
 
 // $select = ("SELECT * FROM revisions WHERE proposalID = :id");
-// $stmt = $db->connection->prepare($select);
-// $stmt->bindParam(':id', $id);
-// $stmt->execute();
-// $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    // $stmt = $db->connection->prepare($select);
+    // $stmt->bindParam(':id', $id);
+    // $stmt->execute();
+    // $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$check = ("SELECT rev_number FROM revisions WHERE proposalID = :id");
-$stmt = $db->connection->prepare($check);
-$stmt->bindParam(':id', $id);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $check = ("SELECT rev_number FROM revisions WHERE proposalID = :id");
+    $stmt = $db->connection->prepare($check);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-if($row < 1){
-    
-if(!empty($files))
-{
-// get uploaded file's extension
+    if ($row < 1) {
+        if (!empty($files)) {
+            // get uploaded file's extension
 
-// can upload same image using rand function
+            // can upload same image using rand function
 
-// check's valid format
-if(in_array($ext, $valid_extensions)) 
-{ 
-$path = $path.strtolower($filename); 
-if(move_uploaded_file($tmp,$path)) 
-{
+            // check's valid format
+            if (in_array($ext, $valid_extensions)) {
+                $path = $path.strtolower($filename);
+                if (move_uploaded_file($tmp, $path)) {
 
 
     
 //insert form data in the database
-    $sql = ("INSERT INTO revisions (proposalID, revisions_title, rev_number, sub_date) VALUES ('".$id."', '".$revTitle."',  '".$rev_num."', '".$DATE."')");
-     $stmt = $db->connection->prepare($sql);
-     $stmt->execute();
-     $lastID = $db->connection->lastInsertId();
+                    $sql = ("INSERT INTO revisions (proposalID, revisions_title, rev_number, sub_date) VALUES ('".$id."', '".$revTitle."',  '".$rev_num."', '".$DATE."')");
+                    $stmt = $db->connection->prepare($sql);
+                    $stmt->execute();
+                    $lastID = $db->connection->lastInsertId();
 
-     if($stmt){
-         $sql2 = ("INSERT INTO revision_documents (revisionsId, rev_filename, rev_sub_date) VALUE ('".$lastID."', '".$filename."', '".$DATE."')");
-         $stmt = $db->connection->prepare($sql2);
-         $stmt->execute();
-    }
-    }
-    }
-}
-else{
-    echo 'empty';
-}
-}
-elseif ($row >= 1){
-    $select = ("SELECT rev_number FROM revisions WHERE proposalID = '".$id."' ORDER BY rev_number DESC");
-    $stmt = $db->connection->prepare($select);
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    $revNumber = $row['rev_number'];
-
-    echo $revNumber;
-    
-    $sql = ("INSERT INTO revisions (proposalID, revisions_title, rev_number, sub_date) VALUES ('".$id."', '".$revTitle."',  '".$revNumber."'+ 1, '".$DATE."')");
-    $stmt = $db->connection->prepare($sql);
-    $stmt->execute();
-    $lastID = $db->connection->lastInsertId();
-
-    if($stmt){
-        $sql2 = ("INSERT INTO revision_documents (revisionsId, rev_filename, rev_sub_date) VALUE ('".$lastID."', '".$filename."', '".$DATE."')");
-        $stmt = $db->connection->prepare($sql2);
+                    if ($stmt) {
+                        $sql2 = ("INSERT INTO revision_documents (revisionsId, rev_filename, rev_sub_date) VALUE ('".$lastID."', '".$filename."', '".$DATE."')");
+                        $stmt = $db->connection->prepare($sql2);
+                        $stmt->execute();
+                    }
+                }
+            }
+        } else {
+            echo 'empty';
+        }
+    } elseif ($row >= 1) {
+        $select = ("SELECT rev_number FROM revisions WHERE proposalID = '".$id."' ORDER BY rev_number DESC");
+        $stmt = $db->connection->prepare($select);
         $stmt->execute();
-}
-}
-}
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-?>
+        $revNumber = $row['rev_number'];
+
+        echo $revNumber;
+    
+        $sql = ("INSERT INTO revisions (proposalID, revisions_title, rev_number, sub_date) VALUES ('".$id."', '".$revTitle."',  '".$revNumber."'+ 1, '".$DATE."')");
+        $stmt = $db->connection->prepare($sql);
+        $stmt->execute();
+        $lastID = $db->connection->lastInsertId();
+
+        if ($stmt) {
+            $sql2 = ("INSERT INTO revision_documents (revisionsId, rev_filename, rev_sub_date) VALUE ('".$lastID."', '".$filename."', '".$DATE."')");
+            $stmt = $db->connection->prepare($sql2);
+            $stmt->execute();
+        }
+    }
+}

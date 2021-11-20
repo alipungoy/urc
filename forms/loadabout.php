@@ -11,4 +11,3 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $details = $row['about_content'];
 
 echo json_encode($details);
-?>

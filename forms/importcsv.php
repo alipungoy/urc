@@ -10,41 +10,37 @@ $db = new db();
  $tmp_csv = $_FILES['csvtu']['tmp_name'];
  $ext = strtolower(pathinfo($csv, PATHINFO_EXTENSION));
 
- if(!empty($csvfile)){
+ if (!empty($csvfile)) {
+     if (in_array($ext, $allowedfile)) {
+         $opencsv = fopen($tmp_csv, 'r');
+         fgetcsv($opencsv);
 
- if(in_array($ext, $allowedfile)){
-   $opencsv = fopen($tmp_csv, 'r');
-    fgetcsv($opencsv);
+         while (($result = fgetcsv($opencsv)) !== false) {
+             $name = $result[0];
 
-   while(($result = fgetcsv($opencsv)) !== FALSE){
-     $name = $result[0];
+             $check = ("SELECT fullname FROM urc_authors WHERE fullname = '".$result[0]."'");
+             $stmt = $db->connection->prepare($check);
+             $stmt->execute();
+             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-     $check = ("SELECT fullname FROM urc_authors WHERE fullname = '".$result[0]."'");
-     $stmt = $db->connection->prepare($check);
-     $stmt->execute();
-     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-     if($row > 0){
-       $update = ("UPDATE urc_authors SET fullname = '".$name."' ");
-       $stmt = $db->connection->prepare($update);
-       $stmt->execute();
-     }
-     else
-     {
-      $insert = ("INSERT INTO urc_authors (fullname) VALUES ('".$name."')");
-      $stmt = $db->connection->prepare($insert);
-      $stmt->execute();
+             if ($row > 0) {
+                 $update = ("UPDATE urc_authors SET fullname = '".$name."' ");
+                 $stmt = $db->connection->prepare($update);
+                 $stmt->execute();
+             } else {
+                 $insert = ("INSERT INTO urc_authors (fullname) VALUES ('".$name."')");
+                 $stmt = $db->connection->prepare($insert);
+                 $stmt->execute();
       
-      if($stmt){
-        echo 'success';
-      }
+                 if ($stmt) {
+                     echo 'success';
+                 }
+             }
+         }
+         fclose($opencsv);
+     } else {
+         echo('invalid');
      }
-   }
-   fclose($opencsv);
- }
- else{
-  echo ('invalid');
- }
  }
 
 

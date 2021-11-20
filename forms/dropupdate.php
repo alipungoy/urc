@@ -13,9 +13,6 @@ $stmt->bindParam(':end', $end);
 $stmt->bindParam(':id', $id);
 $stmt->execute();
 
-if($stmt){
+if ($stmt) {
     echo json_encode('success');
 }
-
-    
-?>

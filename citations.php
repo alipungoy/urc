@@ -2,8 +2,8 @@
 require_once('./include/header.php');
 
 // Check if usertype is admin
-if($_SESSION['user_type'] !== 'admin') {
-  header("location: ./index.php");  
+if ($_SESSION['user_type'] !== 'admin') {
+    header("location: ./index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ if($_SESSION['user_type'] !== 'admin') {
   require_once('./include/profile-nav.php');
 ?>
   <div>
-  <?php 
+  <?php
   require_once('./pages/sidebar.html');
   require_once('./pages/citations.html');
   ?>

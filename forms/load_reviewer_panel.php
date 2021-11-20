@@ -15,14 +15,14 @@ $searchValue = $_POST['search']['value'];
 $searchArray = array();
 
 
-## Search 
+## Search
 $searchQuery = " ";
-if($searchValue != ''){
-   $searchQuery = " AND (first_name LIKE :first_name OR 
+if ($searchValue != '') {
+    $searchQuery = " AND (first_name LIKE :first_name OR 
         department LIKE :department OR last_name LIKE :last_name OR department LIKE :department) ";
-   $searchArray = array( 
-        'first_name'=>"%$searchValue%", 
-        'last_name'=>"%$searchValue%", 
+    $searchArray = array(
+        'first_name'=>"%$searchValue%",
+        'last_name'=>"%$searchValue%",
         'department'=>"%$searchValue%"
    );
 }
@@ -42,8 +42,8 @@ $totalRecordwithFilter = $records['allcount'];
 $stmt =  $db->connection->prepare("SELECT * FROM user WHERE 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
 
 // Bind values
-foreach($searchArray as $key=>$search){
-  $stmt->bindValue(':'.$key, $search,PDO::PARAM_STR);
+foreach ($searchArray as $key=>$search) {
+    $stmt->bindValue(':'.$key, $search, PDO::PARAM_STR);
 }
 
 $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
@@ -53,8 +53,8 @@ $empRecords = $stmt->fetchAll();
 
 $data = array();
 
-foreach($empRecords as $row){
-  $data[] = array(
+foreach ($empRecords as $row) {
+    $data[] = array(
      "first_name"=>$row['first_name'].' '.$row['last_name'],
      "department"=>$row['department']
   );
@@ -71,5 +71,3 @@ $response = array(
 );
     
 echo json_encode($response);
-    
-?>

@@ -1,265 +1,264 @@
-
-<!-- Page Content -->
 <div id="page-content-wrapper">
+  <section>
     <div class="container-fluid">
-            <section>
-                <div>
-                    <div class="container">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                            <tr>
-                              <th></th>
-                              <th>Title</th>
-                              <th>Status</th>
-                              <th>Assign Reviewer</th>
-                              <th>Approve Research</th>
-                            </tr>
-                          </thead>
-                        </table>
-                    </div> 
-                    </div>
-                    </div> 
-            </section>
+      <div>
+        <div class="container">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Assign Reviewer</th>
+                <th>Approve Research</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
     </div>
-</div> <!-- /#page-content-wrapper -->
+  </section>
+</div>
+
 
 <div class="modal fade" id="assignReviewer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-lg" role="document">
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title text-primary" id="exampleModalLabel">Select Reviewers To Assign</h5>
-            <button class="close" id="closeModal" type="button">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="card-body" id="">
-              <form class="navbar-search" id="reviewerForm">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="reviewerTable" width="100%" cellspacing="0">
-          <thead>
-        <tr>
-          <th>ID</th>
-          <th>Full Name</th>
-          <th>Classification</th>
-          <th></th>
-        </tr>
-      </thead>
-    </table>
-    <button class="btn btn-primary" id="reviewerAssign" type="submit">Assign As Reviewer</button>
-  </div>
+      <div class="modal-header">
+        <h5 class="modal-title text-primary" id="exampleModalLabel">Select Reviewers To Assign</h5>
+        <button class="close" id="closeModal" type="button">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body" id="">
+          <form class="navbar-search" id="reviewerForm">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="reviewerTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Classification</th>
+                    <th></th>
+                  </tr>
+                </thead>
+              </table>
+              <button class="btn btn-primary" id="reviewerAssign" type="submit">Assign As Reviewer</button>
+            </div>
           </form>
-                  </div>
         </div>
-        <div class="modal-footer">
-        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
     </div>
-</div>
+  </div>
 </div>
 
 <div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-sm" role="document">
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
-        <div class="modal-body">
-            <div class="card-body" id="">
-              <form class="navbar-search" id="approveForm">
-                <input type="date" name="approvalDate" id="">
-                <button class="btn btn-primary" type="submit">Approve Research</button>
+      <div class="modal-body">
+        <div class="card-body" id="">
+          <form class="navbar-search" id="approveForm">
+            <input type="date" name="approvalDate" id="">
+            <button class="btn btn-primary" type="submit">Approve Research</button>
           </form>
-          </div>
         </div>
-        <div class="modal-footer">
-        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
     </div>
-</div>
+  </div>
 </div>
 
 
 
 <script>
-$(function() {
-$(".navItem").click(function(event) {
-    event.preventDefault();
+  $(function () {
+    $(".navItem").click(function (event) {
+      event.preventDefault();
 
-    $('.navItem').removeClass("active").removeClass("on");
-    $(this).addClass("active").addClass("on");
-    var panel = $(this).attr('panel-id');
+      $('.navItem').removeClass("active").removeClass("on");
+      $(this).addClass("active").addClass("on");
+      var panel = $(this).attr('panel-id');
 
-    $(".panel").hide();
-    $("#"+panel).show();
-});
-
-
-// $('#dataTable').on('click', '#showMore', function(){
-// var value = $(this).val();
-// console.log(value)
-// $.ajax({
-//       url: '../forms/loadmoreinfo.php?id='+value,
-//       type: 'get',
-//      dataType: 'JSON',
-//       success: function(response){
-//         console.log(response)
-//         response.forEach((r) => format(r))
-//         var dataval = '<tr>'+
-//             '<td>Authors:</td>'+
-//             '<td>'+response.fullname+'</td>'+
-//             '</tr>';
-
-//     $('#testtable').append(dataval)
-// }
-//     });
-// });
+      $(".panel").hide();
+      $("#" + panel).show();
+    });
 
 
-// var table = $("#dataTable").DataTable({
-//   'processing': true,
-//   'serverSide': true,
-//   'dom': 'Blfrtip',
-//   'serverMethod': 'post',
-//   'ajax': {
-//     'url': '../include/displayproposal.php'
-//   },
-//   'columns': [
-//   {
-//      "className": 'details-control',
-//      "orderable":  false,
-//      "data": null,
-//         "defaultContent": '',
-//             },
-//     {data: 'fullname'},
-//     {data: 'title'},
-//     {data: 'status'},
-//   ],
-//   "order": [[1, 'asc']],
-//   rowGroup: {
-//         dataSrc: 'title',
-//                 startRender: function (rows, title) {
-//                   var rTitle = title.toUpperCase();
-//             return `<h4 class="text-primary">${rTitle}</h4>`;
-//         },
-//     }
-// })
+    // $('#dataTable').on('click', '#showMore', function(){
+    // var value = $(this).val();
+    // console.log(value)
+    // $.ajax({
+    //       url: '../forms/loadmoreinfo.php?id='+value,
+    //       type: 'get',
+    //      dataType: 'JSON',
+    //       success: function(response){
+    //         console.log(response)
+    //         response.forEach((r) => format(r))
+    //         var dataval = '<tr>'+
+    //             '<td>Authors:</td>'+
+    //             '<td>'+response.fullname+'</td>'+
+    //             '</tr>';
 
-//load data
-function format ( d ) {
-    // `d` is the original data object for the row
-    
-    return '<table cellpadding="5" cellspacing="0" id="testtable" border="0" style="padding-left:50px;">'+
-    '</table>';
-}
- 
-$(document).ready(function() {
-  var table = $("#dataTable").DataTable({
-  'processing': true,
-  'serverSide': true,
-  "columnDefs": [
-    {"className": "dt-body-center"},
-    { "width": "5%", "targets": 0},
-    { "width": "16%", "targets": 3},
-    { "width": "16%", "targets": 4}
-  ],
-  'dom': 'Blfrtip',
-  'serverMethod': 'post',
-  'ajax': {
-    'url': '../include/displayproposal.php'
-  },
-  'columns': [
-    {data: 'button'},
-    {data: 'title'},
-    {data: 'status'},
-    {data: 'assign'},
-    {data: 'approve'}
-  ],
-  "order": [[1, 'asc']],
-  'columnDefs': [{
-    className: 'text-center',
-    targets: [-1], render: function (a, b, data, d) {
-      if (data.status == 'Reviewed For Presentation') {
-        return `<button class="btn btn-primary" id="approve" value="${data.propid}">Approve</button>`;
-      }
-      return '';
+    //     $('#testtable').append(dataval)
+    // }
+    //     });
+    // });
+
+
+    // var table = $("#dataTable").DataTable({
+    //   'processing': true,
+    //   'serverSide': true,
+    //   'dom': 'Blfrtip',
+    //   'serverMethod': 'post',
+    //   'ajax': {
+    //     'url': '../include/displayproposal.php'
+    //   },
+    //   'columns': [
+    //   {
+    //      "className": 'details-control',
+    //      "orderable":  false,
+    //      "data": null,
+    //         "defaultContent": '',
+    //             },
+    //     {data: 'fullname'},
+    //     {data: 'title'},
+    //     {data: 'status'},
+    //   ],
+    //   "order": [[1, 'asc']],
+    //   rowGroup: {
+    //         dataSrc: 'title',
+    //                 startRender: function (rows, title) {
+    //                   var rTitle = title.toUpperCase();
+    //             return `<h4 class="text-primary">${rTitle}</h4>`;
+    //         },
+    //     }
+    // })
+
+    //load data
+    function format(d) {
+      // `d` is the original data object for the row
+
+      return '<table cellpadding="5" cellspacing="0" id="testtable" border="0" style="padding-left:50px;">' +
+        '</table>';
     }
-  },
-    {
-      className: 'text-center',
-      targets: [3], render: function (a, b, data, d) {
-      if(data.status == 'Pending') {
-        return `<button class="btn btn-success" id="revAssign" PID="${data.propid}">Assign Reviewer</button>`;
-      }
-      return '';
-    }}],
-  
-})
-var combinedData = table
-    .column( )
-    .data()
-    .join( ', ' );
-     
-    // Add event listener for opening and closing details
-    $('#dataTable tbody').on('click', '#showMore', function () {
+
+    $(document).ready(function () {
+      var table = $("#dataTable").DataTable({
+        'processing': true,
+        'serverSide': true,
+        "columnDefs": [
+          { "className": "dt-body-center" },
+          { "width": "5%", "targets": 0 },
+          { "width": "16%", "targets": 3 },
+          { "width": "16%", "targets": 4 }
+        ],
+        'dom': 'Blfrtip',
+        'serverMethod': 'post',
+        'ajax': {
+          'url': '../include/displayproposal.php'
+        },
+        'columns': [
+          { data: 'button' },
+          { data: 'title' },
+          { data: 'status' },
+          { data: 'assign' },
+          { data: 'approve' }
+        ],
+        "order": [[1, 'asc']],
+        'columnDefs': [{
+          className: 'text-center',
+          targets: [-1], render: function (a, b, data, d) {
+            if (data.status == 'Reviewed For Presentation') {
+              return `<button class="btn btn-primary" id="approve" value="${data.propid}">Approve</button>`;
+            }
+            return '';
+          }
+        },
+        {
+          className: 'text-center',
+          targets: [3], render: function (a, b, data, d) {
+            if (data.status == 'Pending') {
+              return `<button class="btn btn-success" id="revAssign" PID="${data.propid}">Assign Reviewer</button>`;
+            }
+            return '';
+          }
+        }],
+
+      })
+      var combinedData = table
+        .column()
+        .data()
+        .join(', ');
+
+      // Add event listener for opening and closing details
+      $('#dataTable tbody').on('click', '#showMore', function () {
         var tr = $(this).closest('tr');
-        var row = table.row( tr );
- 
-        if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
+        var row = table.row(tr);
+
+        if (row.child.isShown()) {
+          // This row is already open - close it
+          row.child.hide();
+          tr.removeClass('shown');
         }
         else {
-            // Open this row
-            var value = $(this).val();
-            console.log(value)
-            $.ajax({
-            url: '../forms/loadmoreinfo.php?id='+value,
+          // Open this row
+          var value = $(this).val();
+          console.log(value)
+          $.ajax({
+            url: '../forms/loadmoreinfo.php?id=' + value,
             type: 'get',
-          dataType: 'JSON',
-            success: function(response){
+            dataType: 'JSON',
+            success: function (response) {
               console.log(response)
-              row.child( `<td><strong>Authors:</strong> <i>${response.aaData.map((r) => r.fullname)}</i></td>` ).show();
-          }
+              row.child(`<td><strong>Authors:</strong> <i>${response.aaData.map((r) => r.fullname)}</i></td>`).show();
+            }
           });
-            tr.addClass('shown');
+          tr.addClass('shown');
         }
-    } );
-} );
-    
-    function open_modal(){
-    $('#dataTable').on('click', '#revAssign', function(e) {
-      e.preventDefault()
-      var PID = $(this).attr('PID');
-      console.log(PID)
-      $('#assignReviewer').modal('show');
-      $('#reviewerForm').append(`<input id="pid" name="PID" value="${PID}" hidden>`);
-    })
-  }
-  open_modal();
+      });
+    });
 
-  
+    function open_modal() {
+      $('#dataTable').on('click', '#revAssign', function (e) {
+        e.preventDefault()
+        var PID = $(this).attr('PID');
+        console.log(PID)
+        $('#assignReviewer').modal('show');
+        $('#reviewerForm').append(`<input id="pid" name="PID" value="${PID}" hidden>`);
+      })
+    }
+    open_modal();
 
 
-// load reviewer data
-function load_reviewers(){
-  $("#reviewerTable").DataTable({
-  'processing': true,
-  'serverSide': true,
-  'serverMethod': 'post',
-  'ajax': {
-    'url': '../forms/loadreviewers.php'
-  },
-  'columns': [
-    {data: 'userID'},
-    {data: 'full_name'},
-    {data: 'classification'},
-    {data: 'checkbox'}
-  ]
-})
-  }
+
+
+    // load reviewer data
+    function load_reviewers() {
+      $("#reviewerTable").DataTable({
+        'processing': true,
+        'serverSide': true,
+        'serverMethod': 'post',
+        'ajax': {
+          'url': '../forms/loadreviewers.php'
+        },
+        'columns': [
+          { data: 'userID' },
+          { data: 'full_name' },
+          { data: 'classification' },
+          { data: 'checkbox' }
+        ]
+      })
+    }
     load_reviewers();
 
-    function close_modal(){
-      $("#closeModal").on('click', function(){
+    function close_modal() {
+      $("#closeModal").on('click', function () {
         $('#assignReviewer').modal('hide');
         $('#pid').remove();
       })
@@ -267,36 +266,36 @@ function load_reviewers(){
     close_modal();
 
 
-    $('#reviewerForm').on('submit', function(e){
+    $('#reviewerForm').on('submit', function (e) {
       e.preventDefault();
       var selected = [];
       var proposalid = $('#pid').attr('value');
-      $('input[class="revCb"]:checked').map(function() {
+      $('input[class="revCb"]:checked').map(function () {
         selected.push($(this).val())
       })
 
       // if(isEmpty(selected)){
       //   alert('No Reviewer Chosen. Please Try Again')
       // }
-      bootbox.confirm("Assign Chosen Reviewer To This Research?", function(result) {
-      if(result){
-      $.ajax({
-      url: '../forms/addreviewer.php?propid='+proposalid,
-      type: 'post',
-      data: {ids:selected},
-     dataType: 'json',
-      success: function(data){
-        bootbox.alert(data.alert.msg);
-        $('#assignReviewer').modal('hide');
-        $('#pid').remove();
-        $('.revCb').prop('checked', false);
-      }
-    });
-  }
-});
+      bootbox.confirm("Assign Chosen Reviewer To This Research?", function (result) {
+        if (result) {
+          $.ajax({
+            url: '../forms/addreviewer.php?propid=' + proposalid,
+            type: 'post',
+            data: { ids: selected },
+            dataType: 'json',
+            success: function (data) {
+              bootbox.alert(data.alert.msg);
+              $('#assignReviewer').modal('hide');
+              $('#pid').remove();
+              $('.revCb').prop('checked', false);
+            }
+          });
+        }
+      });
     })
-     
-    $('#dataTable').on('click', '#approve', function(){
+
+    $('#dataTable').on('click', '#approve', function () {
       var btnid = $(this).val();
       console.log(btnid);
       $('#approveModal').modal('show');
@@ -304,38 +303,38 @@ function load_reviewers(){
     });
 
 
-    $('#approveForm').on('submit', function(e){
+    $('#approveForm').on('submit', function (e) {
       e.preventDefault();
       var fd = $('#approveForm').serialize();
       $.ajax({
-  url: '../forms/approveResearch.php',
-  type: 'post',
-  data: fd,
-  dataType: 'JSON',
-  success: function(response){
-    bootbox.alert('Research Approved');
-  }
-  });
-})
+        url: '../forms/approveResearch.php',
+        type: 'post',
+        data: fd,
+        dataType: 'JSON',
+        success: function (response) {
+          bootbox.alert('Research Approved');
+        }
+      });
+    })
 
 
-//search
+    //search
 
-  // $("#tableSearch").on("keyup", function() {
-  //   var value = $(this).val().toLowerCase();
-  //   $("#myTable tr").filter(function() {
-  //     var result = $(this).text().toLowerCase().indexOf(value);
-  //     $(this).toggle(result > -1)
-  //   });
-  // });
+    // $("#tableSearch").on("keyup", function() {
+    //   var value = $(this).val().toLowerCase();
+    //   $("#myTable tr").filter(function() {
+    //     var result = $(this).text().toLowerCase().indexOf(value);
+    //     $(this).toggle(result > -1)
+    //   });
+    // });
 
-  // $("#filter").change(function() {
-  //   var value = $(this).val().toLowerCase();
-  //   $("#myTable tr").filter(function() {
-  //     var result = $(this).text().toLowerCase().indexOf(value);
-  //     $(this).toggle(result > -1)
-  //   });
-  // });
+    // $("#filter").change(function() {
+    //   var value = $(this).val().toLowerCase();
+    //   $("#myTable tr").filter(function() {
+    //     var result = $(this).text().toLowerCase().indexOf(value);
+    //     $(this).toggle(result > -1)
+    //   });
+    // });
   });
 
 

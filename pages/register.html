@@ -3,7 +3,8 @@
     <p class="hint-text">Create your account. </p>
     <form id="frmRegister">
         <div class="form-group">
-            <input type="text" id="frmRegisterUsername" class="form-control" name="USERNAME" placeholder="Username" required="required" value="">
+            <input type="text" id="frmRegisterUsername" class="form-control" name="USERNAME" placeholder="Username"
+                required="required" value="">
         </div>
         <div class="form-group">
             <div class="row">
@@ -21,18 +22,18 @@
             <input type="text" class="form-control" name="suffix" placeholder="Middle Initial" value="">
         </div>
         <div class="form-group">
-           <select class="form-control" name="classification" id="classification">
-            <option selected="selected" disabled>Choose User Classification</option>
-               <option value="faculty">Faculty</option>
-               <option value="staff">Staff</option>
-           </select>
+            <select class="form-control" name="classification" id="classification">
+                <option selected="selected" disabled>Choose User Classification</option>
+                <option value="faculty">Faculty</option>
+                <option value="staff">Staff</option>
+            </select>
         </div>
         <div class="form-group">
             <input type="email" class="form-control" name="EMAIL" placeholder="E-mail" required="required" value="">
         </div>
         <div class="form-group">
-            <input id="frmRegisterPassword" type="password" class="form-control" name="PASSWORD"
-                placeholder="Password" required="required" value="">
+            <input id="frmRegisterPassword" type="password" class="form-control" name="PASSWORD" placeholder="Password"
+                required="required" value="">
         </div>
         <div class="form-group">
             <input id="frmRegisterConfirmPassword" type="password" class="form-control" name="CONFIRM_PASSWORD"
@@ -45,20 +46,20 @@
     </form>
 </div>
 
-<div id="testModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+<div id="testModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>A verification link has been sent your email</p>
+            </div>
         </div>
-        <div class="modal-body">
-            <p>A verification link has been sent your email</p>
     </div>
-  </div>
-  </div>
 </div>
 
 <script>
@@ -68,8 +69,8 @@
             var FormData = $('#frmRegister').serialize();
             var formPassword = $('#frmRegisterPassword');
             var formConfirmPassword = $('#frmRegisterConfirmPassword');
-            
-            if(formPassword.val().length < 6) {
+
+            if (formPassword.val().length < 6) {
                 alert('Password must be longer than 6 characters');
                 formPassword.val('');
                 formConfirmPassword.val('');
@@ -77,7 +78,7 @@
                 return;
             }
 
-            if(formPassword.val() != formConfirmPassword.val()) {
+            if (formPassword.val() != formConfirmPassword.val()) {
                 alert("Password doesn't match");
                 formConfirmPassword.val('');
 
@@ -95,14 +96,14 @@
                 },
                 success: function (data) {
                     if (data.error) {
-                         $('#frmLoginUsername').text('');
+                        $('#frmLoginUsername').text('');
 
-                         alert(data.error.msg);
+                        alert(data.error.msg);
                     } else {
                         $(".modal-header > .modal-title ").html(data.result);
                         $("#regModal").modal('hide');
                         $("#testModal").modal('show');
-                        setTimeout(function() {$('#testModal').modal('hide');}, 2000);
+                        setTimeout(function () { $('#testModal').modal('hide'); }, 2000);
                         $('#frmRegister').trigger("reset");
                     }
 

@@ -17,4 +17,3 @@ $name[] = array(
 );
 
 echo json_encode($name);
-?>

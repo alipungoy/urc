@@ -1,31 +1,38 @@
 <section id="file-upload">
   <div class="container">
     <div class="row">
-        <div class="col-xs-8 col-xs-offset-2 well">
+      <div class="col-xs-8 col-xs-offset-2 well">
         <form action="upload.php" method="post" enctype="multipart/form-data">
-            <h3>Select File to Upload:</h3>
-            <div class="form-group">
-                <input type="file" name="file1" />
-            </div>
-            <div class="form-group">
-                <input type="submit" name="submit" value="Upload" class="btn btn-info"/>
+          <h3>Select File to Upload:</h3>
+          <div class="form-group">
+            <input type="file" name="file1" />
+          </div>
+          <div class="form-group">
+            <input type="submit" name="submit" value="Upload" class="btn btn-info" />
 
-                <div class="row">
-                  <div class="col-xs-8 col-xs-offset-2">
-                      <table class="table table-striped table-hover">
-                          <thead>
-                              <tr>
-                                  <th>#</th>
-                                  <th>File Name</th>
-                                  <th>View</th>
-                              </tr>
-                          </thead>
-                          <tbody>
+            <div class="row">
+              <div class="col-xs-8 col-xs-offset-2">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>File Name</th>
+                      <th>View</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </section>
 
 <script>
-  $(function(){
-    $(".custom-file-input").on("change", function(){
+  $(function () {
+    $(".custom-file-input").on("change", function () {
       var fileName = $(this).val().split("\\").pop();
       $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });

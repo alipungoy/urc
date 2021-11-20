@@ -2,8 +2,8 @@
     <div class="form-group">
         <div class="row">
             <div class="col-6">
-                <input type="text" class="form-control" name="FIRST_NAME" placeholder="First Name"
-                    required="required" value="">
+                <input type="text" class="form-control" name="FIRST_NAME" placeholder="First Name" required="required"
+                    value="">
             </div>
             <div class="col-6">
                 <input type="text" class="form-control" name="LAST_NAME" placeholder="Last Name" required="required"
@@ -15,7 +15,8 @@
         <input type="text" class="form-control" name="ADDRESS" placeholder="Address" required="required" value="">
     </div>
     <div class="form-group">
-        <input type="text" class="form-control" name="CONTACT_NUMBER" placeholder="Contact Number" required="required" value="">
+        <input type="text" class="form-control" name="CONTACT_NUMBER" placeholder="Contact Number" required="required"
+            value="">
     </div>
     <div class="form-group">
         <button id="frmBtnRegister" type="submit" class="btn btn-info btn-lg btn-block">Register Now</button>
@@ -23,7 +24,7 @@
 </form>
 
 <script>
-      $(function () {
+    $(function () {
         $('#frmRegister').on('submit', function (e) {
             e.preventDefault();
             var FormData = $('#frmRegister').serialize();
@@ -38,11 +39,11 @@
                 },
                 success: function (data) {
                     if (data.error) {
-                         $('#frmLoginUsername').text('');
+                        $('#frmLoginUsername').text('');
 
-                         alert(data.error.msg);
+                        alert(data.error.msg);
                     } else {
-                            alert(data.result);
+                        alert(data.result);
                     }
                 }
             });

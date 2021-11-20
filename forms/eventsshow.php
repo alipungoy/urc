@@ -8,11 +8,11 @@ $stmt = $db->connection->prepare($show);
 $stmt->execute();
 $row = $stmt->fetchAll();
 
-foreach($row as $rows){
-$events[] = (array('id' => $rows['id'],
+foreach ($row as $rows) {
+    $events[] = (array('id' => $rows['id'],
                     'title' => $rows['event_title'],
                     'details' => $rows['events_information'],
-                    'start' => $rows['event_from_time'], 
+                    'start' => $rows['event_from_time'],
                     'end' => $rows['event_to_time']));
 };
 

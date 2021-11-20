@@ -1,14 +1,12 @@
 <div class="counter">
-
-
 </div>
 
 <script>
-    $(function(){
+    $(function () {
         $.ajax({
             url: '../forms/userstat.php',
             method: 'post',
-            success: function(data){
+            success: function (data) {
                 $('.counter').append(data)
             }
         })

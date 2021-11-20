@@ -8,7 +8,7 @@ session_start();
 
 
 $valid_extensions = array('pdf', 'jpg', 'png', 'jpeg'); // valid extensions
-$path = '../journals/'; 
+$path = '../journals/';
 $cpPath = '../journals/coverphoto';// upload directory
 $type = $_POST['journalType'];
 $vol = $_POST['volume'];
@@ -30,45 +30,36 @@ $stmt->bindParam(':volume', $vol);
 $stmt->execute();
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if($row < 1){
-    
-if(!empty($type || $vol) ||  $files || $photo)
-{
-// get uploaded file's extension
+if ($row < 1) {
+    if (!empty($type || $vol) ||  $files || $photo) {
+        // get uploaded file's extension
 
 
-// check's valid format
-if(in_array($ext, $valid_extensions)) 
-{ 
-$path = $path.strtolower($img); 
-if(move_uploaded_file($tmp,$path)) 
-{
-//insert form data in the database
- $insert = ("INSERT INTO journals (type, publication_date, volume, journal_name) VALUES ('".$type."', '".$DATE."', '".$vol."', '".$img."')");
- $stmt=$db->connection->prepare($insert);
- $stmt->execute();
- $lastID = $db->connection->lastInsertId();
+        // check's valid format
+        if (in_array($ext, $valid_extensions)) {
+            $path = $path.strtolower($img);
+            if (move_uploaded_file($tmp, $path)) {
+                //insert form data in the database
+                $insert = ("INSERT INTO journals (type, publication_date, volume, journal_name) VALUES ('".$type."', '".$DATE."', '".$vol."', '".$img."')");
+                $stmt=$db->connection->prepare($insert);
+                $stmt->execute();
+                $lastID = $db->connection->lastInsertId();
  
- if($stmt){
-    if(in_array($cpExt, $valid_extensions)) 
-    { 
-     $cpPath = $cpPath.strtolower($cp);
-     if(move_uploaded_file($tmp_cp, $cpPath)){
-        $insert2 = ("INSERT INTO cover_photo (path, journal_id) VALUES ('".$cp_name."', '".$lastID."')");
-        $stmt=$db->connection->prepare($insert2);
-        $stmt->execute();
-     }
+                if ($stmt) {
+                    if (in_array($cpExt, $valid_extensions)) {
+                        $cpPath = $cpPath.strtolower($cp);
+                        if (move_uploaded_file($tmp_cp, $cpPath)) {
+                            $insert2 = ("INSERT INTO cover_photo (path, journal_id) VALUES ('".$cp_name."', '".$lastID."')");
+                            $stmt=$db->connection->prepare($insert2);
+                            $stmt->execute();
+                        }
+                    }
+                }
+            }
+        } else {
+            echo 'invalid';
+        }
     }
- }
-}
-} 
-else 
-{
-echo 'invalid';
-}
-}
-}
-else {
+} else {
     echo 'existing';
 }
-?>

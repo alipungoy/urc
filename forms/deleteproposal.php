@@ -10,4 +10,3 @@ $stmt->bindParam(':id', $id);
 $stmt->execute();
 
 echo json_encode(array('ok' => array('msg' => 'Proposal Deleted')));
-?>

@@ -20,7 +20,7 @@ $stmt->bindParam(':id', $id);
 $stmt->execute();
 
 
-if($stmt){
+if ($stmt) {
     $select = ("SELECT userID FROM  proposal WHERE proposalID = :id");
     $stmt = $db->connection->prepare($select);
     $stmt->bindParam(':id', $id);
@@ -29,22 +29,19 @@ if($stmt){
     
     $toUserId = $row['userID'];
 
-if($status == 'Reviewed For Presentation'){
-    $sql3 = ("INSERT INTO urc_notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
+    if ($status == 'Reviewed For Presentation') {
+        $sql3 = ("INSERT INTO urc_notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
      ('".$userid."', '".$ToUSER."', '".$forPresentation."', '".$DATE."', '".$notifType."')");
-    $stmt = $db->connection->prepare($sql3);
-    $stmt->execute();
-   }
-   else {
-    $sql4 = ("INSERT INTO urc_notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
+        $stmt = $db->connection->prepare($sql3);
+        $stmt->execute();
+    } else {
+        $sql4 = ("INSERT INTO urc_notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
     ('".$userid."', '".$toUserId."', '".$wRevisions."', '".$DATE."', '".$notifType."')");
-   $stmt = $db->connection->prepare($sql4);
-   $stmt->execute();
-   }
+        $stmt = $db->connection->prepare($sql4);
+        $stmt->execute();
+    }
 
-if($stmt){
-    echo json_encode('success');
+    if ($stmt) {
+        echo json_encode('success');
+    }
 }
-}
-
-?>
