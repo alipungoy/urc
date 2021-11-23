@@ -4,12 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>University Research Center</title>
     <base href="<$path />">
-    <link rel="stylesheet" type="text/css" href="../css/base.css">
-    <link rel="stylesheet" type="text/css" href="../css/style-responsive.css">
-    <link rel="stylesheet" type="text/css" href="../vendor/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../vendor/css/sb-admin-2.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.24/datatables.min.css"/>
+    <link href="../vendor/js/bootstrap.bundle.min.js" rel="stylesheet">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link href="../vendor/fullcalendar.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />

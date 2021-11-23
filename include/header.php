@@ -12,6 +12,11 @@ session_start();
     <base href="<$path />">
     <link rel="stylesheet" type="text/css" href="../css/base.css">
     <link rel="stylesheet" type="text/css" href="../css/style.css"> 
+    <link rel="stylesheet" type="text/css" href="../css/style-responsive.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../vendor/css/sb-admin-2.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.24/datatables.min.css"/> -->
+    <link rel="stylesheet" type="text/css" href="../vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <?php include('scripts.php');?>
     <script src="https://kit.fontawesome.com/51a1170881.js" crossorigin="anonymous"></script>
 </head>
