@@ -1,1 +1,1 @@
-# urc-copy
+# CPU University Research Center
