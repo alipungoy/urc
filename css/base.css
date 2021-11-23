@@ -1,3 +1,5 @@
+@import url('./include/navbar.css');
+
 .form-control{
     height: 40px;
     box-shadow: none;

@@ -1,0 +1,17 @@
+#nav__header {
+    background: white;
+    height: 110px;
+}
+
+#nav__header__text {
+    font-family: Helvetica, sans-serif;
+    letter-spacing: 1px;
+}
+
+#nav__menu {
+    background-color: #e48a2a;
+}
+
+#nav__menu .nav-link {
+    color: white;
+}
