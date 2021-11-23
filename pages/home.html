@@ -59,7 +59,33 @@
     }
 </style>
 
-<div class="container mx-auto pb-5 my-5">
+<div>
+    <div class="owl-carousel owl-theme" id="carouselHero">
+     
+        <div class="item">
+            <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-afte.jpg" />
+        </div>
+        <div class="item">
+            <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-night.jpg" />
+        </div>
+        <div class="item">
+            <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-banner5.jpg" />
+        </div>
+        <div class="item">
+            <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-banner1.jpg" />
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="text-center my-3 fs-1">
+        <a href="../index.php#latest-news" class="text-muted">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </div>
+</div>
+
+<div id="latest-news" class="container mx-auto pb-5 my-5">
     <div class="row justify-content-center">
         <div class="col-lg-7 mt-5 text-center">
             <div class="section-title">
@@ -132,6 +158,24 @@ src="https://www.youtube.com/embed/tgbNymZ7vqY">
 
 <script>
     $(function () {
+        var carouselHero = $('#carouselHero').owlCarousel({
+            loop: true,
+            margin: 10,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true,
+            singleItem: true,
+            navigation: true,
+            items: 1,
+        });
+
+        $('.play').on('click', function () {
+            carouselHero.trigger('play.owl.autoplay', [1000])
+        })
+        $('.stop').on('click', function () {
+            carouselHero.trigger('stop.owl.autoplay')
+        })
+
         var carousel1 = $('#carousel1').owlCarousel({
             loop: true,
             number: 10,
@@ -156,6 +200,7 @@ src="https://www.youtube.com/embed/tgbNymZ7vqY">
                 }
             }
         });
+
         $.ajax({
             url: '../forms/eventsshow.php',
             dataType: 'json',
