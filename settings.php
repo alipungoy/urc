@@ -13,10 +13,10 @@
 
 <body>
     <?php
- require_once('./include/sidebar.php');
- require_once('./include/navbar-auth.php');
- require_once('./pages/profile.html');
- require_once('./include/footer.html');
+  require_once('./include/sidebar.php');
+  require_once('./include/navbar-auth.php');
+  require_once('./pages/settings.html');
+  require_once('./include/footer.html');
 ?>
 </body>
 

@@ -8,7 +8,7 @@ if(!isset($_SESSION['loggedin']) && $_SESSION['user_type'] !== 'user') {
 ?>
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="../css/profile.css">
+<link rel="stylesheet" type="text/css" href="css/profile.css">
 <body>
 <?php
   require_once('./include/navbar.php');

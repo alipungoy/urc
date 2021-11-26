@@ -6,7 +6,7 @@ require_once('./include/sidebar.php');
 if($_SESSION['user_type'] !== 'Admin') {
   header("location: ./index.php");  
 }
-  require_once('./include/profile-nav.php');
+  require_once('./include/navbar-auth.php');
   require_once('./pages/sidenav.html');
-  require_once('./include/navfooter.php')
+  require_once('./include/footer.html')
 ?>

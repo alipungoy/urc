@@ -7,9 +7,9 @@
  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.php">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
     <div class="sidebar-brand-icon rotate-n-15">
-    <img src="../assets/images/logo.png" width="30" height="30" class="d-inline-block align-top"
+    <img src="assets/images/logo.png" width="30" height="30" class="d-inline-block align-top"
             alt="">
     </div>
     <div class="sidebar-brand-text mx-3">University Research Center</div>
@@ -20,7 +20,7 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item">
-    <a class="nav-link" href="../profile.php">
+    <a class="nav-link" href="profile.php">
     <i class="far fa-user"></i>
         <span>Profile</span></a>
 </li>
@@ -45,10 +45,10 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage User:</h6>
-            <a class="collapse-item" href="../sidenav.php">User status</a>
-            <a class="collapse-item" href="../proposals.php">Research Proposals</a>
-            <a class="collapse-item" href="../approvedresearch.php">Approved By Reviewer</a>
-            <a class="collapse-item" href="../reviewer_panel.php">Reviewer/Panel</a>
+            <a class="collapse-item" href="sidenav.php">User status</a>
+            <a class="collapse-item" href="proposals.php">Research Proposals</a>
+            <a class="collapse-item" href="approvedresearch.php">Approved By Reviewer</a>
+            <a class="collapse-item" href="reviewer_panel.php">Reviewer/Panel</a>
         </div>
     </div>
 </li>
@@ -66,7 +66,7 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage User:</h6>
-            <a class="collapse-item" href="../review.php">Assigned Proposals</a>
+            <a class="collapse-item" href="review.php">Assigned Proposals</a>
         </div>
     </div>
 </li>
@@ -110,9 +110,9 @@ if($_SESSION['user_type'] == 'Admin'){
             <h6 class="collapse-header">Site Settings:</h6>
             <a class="collapse-item" href="utilities-color.html">Manage Site Contents</a>
             <a class="collapse-item" href="utilities-border.html">Events</a>
-            <a class="collapse-item" href="../importcsv.php">Import Csv</a>
-            <a class="collapse-item" href="../eventscreation.php">Event Manager</a>
-            <a class="collapse-item" href="../addjournal.php">Add Journal</a>
+            <a class="collapse-item" href="importcsv.php">Import Csv</a>
+            <a class="collapse-item" href="eventscreation.php">Event Manager</a>
+            <a class="collapse-item" href="addjournal.php">Add Journal</a>
         </div>
     </div>
 </li>
@@ -137,8 +137,8 @@ if($_SESSION['user_type'] == 'Admin'){
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Profile Settings:</h6>
-            <a class="collapse-item" href="../profilesettings.php">Profile Info</a>
-            <a class="collapse-item" href="../securitysettings.php">Security</a>
+            <a class="collapse-item" href="profilesettings.php">Profile Info</a>
+            <a class="collapse-item" href="securitysettings.php">Security</a>
         </div>
     </div>
 </li>
@@ -157,9 +157,9 @@ if($_SESSION['user_type'] == 'user' || $_SESSION['user_type'] == 'Reviewer'){
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Research Submission:</h6>
-            <a class="collapse-item" href="../upload.php">Upload</a>
+            <a class="collapse-item" href="upload.php">Upload</a>
             <h6 class="collapse-header">Research Tracker:</h6>
-            <a class="collapse-item" href="../ongoingresearches.php">Research Progress</a>
+            <a class="collapse-item" href="ongoingresearches.php">Research Progress</a>
         </div>
     </div>
 </li>
@@ -172,7 +172,7 @@ if($_SESSION['user_type'] == 'Admin'){
 ?>
 <!-- Nav Item - Charts -->
 <li class="nav-item">
-    <a class="nav-link" href="../userstats.php">
+    <a class="nav-link" href="userstats.php">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Website statistics</span></a>
 </li>

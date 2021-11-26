@@ -4,7 +4,7 @@ require_once('./include/header.php');
 ?>
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="../css/landing.css">
+<link rel="stylesheet" type="text/css" href="css/landing.css">
 <body>
 <?php
   require_once('./include/navbar.php');

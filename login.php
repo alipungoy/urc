@@ -6,7 +6,7 @@ if(isset($_SESSION['loggedin'])) {
 ?>
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="../css/auth.css">
+<link rel="stylesheet" type="text/css" href="css/auth.css">
 <body>
 <?php
   require_once('./include/navbar.php');

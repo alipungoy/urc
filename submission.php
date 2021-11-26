@@ -8,7 +8,7 @@ if($_SESSION['user_type'] !== 'admin') {
 ?>
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="../css/sidebar.css">
+<link rel="stylesheet" type="text/css" href="css/sidebar.css">
 <body>
 <?php
   require_once('./include/navbar.php');

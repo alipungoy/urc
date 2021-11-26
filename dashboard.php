@@ -1,17 +1,22 @@
-<?php
-require_once('./include/header.php');
-if(!isset($_SESSION['loggedin']) || ($_SESSION['usertype'] !== 'admin')){
-  header("location: ./index.php");
-};
-?>
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="../css/sidebar.css">
+<?php
+
+  require_once('./include/header.php');
+
+  if (!isset($_SESSION['loggedin'])) {
+      header('location: index.php');
+  }
+?>
+
+<link rel="stylesheet" type="text/css" href="vendor/css/sb-admin-2.min.css">
+
 <body>
 <?php
-  require_once('./include/navbar.php');
-  require_once('./pages/sidebar.html');
-  require_once('./include/footer.html');
+ require_once('./include/sidebar.php');
+ require_once('./include/navbar-auth.php');
+ require_once('./pages/profile.html');
+ require_once('./include/footer.html');
 ?>
 </body>
 </html>

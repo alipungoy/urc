@@ -9,4 +9,4 @@
     <!-- <script src="vendor/fullcalendar.min.js"></script> -->
     <!-- <script src="vendor/bootbox.min.js"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-    <!-- <script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script> -->>
+    <!-- <script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script> -->

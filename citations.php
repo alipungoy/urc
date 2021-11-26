@@ -8,11 +8,11 @@ if ($_SESSION['user_type'] !== 'admin') {
 ?>
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="../css/sidebar.css">
-<link rel="stylesheet" type="text/css" href="../css/style.css">
+<link rel="stylesheet" type="text/css" href="css/sidebar.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <body>
 <?php
-  require_once('./include/profile-nav.php');
+  require_once('./include/navbar-auth.php');
 ?>
   <div>
   <?php

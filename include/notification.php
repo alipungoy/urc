@@ -32,7 +32,7 @@ if($stmt->rowCount() > 0){
                         </div>
                         <div class="notif">
                         <div class="small text-gray-500">'.$row['notifdate'].'</div>
-                        <span class="font-weight-bold">'.$row['notifMsg'].'</span>
+                        <span class="fw-bold">'.$row['notifMsg'].'</span>
                         </div>
                     </a>
     ';

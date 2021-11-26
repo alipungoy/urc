@@ -1,7 +1,7 @@
 <?php require_once('./include/header.php'); ?>
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
 <body>
 <?php
   require_once('./include/navbar.php');

@@ -1,6 +1,6 @@
 <?php
-include('../include/notifications.php');
-include("../db/connection.php");
+include('include/notifications.php');
+include("db/connection.php");
 $db = new db();
 
 session_start();
