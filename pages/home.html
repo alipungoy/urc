@@ -1,159 +1,98 @@
-<style>
-    .post .article-v2 .entry-title {
-        font-size: 16px;
-        color: #666666;
-        font-weight: 600;
-    }
-
-    .post .article-v2 .article-header {
-        margin-bottom: 15px;
-    }
-
-    .post .article-v2 .article-content-main {
-        -webkit-box-shadow: 1px 0px 20px 1px rgba(0, 0, 0, 0.15);
-        box-shadow: 1px 0px 20px 1px rgba(0, 0, 0, 0.15);
-        padding: 30px;
-        position: relative;
-        background: #fff;
-        margin-top: -75px;
-        border: solid;
-        border-color: rgba(61, 59, 59, 0.15);
-    }
-
-    @media only screen and (max-width: 1024px) {
-        .post .article-v2 .article-content-main {
-            padding: 15px;
-            margin-bottom: 30px;
-        }
-    }
-
-    .post .article-v2 .article-content p:last-of-type {
-        margin-bottom: 0;
-    }
-
-    .post .article-v2 .article-thumb {
-        position: relative;
-        left: 8px;
-        margin-bottom: 0;
-    }
-
-    .post .article-v2 .article-footer {
-        border-top: 1px solid #ebebeb;
-        padding-top: 15px;
-        margin-top: 20px;
-    }
-
-    .post .article-v2 .article-footer .more-link {
-        color: #ffa800;
-    }
-
-    .post .article-v2 .article-footer .footer-meta a {
-        color: #aaa;
-        font-size: 15px;
-        margin-right: 5px;
-    }
-
-    .post .article-v2 .article-footer .footer-meta a i {
-        font-size: 16px;
-        margin-left: 2px;
-    }
-</style>
-
-<div>
-    <div class="owl-carousel owl-theme" id="carouselHero">
-     
-        <div class="item">
-            <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-afte.jpg" />
-        </div>
-        <div class="item">
-            <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-night.jpg" />
-        </div>
-        <div class="item">
-            <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-banner5.jpg" />
-        </div>
-        <div class="item">
-            <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-banner1.jpg" />
-        </div>
+<div class="owl-carousel owl-theme" id="carouselHero">
+    <div class="item">
+        <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-afte.jpg" />
+    </div>
+    <div class="item">
+        <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-night.jpg" />
+    </div>
+    <div class="item">
+        <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-banner5.jpg" />
+    </div>
+    <div class="item">
+        <img src="https://cpu.edu.ph/wp-content/uploads/2020/05/cpu-banner1.jpg" />
     </div>
 </div>
 
 <div>
     <div class="text-center my-3 fs-1">
-        <a href="../index.php#latest-news" class="text-muted">
+        <a href="index.php#latestNews" class="text-muted">
             <i class="fas fa-chevron-down"></i>
         </a>
     </div>
 </div>
 
-<div id="latest-news" class="container mx-auto pb-5 my-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-7 mt-5 text-center">
-            <div class="section-title">
-                <h1 class="text-primary mb-5 font-weight-bold">Latest News</h1>
-                <p></p>
-            </div>
+<section class="d-flex justify-content-center items-center" id="latestNews">
+    <div class="p-5 w-50">
+        <h2 class="cpu-blue fw-bold">Latest News</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+            dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+            deserunt mollit anim id est laborum.
+        </p>
+    </div>
+    <div class="p-5 flex-grow-1">
+        <!-- <div class="owl-carousel owl-theme" id="latestNews">
+        </div> -->
+        <h3>Carousel here</h3>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center items-center" id="patubas">
+    <div class="w-50 text-center">
+        <div class="mb-5">
+            <h2 class="cpu-blue fw-bold">Patubas</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                officia
+                deserunt mollit anim id est laborum.
+            </p>
+        </div>
+        <div>
+            <h3>Pictures in grid style</h3>
+            <a href="journals.php" class="fs-5 fw-bold">View more...</a>
         </div>
     </div>
-    <div class="owl-carousel owl-theme" id="carousel1">
-    </div>
-</div>
+</section>
 
-<div class="container mx-auto my-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-7 mt-5 text-center">
-            <div class="section-title">
-                <h1 class="text-primary font-weight-bold mb-5">Patubas</h1>
-                <p></p>
-            </div>
+<section class="container" id="videos">
+    <h2 class="cpu-blue fw-bold mb-5">Videos</h2>
+    <div class="row">
+        <div class="col">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/Eeccb4dc28I"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </iframe>
+        </div>
+        <div class="col">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/I-RrjMK4K98"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </iframe>
         </div>
     </div>
-    <div class="owl-carousel owl-theme" id="carousel2">
-    </div>
-</div>
-
-<div class="container mx-auto my-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-7 mt-5 text-center">
-            <div class="section-title">
-                <h1 class="text-primary font-weight-bold mb-5">Videos</h1>
-            </div>
+    <div class="row">
+        <div class="col">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/cTsGbJShBVw"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+        <div class="col">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/cTsGbJShBVw"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
         </div>
     </div>
-
-
-    <div class="mb-3 text-center">
-        <iframe width="800" height="315" src="https://www.youtube.com/embed/Eeccb4dc28I" title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-        </iframe>
-    </div>
-    <div class="mb-3 text-center">
-        <iframe width="800" height="315" src="https://www.youtube.com/embed/I-RrjMK4K98" title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-        </iframe>
-    </div>
-    <div class="mb-3 text-center">
-        <iframe width="800" height="315" src="https://www.youtube.com/embed/cTsGbJShBVw" title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-    </div>
-</div>
-
-
-
-<!-- <iframe width="420" height="315"
-src="https://www.youtube.com/embed/tgbNymZ7vqY">
-</iframe>
-<iframe width="420" height="315"
-src="https://www.youtube.com/embed/tgbNymZ7vqY">
-</iframe>
-<iframe width="420" height="315"
-src="https://www.youtube.com/embed/tgbNymZ7vqY">
-</iframe> -->
+</section>
 
 
 <script>
@@ -176,7 +115,7 @@ src="https://www.youtube.com/embed/tgbNymZ7vqY">
             carouselHero.trigger('stop.owl.autoplay')
         })
 
-        var carousel1 = $('#carousel1').owlCarousel({
+        var carouselLatestNews = $('#carouselLatestNews').owlCarousel({
             loop: true,
             number: 10,
             center: true,
@@ -202,13 +141,13 @@ src="https://www.youtube.com/embed/tgbNymZ7vqY">
         });
 
         $.ajax({
-            url: '../forms/eventsshow.php',
+            url: 'forms/eventsshow.php',
             dataType: 'json',
             method: 'post',
             success: function (response) {
                 console.log(response)
                 response.forEach(({ id, title, details, start, end }) => {
-                    carousel1.trigger('add.owl.carousel', [jQuery(`
+                    carouselLatestNews.trigger('add.owl.carousel', [jQuery(`
                     <article class="post">
                         <div class="article-v2">
                             <figure class="article-thumb">
@@ -220,7 +159,7 @@ src="https://www.youtube.com/embed/tgbNymZ7vqY">
                             <div class="article-content-main">
                                 <small class="entry-date">${new Date(start).toDateString()}</small>
                                 <div class="article-header">
-                                    <h2 class="font-weight-bold mb-5 postDetails"><a href="#">${title}</a></h2>
+                                    <h2 class="fw-bold mb-5 postDetails"><a href="#">${title}</a></h2>
                                     <div class="entry-meta">
                                         <div class="entry-cat">
                                         </div>
@@ -254,92 +193,7 @@ src="https://www.youtube.com/embed/tgbNymZ7vqY">
                         <!--  /.article-v2 -->
                     </article>
                     <!--  /.post -->`)]);
-                    carousel1.trigger('refresh.owl.carousel');
-                });
-
-            }
-        });
-
-        var carousel2 = $('#carousel2').owlCarousel({
-            loop: true,
-            number: 10,
-            center: true,
-            smartSpeed: 100,
-            autoplay: true,
-            autoplaySpeed: 1000,
-            mouseDrag: true,
-            autoplayHoverPause: true,
-            nav: true,
-            navText: ["<h5 class='text-primary'>Prev</h5>", "<h5 class='text-primary'>Next</h5>"],
-            margin: 10,
-            responsive: {
-                0: {
-                    items: 3
-                },
-                600: {
-                    items: 3
-                },
-                1000: {
-                    items: 3
-                }
-            }
-        });
-        $.ajax({
-            url: '../forms/journalshow.php',
-            dataType: 'json',
-            method: 'post',
-            success: function (response) {
-                console.log(response)
-                response.forEach(({ id, type, date, vol, cp }) => {
-                    carousel2.trigger('add.owl.carousel', [jQuery(`
-                    <article class="post">
-                        <div class="article-v2">
-                            <figure class="article-thumb">
-                                <a href="#">
-                                    <img src="../upload/${cp}" style="height: 17rem" alt="blog image" />
-                                </a>
-                            </figure>
-                            <!-- /.article-thumb -->
-                            <div class="article-content-main">
-                                <small class="entry-date">${new Date(date).toDateString()}</small>
-                                <div class="article-header">
-                                    <h2 class="entry-title"><a href="#">Volume: ${vol}</a></h2>
-                                    <div class="entry-meta">
-                                        <!-- /.entry-date -->
-                                        <div class="entry-cat">
-                                            <p class="fas fa-user" href="#"> URC</p>
-                                        </div>
-                                        <!--  /.entry-cat -->
-                                    </div>
-                                    <!-- /.entry-meta -->
-                                </div>
-                                <!-- /.article-header -->
-                                <div class="article-content">
-                                    <p></p>
-                                </div>
-                                <!--  /.article-content -->
-                                <div class="article-footer">
-                                    <div class="row">
-                                        <div class="col-6 text-left footer-link">
-                                            <a href="#" class="more-link" id="patubas" value="${id}">Read More</a>
-                                        </div>
-                                        <!--  /.col-6 -->
-                                        <div class="col-6 text-right footer-meta">
-                                            <a href="#">65 <i class="pe-7s-comment"></i></a>
-                                            <a href="#">50 <i class="pe-7s-share"></i></a>
-                                        </div>
-                                        <!--  /.col-6 -->
-                                    </div>
-                                    <!--  /.row -->
-                                </div>
-                                <!--  /.article-footer -->
-                            </div>
-                            <!--  /.article-content-main -->
-                        </div>
-                        <!--  /.article-v2 -->
-                    </article>
-                    <!--  /.post -->`)]);
-                    carousel2.trigger('refresh.owl.carousel');
+                    carouselLatestNews.trigger('refresh.owl.carousel');
                 });
 
             }
@@ -352,15 +206,6 @@ src="https://www.youtube.com/embed/tgbNymZ7vqY">
 
             window.location.href = '../eventsfull.php#' + id
         });
-
-        $(document).on('click', '#patubas', function (e) {
-            e.preventDefault()
-            var id = $(this).attr('value');
-            console.log(id)
-
-            window.location.href = '../showjournal.php#' + id
-        });
-
     });
 
 </script>
