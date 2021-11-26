@@ -1,15 +1,8 @@
 @import url('./include/navbar.css');
+@import url('./variables.css');
+@import url('./override.css');
 
-.form-control{
-    height: 40px;
-    box-shadow: none;
-    color: #969fa4;
-}
-
-.form-control:focus{
-    border-color: #5cb85c;
-}
-
-.form-control, .btn{        
-    border-radius: 3px;
+section {
+    min-height: 95vh;
+    padding-bottom: 3rem;
 }

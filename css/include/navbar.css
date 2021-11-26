@@ -1,6 +1,7 @@
 #nav__header {
     background: white;
-    height: 110px;
+    height: 100px;
+    z-index: 10;
 }
 
 #nav__header__text {
@@ -14,4 +15,14 @@
 
 #nav__menu .nav-link {
     color: white;
+}
+
+#nav__header__container {
+    bottom: -10px;
+}
+
+@media (min-width: 1200px) {
+    #nav__menu__container {
+        width: 75%;
+    }
 }

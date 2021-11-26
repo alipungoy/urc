@@ -1,0 +1,58 @@
+a {
+    text-decoration: none !important;
+}
+
+input#uploadFile {
+    display: none;
+}
+
+input#uploadCoverPhoto {
+    display: none;
+}
+
+input#importcsv {
+    display: none;
+}
+
+.divider {
+    width: 5px;
+    height: auto;
+    display: inline-block;
+}
+
+td.more-details {
+    background: url('assets/images/plussymbol.jpg') no-repeat center center;
+    cursor: pointer;
+    width: 20px;
+    height: 30px;
+}
+
+tr.shown td.more-details {
+    background: url('assets/images/minussymbol.jpg') no-repeat center center;
+}
+
+a.dropdown-item:hover {
+    color: rgb(230, 226, 19);
+}
+
+.dropMenu {
+    width: 220px !important;
+    height: 320px !important;
+}
+
+.dropdown:hover .dropDownMenu {
+    display: block;
+    margin-top: 0;
+}
+
+.postDetails {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    padding: 5px;
+    font-size: 1.3rem;
+    margin: 0;
+    background: white;
+}
