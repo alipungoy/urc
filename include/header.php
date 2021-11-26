@@ -1,6 +1,25 @@
 <?php
-require_once('./path.php');
 session_start();
+
+    $path = $_SERVER['SERVER_NAME'] == 'production.host' ? '/' : getBaseUrl();
+
+    function getBaseUrl() 
+    {
+        // output: /myproject/index.php
+        $currentPath = $_SERVER['PHP_SELF']; 
+
+        // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index ) 
+        $pathInfo = pathinfo($currentPath); 
+
+        // output: localhost
+        $hostName = $_SERVER['HTTP_HOST']; 
+
+        // output: http://
+        $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https://'?'https://':'http://';
+
+        // return: http://localhost/myproject/
+        return $protocol.$hostName.$pathInfo['dirname']."/";
+    }
 ?>
 
 <head>
@@ -8,15 +27,20 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>University Research Center</title>
-    <link rel="icon" type="image/png" href="../assets/images/logo.png" sizes="32x32">
-    <base href="<$path />">
-    <link rel="stylesheet" type="text/css" href="../css/base.css">
-    <link rel="stylesheet" type="text/css" href="../css/style.css"> 
-    <link rel="stylesheet" type="text/css" href="../css/style-responsive.css">
+    <link rel="icon" type="image/png" href="assets/images/logo.png" sizes="32x32">
+    <!-- <base href="<$path />"> -->
+    <base href="<?php echo $path ?>">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/style-responsive.css">
     <!-- <link rel="stylesheet" type="text/css" href="../vendor/css/sb-admin-2.min.css"> -->
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.24/datatables.min.css"/> -->
-    <link rel="stylesheet" type="text/css" href="../vendor/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" /> -->
+    <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
+    <!-- <link href="vendor/fullcalendar.min.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+
     <?php include('scripts.php');?>
-    <script src="https://kit.fontawesome.com/51a1170881.js" crossorigin="anonymous"></script>
 </head>
