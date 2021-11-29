@@ -6,7 +6,7 @@
 </style>
 
 <section class="container mt-5 d-flex justify-content-between">
-   <div>
+   <div class="w-75">
     <h3 class="display-6 mb-3">Contact Us</h3>
     <div id="mapid" class="ml-auto mr-auto"></div>
    </div>
