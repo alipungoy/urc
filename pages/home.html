@@ -21,9 +21,9 @@
     </div>
 </div>
 
-<section class="d-flex justify-content-center items-center" id="latestNews">
+<section class="d-flex justify-content-between" id="latestNews">
     <div class="p-5 w-50">
-        <h2 class="cpu-blue fw-bold">Latest News</h2>
+        <h2 class="cpu-blue fw-bold display-6">Latest News</h2>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
             dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
@@ -32,17 +32,16 @@
             deserunt mollit anim id est laborum.
         </p>
     </div>
-    <div class="p-5 flex-grow-1">
-        <!-- <div class="owl-carousel owl-theme" id="latestNews">
-        </div> -->
-        <h3>Carousel here</h3>
+    <div class="p-5 w-50">
+        <div class="owl-carousel owl-theme" id="carouselLatestNews">
+        </div>
     </div>
 </section>
 
-<section class="d-flex justify-content-center items-center" id="patubas">
-    <div class="w-50 text-center">
-        <div class="mb-5">
-            <h2 class="cpu-blue fw-bold">Patubas</h2>
+<section class="d-flex justify-content-center items-center container" id="patubas">
+    <div>
+        <div class="mb-5 text-center">
+            <h2 class="cpu-blue fw-bold display-6">Patubas</h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -53,10 +52,8 @@
                 deserunt mollit anim id est laborum.
             </p>
         </div>
-        <div>
-            <h3>Pictures in grid style</h3>
-            <a href="journals.php" class="fs-5 fw-bold">View more...</a>
-        </div>
+        <div class="row" id="patubasList"></div>
+        <div class="text-center"><a href="journals.php" class="fs-5 fw-bold">View more Patubas...</a></div>
     </div>
 </section>
 
@@ -108,104 +105,58 @@
             items: 1,
         });
 
-        $('.play').on('click', function () {
-            carouselHero.trigger('play.owl.autoplay', [1000])
-        })
-        $('.stop').on('click', function () {
-            carouselHero.trigger('stop.owl.autoplay')
-        })
-
-        var carouselLatestNews = $('#carouselLatestNews').owlCarousel({
-            loop: true,
-            number: 10,
-            center: true,
-            smartSpeed: 100,
-            autoplay: true,
-            autoplaySpeed: 1000,
-            mouseDrag: true,
-            autoplayHoverPause: true,
-            nav: true,
-            navText: ["<h5 class='text-primary'>Prev</h5>", "<h5 class='text-primary'>Next</h5>"],
-            margin: 10,
-            responsive: {
-                0: {
-                    items: 3
-                },
-                600: {
-                    items: 3
-                },
-                1000: {
-                    items: 3
-                }
-            }
-        });
-
         $.ajax({
-            url: 'forms/eventsshow.php',
+            url: 'forms/get/latest-news.php',
             dataType: 'json',
-            method: 'post',
+            method: 'get',
             success: function (response) {
-                console.log(response)
                 response.forEach(({ id, title, details, start, end }) => {
-                    carouselLatestNews.trigger('add.owl.carousel', [jQuery(`
-                    <article class="post">
-                        <div class="article-v2">
-                            <figure class="article-thumb">
-                                <a href="#">
-                                    <img src="../assets/images/download.jpg" style="height: 17rem" alt="blog image" />
-                                </a>
-                            </figure>
-                            <!-- /.article-thumb -->
-                            <div class="article-content-main">
-                                <small class="entry-date">${new Date(start).toDateString()}</small>
-                                <div class="article-header">
-                                    <h2 class="fw-bold mb-5 postDetails"><a href="#">${title}</a></h2>
-                                    <div class="entry-meta">
-                                        <div class="entry-cat">
-                                        </div>
-                                        <!-- /.entry-date -->
-                                        <!--  /.entry-cat -->
-                                    </div>
-                                    <!-- /.entry-meta -->
+                    $("#carouselLatestNews").append(`<div class="card mx-auto" style="width: 60%;">
+                        <img src="assets/images/news-placeholder.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h5 class="card-title mb-0">${title}</h5>
+                            <small class="text-muted">${new Date(start).toDateString()} - ${new Date(end).toDateString()}</small>
                                 </div>
-                                <!-- /.article-header -->
-                                <div class="article-content">
-                                    <p class="postDetails">${details}&nbsp</p>
-                                </div>
-                                <!--  /.article-content -->
-                                <div class="article-footer">
-                                    <div class="row">
-                                        <div class="col-6 text-left footer-link">
-                                            <a href="#" class="more-link" id="showMore" value="${id}">Read More</a>
-                                        </div>
-                                        <!--  /.col-6 -->
-                                        <div class="col-6 text-right mt-5 footer-meta">
-                                            <small href="#"> CPUURC</small>
-                                        </div>
-                                        <!--  /.col-6 -->
-                                    </div>
-                                    <!--  /.row -->
-                                </div>
-                                <!--  /.article-footer -->
-                            </div>
-                            <!--  /.article-content-main -->
+                            <p class="card-text">${details}</p>
+                            <a href="events-details.php#${id}" class="card-link">Read More</a>
                         </div>
-                        <!--  /.article-v2 -->
-                    </article>
-                    <!--  /.post -->`)]);
-                    carouselLatestNews.trigger('refresh.owl.carousel');
+                    </div>`);
                 });
 
+                var carouselLatestNews = $('#carouselLatestNews').owlCarousel({
+                    loop: true,
+                    margin: 10,
+                    autoplay: true,
+                    autoplayTimeout: 4000,
+                    autoplayHoverPause: true,
+                    singleItem: true,
+                    navigation: true,
+                    items: 1,
+                });
             }
         });
 
-        $(document).on('click', '#showMore', function (e) {
-            e.preventDefault()
-            var id = $(this).attr('value');
-            console.log(id)
 
-            window.location.href = '../eventsfull.php#' + id
+        $.ajax({
+            url: 'forms/get/journals.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (response) {
+                response.forEach(({ id, type, date, vol, cp }) => {
+                    $("#patubasList").append(`<div class="col-4 p-3">
+                        <a href="journal-details.php#${id}" class="card-link">
+                            <img src="upload/${cp}" class="card-img-top" style="height: 18rem">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h5 class="card-title mb-0">${vol}</h5>
+                                    <small class="text-muted">${new Date(date).toDateString()}</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>`);
+                });
+            }
         });
     });
-
 </script>

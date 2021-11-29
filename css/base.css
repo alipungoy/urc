@@ -6,3 +6,19 @@ section {
     min-height: 95vh;
     padding-bottom: 3rem;
 }
+
+.common-container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.common-container:nth-child(2) {
+    width: 30%;
+}
+
+@media only screen and (max-width: 768px) {
+    .common-container {
+        flex-direction: row;
+    }
+}

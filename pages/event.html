@@ -1,44 +1,30 @@
-<section class="container events mt-5" id="events">
-  <h2 class="cpu-blue fw-bold mb-5">News & Events</h2>
-  <div class="card">
-    <div class="card-body" id="pagination_data">
-    </div>
-  </div>
+<section class="container mt-5">
+  <h3 class="display-6 mb-3">News and Events</h3>
+  <div id="latestNews" class="row"></div>
 </section>
 
 <script>
-  $(document).ready(function () {
-    var location = window.location.hash = '1';
-    load_data();
-    function load_data(page) {
+  $(function () {
       $.ajax({
-        url: "../forms/displayevents.php",
-        method: "POST",
-        data: { page: page },
-        success: function (data) {
-          $('#pagination_data').html(data);
-        }
-      })
-    }
-    $(document).on('click', '.page-link', function (e) {
-      e.preventDefault()
-      var page = $(this).attr("id");
-      //   var active = $('.page').first('li');
-      window.location.hash = page;
-      // var id = $('.page-link').last().attr('id');
-      //   console.log(id)
-      //   if(page === id){
-      //       $('.next').addClass('disabled');
-      //   }
-      load_data(page);
-    });
-    //  $(document).on('click', '.next', function(e){ 
-    //      e.preventDefault(); 
-    //       var page = $(this).attr("id"); 
-    //       var location = window.location.hash=page++; 
-    //       console.log(location)
-    //       load_data(locat);  
-    //  });
-
+          url: 'forms/get/latest-news.php',
+          dataType: 'json',
+          method: 'get',
+          success: function (response) {
+            response.forEach(({ id, title, details, start, end }) => {
+                    $("#latestNews").append(`<div class="col-4"><div class="card  m-1">
+                        <img src="assets/images/news-placeholder.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h5 class="card-title mb-0">${title}</h5>
+                            <small class="text-muted">${new Date(start).toDateString()} - ${new Date(end).toDateString()}</small>
+                                </div>
+                            <p class="card-text">${details}</p>
+                            <a href="events-details.php#${id}" class="card-link">Read More</a>
+                        </div>
+                    </div></div>`);
+                });
+          }
+      });
   });
+
 </script>

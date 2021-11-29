@@ -1,13 +1,16 @@
 <style>
   #mapid {
     height: 655px;
-    width: 444px;
+    width: 500px;
   }
 </style>
 
-<section class="container mt-5">
-    <h2 class="cpu-blue fw-bold mb-3">Contact Us</h2>
+<section class="container mt-5 d-flex justify-content-between">
+   <div>
+    <h3 class="display-6 mb-3">Contact Us</h3>
     <div id="mapid" class="ml-auto mr-auto"></div>
+   </div>
+   <?php include('include/quick-links.html');?>
 </section>
 
 <script>

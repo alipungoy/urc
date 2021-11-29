@@ -1,0 +1,30 @@
+<section class="container mt-5">
+    <h3 class="display-6 mb-3">Jorunals</h3>
+    <div id="patubasList" class="row"></div>
+</section>
+
+<script>
+    $(function () {
+        $.ajax({
+            url: 'forms/get/journals.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (response) {
+                response.forEach(({ id, type, date, vol, cp }) => {
+                    $("#patubasList").append(`<div class="col-4 p-3">
+                        <a href="events-details.php#${id}" class="card-link">
+                            <img src="upload/${cp}" class="card-img-top" style="height: 18rem">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h5 class="card-title mb-0">${vol}</h5>
+                                <small class="text-muted">${new Date(date).toDateString()}</small>
+                                    </div>
+                            </div>
+                        </a>
+                    </div>`);
+                });
+            }
+        });
+    });
+
+</script>

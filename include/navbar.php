@@ -23,12 +23,12 @@
                         About Us
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarAboutUs">
-                        <li><a class="dropdown-item" href="background-and-rationale.php">Bacground & Rationale</a></li>
+                        <li><a class="dropdown-item" href="background-and-rationale.php">Background & Rationale</a></li>
                         <li><a class="dropdown-item" href="legal-bases.php">Legal Bases</a></li>
                         <li><a class="dropdown-item" href="vision-mission-and-objectives.php">Vision, Mission, &
                                 Objectives</a></li>
                         <li><a class="dropdown-item" href="core-values.php">Core Values</a></li>
-                        <li><a class="dropdown-item" href="program-management.php">Program Managment</a></li>
+                        <li><a class="dropdown-item" href="program-management.php">Program Management</a></li>
                         <li><a class="dropdown-item" href="major-programs.php">Major Programs</a></li>
                         <li><a class="dropdown-item" href="research-process-flow.php">Research Process Flow</a></li>
                     </ul>
