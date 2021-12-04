@@ -1,0 +1,198 @@
+<section>
+  <div class="row d-flex justify-content-center">
+    <div class="col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 fw-bold text-primary">Research</h6>
+        </div>
+        <div class="card-body">
+          <h1 class="text text-primary">Research Submission</h1>
+          <hr>
+          <form id="form" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="name">Research title</label>
+              <textarea type="text" class="form-control" id="title" name="title" cols="30" rows="3" required></textarea>
+            </div>
+            <div class="form-group mr-2">
+              <label for="funding">Funding Type:</label>
+              <select class="form-control" name="funding" id="funding" required>
+                <option value="">Select Funding Type</option>
+                <option value="Externally Funded Research">Externally Funded Research</option>
+                <option value="Internally Funded Research">Internally Funded Research</option>
+              </select>
+            </div>
+            <div class="form-group" id="mainAuth">
+            </div>
+            <div class="form-group mt-3">
+              <label for="selectCoAuthor">Co-Author</label>
+              <select class="form-control" name="coAuth[]" id="selectCoAuthor">
+              </select><br>
+              <small style="font-style:italic;color:blue">*Choose Co-Authors If Available</small>
+            </div>
+            <div class="container">
+              <button class="btn btn-sm btn-primary mt-3 mr-2" id="fileSelect">Upload File</button>
+              <input id="uploadFile" type="file" accept="application/pdf" name="ftu" />
+              <span id="filename"></span>
+              <div>
+                <input class="btn btn-success mt-5" type="submit" value="Submit Research">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div id="preview"></div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  $(function () {
+    $('#fileSelect').on('click', function (e) {
+      e.preventDefault();
+      $("#preview").fadeOut();
+      $('#uploadFile').trigger('click');
+    });
+  });
+  $("#uploadFile").change(function () {
+    filename = this.files[0].name
+    $("#filename").html(filename);
+  });
+
+  // $('#funding').select2({
+  //   minimumResultsForSearch: Infinity
+  // });
+
+  $(function () {
+    $.ajax({
+      url: 'forms/loadname.php',
+      type: "POST",
+      dataType: 'json',
+      success: function (data) {
+        console.log(data)
+        data.forEach(({ fName, lName }) => {
+
+          var mainAuthor = `<label for="country">Main Author</label>
+    <input class="form-control" type="text" id="" name="mainAuthor" value="${fName} ${lName}" readonly>`;
+
+          $('#mainAuth').append(mainAuthor)
+        })
+      }
+    });
+  }
+  );
+
+
+  $('#selectCoAuthor').select2({
+    multiple: true,
+    maximumSelectionLength: 9,
+    placeholder: 'Select Co-Author',
+    ajax: {
+      url: 'forms/loadauthors.php',
+      type: "post",
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return {
+          searchTerm: params.term // search term
+        };
+      },
+      processResults: function (response) {
+        return {
+          results: response
+        };
+      },
+      cache: true
+    }
+  });
+
+  //Array being sent by ajax as string
+  $(function () {
+    $("#form").on('submit', (function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      $.ajax({
+        url: 'forms/upload.php',
+        type: "POST",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        beforeSend: function () {
+
+          $("#err").fadeOut();
+        },
+        success: function (data) {
+          console.log(data);
+          if (data == 'empty') {
+            bootbox.alert('No File Selected!')
+          }
+          else if (data == 'existing') {
+            bootbox.alert({
+              message: 'A Research With The Same Title Has Already Been Submitted!',
+              buttons: {
+                ok: {
+                  label: 'Understood',
+                  className: 'btn-danger'
+                }
+              }
+            })
+          }
+          else if (data == 'invalid') {
+            // invalid file format.
+            bootbox.alert('Only PDF Files Allowed!')
+          }
+          else if (data == 'ok') {
+            bootbox.alert('File Upload Successful');
+          }
+        },
+      });
+    }
+    ));
+  })
+
+
+// $(function(){
+//   $("#authorSearch").on("keyup", function() {
+//     var value = $(this).val().toLowerCase();
+//     $("#mainAuthorBody tr").filter(function() {
+//       var result = $(this).text().toLowerCase().indexOf(value);
+//       $(this).toggle(result > -1)
+//     });
+//   });
+// });
+
+// $(function(){
+//   $("#mainAuthorFilter").change(function() {
+//     var value = $(this).val().toLowerCase();
+//     $("#mainAuthorBody tr").filter(function() {
+//       var result = $(this).text().toLowerCase().indexOf(value);
+//       $(this).toggle(result > -1)
+//     });
+//   });
+// });
+
+// $(function(){
+//   $("#coAuthorSearch").on("keyup", function() {
+//     var value = $(this).val().toLowerCase();
+//     $("#coAuthorBody tr").filter(function() {
+//       var result = $(this).text().toLowerCase().indexOf(value);
+//       $(this).toggle(result > -1)
+//     });
+//   });
+// });
+
+// $(function(){
+//   $("#CoAuthorFilter").change(function() {
+//     var value = $(this).val().toLowerCase();
+//     $("#coAuthorBody tr").filter(function() {
+//       var result = $(this).text().toLowerCase().indexOf(value);
+//       $(this).toggle(result > -1)
+//     });
+//   });
+// });
+
+// $("#checkall").on('click', function(){
+//     $('input:checkbox').not(this).prop('checked', this.checked);
+// });
+</script>
