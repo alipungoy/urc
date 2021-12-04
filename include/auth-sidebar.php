@@ -69,7 +69,7 @@
             </button>
             <div class="collapse ms-5" id="researches-collapse" bis_skin_checked="1">
                 <ul class="fw-normal pb-1 small nav nav-pills flex-column">
-                    <li class="nav-item"><a href="upload.php" class="text-white nav-link">Research Submissions</a></li>
+                    <li class="nav-item"><a href="submission.php" class="text-white nav-link">Research Submissions</a></li>
                     <li class="nav-item"><a href="ongoing-researches.php" class="text-white nav-link">Research Tracker</a></li>
                 </ul>
             </div>
@@ -116,13 +116,24 @@ $(function() {
     const path = window.location.pathname;
     const [currPagePath] = path.split('/').slice(-1);
 
-    const userManagementLinks = ['user-management.php', 'reviewer-panel.php', 'approved-research.php']
-    const validLinks = ['dashboard.php', ...userManagementLinks]
+    const userManagementLinks = ['user-management.php', 'reviewer-panel.php', 'proposals.php', 'approved-research.php']
+    const requestsLinks = [];
+    const researchesLinks = ['submission.php', 'ongoing-researches.php'];
+
+    const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', ...userManagementLinks, ...requestsLinks, ...researchesLinks]
 
 
     if (validLinks.includes(currPagePath)) {
         if (userManagementLinks.includes(currPagePath)) {
             $('#user-management-collapse').addClass('show')
+        }
+
+        if (requestsLinks.includes(currPagePath)) {
+            $('#requests-collapse').addClass('show')
+        }
+
+        if (researchesLinks.includes(currPagePath)) {
+            $('#researches-collapse').addClass('show')
         }
 
         $(`a[href='${currPagePath}']`).addClass('active');
