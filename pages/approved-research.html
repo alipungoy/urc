@@ -1,35 +1,15 @@
-<!-- Page Content -->
-<div id="page-content-wrapper">
-    <div class="container-fluid">
-        <section>
-            <div>
-                <div class="container">
-                    <table class="table table-bordered table-striped" id="dataTable">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Funding</th>
-                                <th>Approval Date</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </div>
-</div> <!-- /#page-content-wrapper -->
-
-<div id="page-content-wrapper">
-    <div class="container-fluid">
-        <div class="hidden" id="tab2">
-            <section>
-            </section>
-        </div>
-    </div>
-</div>
-</div>
-
+<section>
+    <table class="table table-bordered table-striped" id="dataTable">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Funding</th>
+                <th>Approval Date</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</section>
 
 <div class="modal fade" id="schedPresentation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -60,7 +40,7 @@
             'serverSide': true,
             'serverMethod': 'post',
             'ajax': {
-                'url': '../forms/loadapprovedresearch.php'
+                'url': 'forms/loadapprovedresearch.php'
             },
             'columns': [
                 { data: 'title' },
@@ -76,6 +56,4 @@
         console.log(id)
         window.location.href = '../researchpresentation.php#' + id;
     })
-
-
 </script>

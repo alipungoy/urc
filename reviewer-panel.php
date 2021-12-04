@@ -18,7 +18,7 @@
     <main>
         <?php
  require_once('./include/auth-sidebar.php');
- require_once('./pages/review.html');
+ require_once('./pages/reviewer-panel.html');
 ?>
     </main>
 </body>

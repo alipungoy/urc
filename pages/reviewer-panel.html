@@ -1,35 +1,16 @@
-<!-- Page Content -->
-<div id="page-content-wrapper">
-    <div class="mb-5 mr-5 d-flex justify-content-end">
+<section>
+    <div class="mb-3">
         <button class="btn btn-primary" id="addNew">Add New Reviewer/Panel</button>
     </div>
-    <div class="container-fluid">
-        <section>
-            <div>
-                <div class="container">
-                    <table class="table table-bordered table-striped" id="dataTable">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Department</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </div>
-</div> <!-- /#page-content-wrapper -->
-
-<div id="page-content-wrapper">
-    <div class="container-fluid">
-        <div class="hidden" id="tab2">
-            <section>
-            </section>
-        </div>
-    </div>
-</div>
-
+    <table class="table table-bordered table-striped" id="dataTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+    </table>
+</section>
 
 <div class="modal fade" id="panel_reviewer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -68,7 +49,7 @@
             'lengthChange': true,
             "scrollY": "500px",
             'ajax': {
-                'url': '../forms/load_reviewer_panel.php'
+                'url': 'forms/load_reviewer_panel.php'
             },
             'columns': [
                 { data: 'first_name' },

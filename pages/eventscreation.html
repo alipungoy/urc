@@ -145,7 +145,7 @@
                     container: 'body'
                 });
             },
-            events: '../forms/showevents.php',
+            events: 'forms/showevents.php',
             selectable: true,
             selectHelper: true,
             eventClick: function (event) {
@@ -161,7 +161,7 @@
 
                         $.ajax({
                             type: 'post',
-                            url: '../forms/updateEvent.php?id=' + id,
+                            url: 'forms/updateEvent.php?id=' + id,
                             data: eventForm,
                             dataType: 'json',
                             encode: true,
@@ -187,7 +187,7 @@
                         var editedDate = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH-MM-SS");
                         $("#event-action-response").hide();
                         $.ajax({
-                            url: "../forms/dropupdate.php",
+                            url: "forms/dropupdate.php",
                             type: "POST",
                             data: { id: event.id, start: editedDate, end: editedDate },
                             success: function (resource) {
@@ -207,7 +207,7 @@
 
                 $.ajax({
                     type: 'post',
-                    url: '../forms/createevent.php',
+                    url: 'forms/createevent.php',
                     data: eventForm,
                     dataType: 'json',
                     encode: true,
@@ -223,77 +223,4 @@
             })
         })
     });
-
-
-
-                    // $(function(){
-                    //         $('#reset').on('click', function() {
-                    //             $('.eventform').trigger('reset');
-                    //         })
-                    //     })
-
-                    // $('#checktest').on('click', function(){
-                    //     var checkboxcheck = $('input[name="regOk"]').prop('checked');
-                    //     console.log(checkboxcheck)
-                    // })
-
-                    // $('#checktest').on('click', function(){
-                    //     var formData =  $('.eventform').serialize();
-                    //    console.log(formData)
-                    // })
-
-
-
-
-
-// $(function(){
-//   $.ajax({
-//         url: '../forms/showevents.php',
-//         type: 'get',
-//         dataType: 'JSON',
-//         success: function(response){
-//             var len = response.length;
-//             for(var i=0; i<len; i++){
-//                 var title = response[i].title;
-//                 var date = response[i].date;
-//                 var from = response[i].startTime;
-//                 var to = response[i].endTime;
-
-//                 var events = 
-//                                 "<tr>" +
-//                                 "<td align='center'>" + title + "</td>" +
-//                                 "<td align='center'>" + date + "</td>" +
-//                                 "<td align='center'>" + from + "</td>" +
-//                                 "<td align='center'>" + to + "</td>" +
-//                                 "</tr>";
-
-//                 $("#myTable").append(events);
-
-//             }
-
-//         }
-//     });
-// });    
-
-// $(function(){
-//     $.ajax({
-//         url: '../forms/showevents.php',
-//         type: 'post',
-//         dataType: 'JSON',
-//         success: function(response){
-//             response.forEach(({ title, details, date, startTime, endTime }) => {
-//               var events=`<tr>
-//                 <td align='center'>${title}</td>
-//                 <td align='center'>${details}</td>
-//                 <td align='center'>${date}</td>
-//                 <td align='center'>${startTime}</td>
-//                 <td align='center'>${endTime}</td>
-//                 </tr>`;
-
-//               $("#myTable").append(events);
-
-//             })
-//         }
-//     });
-// });
 </script>

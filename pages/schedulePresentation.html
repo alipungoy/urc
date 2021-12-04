@@ -72,7 +72,7 @@
           container: 'body'
         });
       },
-      events: '../forms/showevents.php',
+      events: 'forms/showevents.php',
       selectable: true,
       selectHelper: true,
       dayClick: function (date) {
@@ -90,7 +90,7 @@
 
           e.preventDefault();
           $.ajax({
-            url: '../forms/schedulePresentation.php?id=' + id,
+            url: 'forms/schedulePresentation.php?id=' + id,
             type: 'post',
             data: fd,
             dataType: 'json',
@@ -109,7 +109,7 @@
           var editedDate = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH-MM-SS");
           $("#event-action-response").hide();
           $.ajax({
-            url: "../forms/dropupdate.php",
+            url: "forms/dropupdate.php",
             type: "POST",
             data: { id: event.id, start: editedDate, end: editedDate },
             success: function (resource) {

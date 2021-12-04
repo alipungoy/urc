@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-    $path = $_SERVER['SERVER_NAME'] == 'production.host' ? '/' : getBaseUrl();
+    $path = getBaseUrl();
 
     function getBaseUrl() 
     {
@@ -29,16 +29,13 @@ session_start();
     <title>University Research Center</title>
     <link rel="icon" type="image/png" href="assets/images/logo.png" sizes="32x32">
     <base href="<?php echo $path ?>">
-    <link rel="stylesheet" type="text/css" href="css/base.css">
-    <link rel="stylesheet" type="text/css" href="css/style-responsive.css">
     <link rel="stylesheet" type="text/css" href="vendor/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="../vendor/css/sb-admin-2.min.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.24/datatables.min.css"/> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
     <!-- <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" /> -->
     <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
     <!-- <link href="vendor/fullcalendar.min.css" rel="stylesheet"> -->
-    <!-- <link href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css"> -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
     <?php include('scripts.php');?>
 </head>

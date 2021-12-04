@@ -10,7 +10,7 @@
     <main>
         <?php
  require_once('./include/auth-sidebar.php');
- require_once('./pages/upload.html');
+ require_once('./pages/placeholder.html');
 ?>
     </main>
 </body>

@@ -45,7 +45,7 @@
     $("#csvimport").on('submit', function (e) {
         e.preventDefault();
         $.ajax({
-            url: '../forms/importcsv.php',
+            url: 'forms/importcsv.php',
             type: 'POST',
             data: new FormData(this),
             contentType: false,

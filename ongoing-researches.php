@@ -13,13 +13,12 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.24/datatables.min.js"></script>
 <script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
 
-
 <body>
     <main>
         <?php
  require_once('./include/auth-sidebar.php');
- require_once('./pages/review.html');
-?>
+ require_once('./pages/ongoing-researches.html');
+ ?>
     </main>
 </body>
 

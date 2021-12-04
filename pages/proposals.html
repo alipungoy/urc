@@ -1,25 +1,16 @@
-<div id="page-content-wrapper">
-  <section>
-    <div class="container-fluid">
-      <div>
-        <div class="container">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Assign Reviewer</th>
-                <th>Approve Research</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
+<section>
+  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Assign Reviewer</th>
+        <th>Approve Research</th>
+      </tr>
+    </thead>
+  </table>
+</section>
 
 <div class="modal fade" id="assignReviewer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -89,57 +80,6 @@
       $("#" + panel).show();
     });
 
-
-    // $('#dataTable').on('click', '#showMore', function(){
-    // var value = $(this).val();
-    // console.log(value)
-    // $.ajax({
-    //       url: '../forms/loadmoreinfo.php?id='+value,
-    //       type: 'get',
-    //      dataType: 'JSON',
-    //       success: function(response){
-    //         console.log(response)
-    //         response.forEach((r) => format(r))
-    //         var dataval = '<tr>'+
-    //             '<td>Authors:</td>'+
-    //             '<td>'+response.fullname+'</td>'+
-    //             '</tr>';
-
-    //     $('#testtable').append(dataval)
-    // }
-    //     });
-    // });
-
-
-    // var table = $("#dataTable").DataTable({
-    //   'processing': true,
-    //   'serverSide': true,
-    //   'dom': 'Blfrtip',
-    //   'serverMethod': 'post',
-    //   'ajax': {
-    //     'url': '../include/displayproposal.php'
-    //   },
-    //   'columns': [
-    //   {
-    //      "className": 'details-control',
-    //      "orderable":  false,
-    //      "data": null,
-    //         "defaultContent": '',
-    //             },
-    //     {data: 'fullname'},
-    //     {data: 'title'},
-    //     {data: 'status'},
-    //   ],
-    //   "order": [[1, 'asc']],
-    //   rowGroup: {
-    //         dataSrc: 'title',
-    //                 startRender: function (rows, title) {
-    //                   var rTitle = title.toUpperCase();
-    //             return `<h4 class="text-primary">${rTitle}</h4>`;
-    //         },
-    //     }
-    // })
-
     //load data
     function format(d) {
       // `d` is the original data object for the row
@@ -161,7 +101,7 @@
         'dom': 'Blfrtip',
         'serverMethod': 'post',
         'ajax': {
-          'url': '../include/displayproposal.php'
+          'url': 'include/displayproposal.php'
         },
         'columns': [
           { data: 'button' },
@@ -211,7 +151,7 @@
           var value = $(this).val();
           console.log(value)
           $.ajax({
-            url: '../forms/loadmoreinfo.php?id=' + value,
+            url: 'forms/loadmoreinfo.php?id=' + value,
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
@@ -245,7 +185,7 @@
         'serverSide': true,
         'serverMethod': 'post',
         'ajax': {
-          'url': '../forms/loadreviewers.php'
+          'url': 'forms/loadreviewers.php'
         },
         'columns': [
           { data: 'userID' },
@@ -280,7 +220,7 @@
       bootbox.confirm("Assign Chosen Reviewer To This Research?", function (result) {
         if (result) {
           $.ajax({
-            url: '../forms/addreviewer.php?propid=' + proposalid,
+            url: 'forms/addreviewer.php?propid=' + proposalid,
             type: 'post',
             data: { ids: selected },
             dataType: 'json',
@@ -307,7 +247,7 @@
       e.preventDefault();
       var fd = $('#approveForm').serialize();
       $.ajax({
-        url: '../forms/approveResearch.php',
+        url: 'forms/approveResearch.php',
         type: 'post',
         data: fd,
         dataType: 'JSON',

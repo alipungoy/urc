@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <?php
-
   require_once('./include/header.php');
-
-  if (!isset($_SESSION['loggedin'])) {
-      header('location: index.php');
-  }
+  require_once('./include/auth-validate.php');
 ?>
-
-<link rel="stylesheet" type="text/css" href="vendor/css/sb-admin-2.min.css">
 
 <body>
-<?php
- require_once('./include/sidebar.php');
- require_once('./include/navbar-auth.php');
- require_once('./pages/profile.html');
- require_once('./include/footer.html');
+    <main>
+        <?php
+ require_once('./include/auth-sidebar.php');
+ require_once('./pages/dashboard.html');
 ?>
+    </main>
 </body>
+
 </html>

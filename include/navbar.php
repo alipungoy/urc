@@ -50,7 +50,7 @@
                     <a class="nav-link" href="journals.php">Journals</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="statistics.php">Statistics</a>
+                    <a class="nav-link" href="feedback.php">Feedback</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="contact.php">Contact Us</a>
@@ -93,7 +93,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarAlerts" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-bell"></i>
+                        <i class="bi-bell" style="font-size: 1.1rem;"></i>
                         <!-- Counter - Alerts -->
                         <span class="badge badge-danger badge-counter" id="notifbadge"></span>
                     </a>
@@ -111,7 +111,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarAccount" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user-circle"></i>
+                        <i class="bi-person-circle" style="font-size: 1.1rem;"></i>
+
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarAccount">
                     <a class="dropdown-item" href="dashboard.php">
@@ -120,10 +121,8 @@
                         <a class="dropdown-item" href="profile.php">
                             Profile
                         </a>
-                        <a class="dropdown-item" href="settings.php">
-                            Settings
-                        </a>
-                        <a class="dropdown-item" href="#">
+                       <div class="dropdown-item" style="cursor: not-allowed;">Settings</div>
+                        <a class="dropdown-item" href="404.php">
                             Activity Log
                         </a>
                         <div class="dropdown-divider"></div>

@@ -1,7 +1,15 @@
-.cpu-blue {
+.text-cpu-blue {
     color: #07216a;
 }
 
-.cpu-orange {
+.text-cpu-orange {
     color: #e48a2a
+}
+
+.bg-cpu-blue {
+    background-color: #07216a;
+}
+
+.bg-cpu-orange {
+    background-color: #e48a2a
 }
