@@ -34,6 +34,26 @@
             </div>
         </li>
         <li class="nav-item">
+            <a href="news-management.php" class="nav-link text-white">
+                <i class="bi-newspaper me-2"></i>
+                News Management
+            </a>
+        </li>
+        <li class="nav-item">
+            <button class="align-items-start nav-link text-white" data-bs-toggle="collapse"
+                data-bs-target="#events-management-collapse" aria-expanded="false">
+                <i class="bi-archive me-2"></i>
+                Events Management
+                </a>
+            </button>
+            <div class="collapse ms-5" id="events-management-collapse" bis_skin_checked="1">
+                <ul class="fw-normal pb-1 small nav nav-pills flex-column">
+                    <li class="nav-item"><a href="events-creation.php" class="text-white nav-link">Create New Event</a></li>
+                    <li class="nav-item"><a href="schedule-presentation.php" class="text-white nav-link">Schedule Presentation</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
             <button class="align-items-start nav-link text-white" data-bs-toggle="collapse"
                 data-bs-target="#requests-collapse" aria-expanded="false">
                 <i class="bi-bookmarks me-2"></i>
@@ -118,9 +138,11 @@ $(function() {
 
     const userManagementLinks = ['user-management.php', 'reviewer-panel.php', 'proposals.php', 'approved-research.php']
     const requestsLinks = [];
+    const eventManagementLinks = ['events-creation.php', 'schedule-presentation.php'];
     const researchesLinks = ['submission.php', 'ongoing-researches.php'];
 
-    const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', ...userManagementLinks, ...requestsLinks, ...researchesLinks]
+    const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', 'news-management.php', 
+    ...userManagementLinks, ...requestsLinks, ...researchesLinks, ...eventManagementLinks]
 
 
     if (validLinks.includes(currPagePath)) {
@@ -130,6 +152,10 @@ $(function() {
 
         if (requestsLinks.includes(currPagePath)) {
             $('#requests-collapse').addClass('show')
+        }
+
+        if (eventManagementLinks.includes(currPagePath)) {
+            $('#events-management-collapse').addClass('show')
         }
 
         if (researchesLinks.includes(currPagePath)) {
