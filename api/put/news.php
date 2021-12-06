@@ -2,15 +2,16 @@
 include('../../db/connection.php');
 $db = new db();
 
-// Allow post request only
+// Allow post request only. doesn't seem to read PUT request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate for required fields
-    if (!isset($_POST["title"]) || !isset($_POST["details"]) || !isset($_POST["start"]) || !isset($_POST["end"])) {
+    if (!isset($_POST["id"]) || !isset($_POST["title"]) || !isset($_POST["details"]) || !isset($_POST["start"]) || !isset($_POST["end"])) {
         $output = json_encode(array('type' => 'error', 'message' => 'Some required fields seemts to be empty!'));
         die($output);
     }
 
     // Assigned fields
+    $FORM_ID = $_POST['id'];
     $FORM_TITLE = $_POST['title'];
     $FORM_DETAILS = $_POST['details'];
     $FORM_START = $_POST['start'];
@@ -27,17 +28,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     try {
-        $sql = "INSERT INTO events (event_title, events_information, event_from_time, event_to_time, register_possible, color) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "UPDATE events SET event_title = :title, events_information = :details, event_from_time = :start, event_to_time = :end, register_possible = :with_registration, color = :color WHERE id = :id";
         $stmt = $db->connection->prepare($sql);
-        $stmt->bindParam(1, $FORM_TITLE);
-        $stmt->bindParam(2, $FORM_DETAILS);
-        $stmt->bindParam(3, $FORM_START);
-        $stmt->bindParam(4, $FORM_END);
-        $stmt->bindParam(5, $FORM_WITH_REGISTRATION);
-        $stmt->bindParam(6, $FORM_COLOR);
+        $stmt->bindParam(':id', $FORM_ID);
+        $stmt->bindParam(':title', $FORM_TITLE);
+        $stmt->bindParam(':details', $FORM_DETAILS);
+        $stmt->bindParam(':start', $FORM_START);
+        $stmt->bindParam(':end', $FORM_END);
+        $stmt->bindParam('with_registration', $FORM_WITH_REGISTRATION);
+        $stmt->bindParam(':color', $FORM_COLOR);
         $stmt->execute();
 
-        die(json_encode(array('type' => 'success', 'message' => 'Succesfully Created News')));
+        die(json_encode(array('type' => 'success', 'message' => 'Succesfully Updated News')));
     } catch (\Throwable $th) {
         $output = json_encode(array('type' => 'error', 'message' => $th->getMessage()));
         die($output);
