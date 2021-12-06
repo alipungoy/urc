@@ -1,4 +1,7 @@
 <section>
+  <header>
+    <h4>Research Tracker</h4>
+  </header>
   <table class="table table-bordered table-striped" id="dataTable">
     <thead>
       <tr>
@@ -61,7 +64,7 @@
         className: 'text-center',
         targets: [2], render: function (a, b, data, d) {
           if (data.status == 'Reviewed W/Revisions') {
-            return `<button class="btn btn-success" id="approve" value="${data.id}">Submit Revised Documents</button>`;
+            return `<button class="btn btn-outline-warning fw-bold btn-sm" id="approve" value="${data.id}">Submit Revised Documents</button>`;
           }
           else if (data.status == 'Reviewed For Presentation') {
             return 'Waiting For Schedule Of Presentation';

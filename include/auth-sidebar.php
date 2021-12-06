@@ -48,7 +48,7 @@
             </button>
             <div class="collapse ms-5" id="events-management-collapse" bis_skin_checked="1">
                 <ul class="fw-normal pb-1 small nav nav-pills flex-column">
-                    <li class="nav-item"><a href="events-creation.php" class="text-white nav-link">Create New Event</a></li>
+                    <li class="nav-item"><a href="events-creation.php" class="text-white nav-link">Overview</a></li>
                     <li class="nav-item"><a href="schedule-presentation.php" class="text-white nav-link">Schedule Presentation</a></li>
                 </ul>
             </div>
@@ -89,7 +89,7 @@
             </button>
             <div class="collapse ms-5" id="researches-collapse" bis_skin_checked="1">
                 <ul class="fw-normal pb-1 small nav nav-pills flex-column">
-                    <li class="nav-item"><a href="submission.php" class="text-white nav-link">Research Submissions</a></li>
+                    <li class="nav-item"><a href="submission.php" class="text-white nav-link">Submit Research</a></li>
                     <li class="nav-item"><a href="ongoing-researches.php" class="text-white nav-link">Research Tracker</a></li>
                 </ul>
             </div>

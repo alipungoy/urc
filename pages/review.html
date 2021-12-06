@@ -1,26 +1,22 @@
-<!-- Page Content -->
-
 <section>
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 fw-bold text-primary">Assigned Research For Review</h6>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Funding</th>
-              <th>Status</th>
-              <th>Approve</th>
-              <th>Download</th>
-            </tr>
-          </thead>
-          <tbody id="myTable"></tbody>
-        </table>
-      </div>
-    </div>
+  <header>
+    <h4>Assigned Proposals</h4>
+  </header>
+  <div>
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Funding</th>
+          <th>Status</th>
+          <th>Approve</th>
+          <th>Download</th>
+        </tr>
+      </thead>
+      <tbody id="myTable"></tbody>
+    </table>
+    <p id="note" class="text-muted"></p>
+  </div>
 </section>
 
 <div class="modal fade" id="approveReview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -62,7 +58,7 @@
         dataType: 'JSON',
         success: function (response) {
           if (response.length == 0) {
-            $('.card-body').html('<div class="d-flex justify-content-center"><h2> No Ongoing Research For Review</h2></div>')
+            $('#note').text('No Ongoing Research For Review...')
           }
           else {
             response.forEach(({ id, title, funding, status, filename }) => {

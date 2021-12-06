@@ -13,3 +13,13 @@
 .bg-cpu-orange {
     background-color: #e48a2a
 }
+
+.btn-outline-cpu-blue {
+    color: #07216a;
+    border-color: #07216a;
+}
+
+.btn-outline-cpu-orange {
+    color: #e48a2a;
+    border-color: #e48a2a;
+}

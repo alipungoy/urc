@@ -1,48 +1,42 @@
 <section>
-  <div class="row d-flex justify-content-center">
-    <div class="col-lg-6">
-      <div class="card shadow mb-4">
-        <div class="card-header py-3">
-          <h6 class="m-0 fw-bold text-primary">Research</h6>
-        </div>
-        <div class="card-body">
-          <h1 class="text text-primary">Research Submission</h1>
-          <hr>
-          <form id="form" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-              <label for="name">Research title</label>
-              <textarea type="text" class="form-control" id="title" name="title" cols="30" rows="3" required></textarea>
-            </div>
-            <div class="form-group mr-2">
-              <label for="funding">Funding Type:</label>
-              <select class="form-control" name="funding" id="funding" required>
-                <option value="">Select Funding Type</option>
-                <option value="Externally Funded Research">Externally Funded Research</option>
-                <option value="Internally Funded Research">Internally Funded Research</option>
-              </select>
-            </div>
-            <div class="form-group" id="mainAuth">
-            </div>
-            <div class="form-group mt-3">
-              <label for="selectCoAuthor">Co-Author</label>
-              <select class="form-control" name="coAuth[]" id="selectCoAuthor">
-              </select><br>
-              <small style="font-style:italic;color:blue">*Choose Co-Authors If Available</small>
-            </div>
-            <div class="container">
-              <button class="btn btn-sm btn-primary mt-3 mr-2" id="fileSelect">Upload File</button>
-              <input id="uploadFile" type="file" accept="application/pdf" name="ftu" />
-              <span id="filename"></span>
-              <div>
-                <input class="btn btn-success mt-5" type="submit" value="Submit Research">
-              </div>
-            </div>
-          </form>
-        </div>
-        <div id="preview"></div>
-        <hr>
+  <header>
+    <h4>Submit Research</h4>
+  </header>
+  <div class="col-6">
+    <form id="form" method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label">Research Title</label>
+        <textarea id="title" name="title" class="form-control" id="exampleFormControlTextarea1" rows="3"
+          required></textarea>
       </div>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Funding Type</label>
+        <select class="form-control" name="funding" id="funding" required>
+          <option value="">Select Funding Type</option>
+          <option value="Externally Funded Research">Externally Funded Research</option>
+          <option value="Internally Funded Research">Internally Funded Research</option>
+        </select>
+      </div>
+      <div class="mb-3" id="mainAuth">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="selectCoAuthor">Co-Author</label>
+        <select class="form-control" name="coAuth[]" id="selectCoAuthor">
+        </select>
+        <small class="text-muted fw-lighter">*Choose Co-Authors If Available</small>
+      </div>
+      <div class="mb-5">
+        <label class="form-label" for="selectCoAuthor">Research File</label>
+        <button class="btn btn-secondary form-control" id="fileSelect">Upload File</button>
+        <input id="uploadFile" type="file" accept="application/pdf" name="ftu" />
+        <span id="filename"></span>
+      </div>
+      <button class="btn btn-success px-5" type="submit">
+        Submit Research Now!
+      </button>
+  </div>
+  </form>
+  <div id="preview"></div>
   </div>
 </section>
 
@@ -72,7 +66,7 @@
         console.log(data)
         data.forEach(({ fName, lName }) => {
 
-          var mainAuthor = `<label for="country">Main Author</label>
+          var mainAuthor = `<label class="form-label">Main Author</label>
     <input class="form-control" type="text" id="" name="mainAuthor" value="${fName} ${lName}" readonly>`;
 
           $('#mainAuth').append(mainAuthor)

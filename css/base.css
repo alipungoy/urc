@@ -21,7 +21,28 @@ main {
 main > section {
     width: 100%;
     flex-grow: 1;
-    padding: 2rem;
+    /* padding: 2rem; */
+    overflow: auto;
+    position: relative;
+}
+
+main > section > div {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+header {
+    z-index: 1050;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+header h4 {
+    margin-left: 1rem;
 }
 
 section {

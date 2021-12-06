@@ -1,13 +1,81 @@
 <section>
-    <div class="p-5 mb-4 bg-light rounded-3" bis_skin_checked="1">
-        <div class="container-fluid py-5" bis_skin_checked="1">
-            <h1 class="display-5 fw-bold">Hey there!</h1>
-            <p class="col-md-8 fs-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-                in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <button class="btn bg-cpu-orange text-white" type="button">Let's get Started</button>
+    <header class="d-flex align-items-center justify-content-between">
+        <h4>Dashboard</h4>
+    </header>
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 mb-4 bg-light rounded-3" bis_skin_checked="1">
+                <div class="container-fluid py-5" bis_skin_checked="1">
+                  <h1 class="display-5 fw-bold">Welcome to URC Dashboard</h1>
+                  <p class="col-md-8 fs-4">Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.</p>
+                  <button class="btn text-white bg-cpu-orange" type="button">Let's get started</button>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-6" bis_skin_checked="1">
+            <div class="h-100 p-5 bg-light border rounded-3" bis_skin_checked="1">
+                <h2>Monitor the website activity with Google Anayltics</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.</p>
+                <a href="https://analytics.google.com/analytics/web/" target="_blank" class="btn btn-outline-secondary btn-sm" type="button">Redirect me to Google Analytics</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Page Visitors</h4>
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         </div>
     </div>
 </section>
+
+<script>
+    var ctx = document.getElementById('myChart')
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday'
+            ],
+            datasets: [{
+                data: [
+                    20,
+                    15,
+                    1,
+                    30,
+                    25,
+                    12,
+                    11
+                ],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            }
+        }
+    })
+</script>

@@ -57,7 +57,7 @@ foreach ($empRecords as $row) {
      "title"=>$row['title'],
      "funding"=>$row['funding'],
      "approvalDate"=>$row['approvalDate'],
-     "button"=> '<button class="btn btn-primary" id="apprvdBtn" value='.$row['proposalID'].'>Schedule for Presentation</button>'
+     "button"=> '<button class="btn btn-outline-secondary btn-sm" id="apprvdBtn" value='.$row['proposalID'].'> <i class="bi-calendar-event me-2"></i> Schedule for Presentation</button>'
   );
 }
 

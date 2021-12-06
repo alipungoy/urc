@@ -1,19 +1,17 @@
 <section>
-    <div class="card shadow mb-5 py-auto px-auto">
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h3 class="mb-0">Create New Event</h3>
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-secondary" data-toggle="modal" data-target="#event" id="addevent"><span>
-                        + Add new event</span></button>
-            </div>
-        </div>
-        <div class="container mt-3">
-            <div id="calendar">
-            </div>
+    <header class="d-flex align-items-center justify-content-between">
+        <h4>Events Management</h4>
+        <button type="button" class="btn btn-outline-secondary px-3 btn-sm" data-bs-toggle="modal"
+            data-bs-target="#addNews">
+            <i class="bi-plus-lg me-2"></i>
+            Create New Event
+        </button>
+    </header>
+    <div class="container p-3">
+        <div id="calendar">
         </div>
     </div>
 </section>
-
 
 <div class="modal fade" id="event" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
