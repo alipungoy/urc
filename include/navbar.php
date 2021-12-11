@@ -301,10 +301,9 @@ $(function() {
 
         $.ajax({
             type: 'post',
-            url: 'forms/login.php',
+            url: 'api/post/login.php',
             data: FormData,
             dataType: 'json',
-            encode: true,
             beforeSend: function() {
                 $('#frmBtnLogin').text("Logging in");
             },
@@ -319,7 +318,6 @@ $(function() {
                     });
                 } else {
                     location.reload();
-
                 }
 
             }
