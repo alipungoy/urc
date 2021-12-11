@@ -45,6 +45,12 @@ input#importcsv {
 
 /* End of Databale css */
 
+.nav-pills button.active {
+    background-color: #e48a2a!important;
+    font-weight: bold;
+    color: white!important;
+}
+
 /* Idk */
 .divider {
     width: 5px;

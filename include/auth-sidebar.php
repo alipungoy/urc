@@ -68,7 +68,7 @@
             </div>
         </li>
         <?php } ?>
-        <?php if ($_SESSION['user_type'] == 'Reviewer') { ?>
+        <?php if ($_SESSION['user_type'] == 'Admin') { ?>
         <li class="nav-item">
             <a href="review.php" class="nav-link text-white">
                 <i class="bi-archive me-2"></i>
@@ -78,7 +78,7 @@
         <?php } ?>
 
         <?php
-        if ($_SESSION['user_type'] == 'user' || $_SESSION['user_type'] == 'Reviewer') {
+        if ($_SESSION['user_type'] == 'user' || $_SESSION['user_type'] == 'Admin') {
         ?>
         <li class="nav-item">
             <button class="align-items-start nav-link text-white" data-bs-toggle="collapse"
@@ -166,11 +166,10 @@ $(function() {
     }
 
     $.ajax({
-        url: 'forms/get/auth.php',
+        url: 'api/get/auth.php',
         dataType: 'json',
         method: 'get',
         success: function(response) {
-            console.log(response)
             $('#username').text(response.email)
         }
     });

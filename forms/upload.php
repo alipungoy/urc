@@ -8,7 +8,7 @@ session_start();
 
 $userID = $_SESSION['userid'];
 $lName = $_SESSION['last_name'];
-$status = 'Pending';
+
 // $mainAuthor = $_POST['mainAuth'];
 $coAuthor = isset($_POST['coAuth']) ? $_POST['coAuth'] : [];
 $DATE = date("y-m-d");
@@ -52,7 +52,7 @@ if (!empty($img)) {
                 $path = $path.strtolower($filename);
                 if (move_uploaded_file($tmp, $path)) {
                     //insert form data in the database
-                    $sql = ("INSERT INTO proposal (userid, title, funding, status) VALUES ('".$userID."', '".$title."', '".$funding."',  '".$status."')");
+                    $sql = ("INSERT INTO proposal (userid, title, funding, approved, status) VALUES ('".$userID."', '".$title."', '".$funding."', '0', 'Pending')");
                     $stmt = $db->connection->prepare($sql);
                     $stmt->execute();
                     $lastID = $db->connection->lastInsertId();
@@ -75,8 +75,8 @@ if (!empty($img)) {
                         $stmt->execute();
 
                         if ($stmt) {
-                            $sql3 = ("INSERT INTO urc_notification (fromUser, toUser, notifMsg, notifDate, notifTypeID) VALUES
-           ('".$userID."', '".$ToUSER."', '".$upload."', '".$DATE."', '".$notifType."')");
+                            $sql3 = ("INSERT INTO urc_notification (fromUser, toUser, notifMsg, notifDate, notifTypeID, status) VALUES
+           ('".$userID."', '".$ToUSER."', '".$upload."', '".$DATE."', '".$notifType."', 1)");
                             $stmt = $db->connection->prepare($sql3);
                             $stmt->execute();
                         }

@@ -19,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
         // Check if username is existing in database
         if ($rowCount > 0) {
-            die($row);
             if (password_verify($form_PASSWORD, $row['password'])) {
                 session_start();
 

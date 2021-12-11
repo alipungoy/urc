@@ -1,0 +1,41 @@
+<section class="container mt-5">
+    <h3 id="title" class="display-6 mb-0">...</h3>
+    <div id="info" class="mb-3 d-flex align-items-center" style="font-size: small"></div>
+    <div class="mb-5">
+        <div id="img"></div>
+        <p class="text-center mt-2">Click image to download</p>
+    </div>
+    <div class="mb-3">
+        <h3>About Patubas</h3>
+        <p>Patubas is published once a year under the auspices of Central Philippine University, Jaro, Iloilo City,
+            Philippines.</p>
+    </div>
+    <small>Opinions and facts contained in the articles published in this issue of Patubas are the sole
+        responsibility of the individual authors and not of the Editorial Board, Patubas or Central Philippine
+        University.</small>
+    </div>
+
+    <script>
+        $(function () {
+            var eventid = window.location.hash.substr(1);
+            console.log(eventid)
+            $(function () {
+                $.ajax({
+                    url: 'forms/journaldisplay.php',
+                    type: 'get',
+                    data: { "eventid": eventid },
+                    dataType: 'JSON',
+                    success: function (data) {
+                        const type = data.type
+                        const date = data.date
+                        const vol = data.volume
+                        const image = `<a href="forms/download.php?fileName=${data.name}" title="Click Image to download"><img class="img-fluid" src="upload/${data.cp}"></a>`
+
+                        $("#title").text(type + ' Volume ' + vol);
+                        $("#info").append(`<p class="me-3"><i class="bi bi-person me-1"></i>cpuurc</p><p class="me-3"><i class="bi bi-calendar-event me-2"></i>${new Date(date).toDateString()}</p><p class="me-3"><i class="bi bi-info me-1"></i>${type}</p>`);
+                        $("#img").append(image);
+                    }
+                });
+            });
+        })
+    </script>
