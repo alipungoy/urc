@@ -1,16 +1,23 @@
 <section class="container mt-5">
-  <h3 class="display-6 mb-3">News and Events</h3>
-  <div id="latestNews" class="row"></div>
+    <div class="mb-5">
+        <h3 class="display-6 mb-3">News and Events</h3>
+        <div id="latestNews" class="row"></div>
+    </div>
+    <div>
+        <h3 class="display-6 mb-3">Newsletters</h3>
+        <div class="owl-carousel owl-theme" id="carouselLatestNewsletter">
+        </div>
+    </div>
 </section>
 
 <script>
-  $(function () {
-      $.ajax({
-          url: 'api/get/latest-news.php',
-          dataType: 'json',
-          method: 'get',
-          success: function (response) {
-            response.forEach(({ id, title, details, start, end }) => {
+    $(function () {
+        $.ajax({
+            url: 'api/get/latest-news.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (response) {
+                response.forEach(({ id, title, details, start, end }) => {
                     $("#latestNews").append(`<div class="col-4"><div class="card  m-1">
                         <img src="assets/images/news-placeholder.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -23,8 +30,40 @@
                         </div>
                     </div></div>`);
                 });
-          }
-      });
-  });
+            }
+        });
+
+        $.ajax({
+            url: 'api/get/latest-newsletter.php',
+            dataType: 'json',
+            method: 'get',
+            success: function ({ data }) {
+                data.forEach(({ id, title, poster, start, end }) => {
+                    $("#carouselLatestNewsletter").append(`<div class="item">
+                        <object data="${poster}#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" width="100%" height="300px"> <p>Your web browser doesn't have a PDF plugin or File not found.
+                            </p></object>
+                            <small class="text-center d-block">${title}</small>
+                    </div>`);
+                });
+
+                var carouselLatestNews = $('#carouselLatestNewsletter').owlCarousel({
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        600: {
+                            items: 3
+                        },
+                        1000: {
+                            items: 5
+                        }
+                    }
+                });
+            }
+        });
+    });
 
 </script>

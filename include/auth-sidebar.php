@@ -40,6 +40,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="newsletter-management.php" class="nav-link text-white">
+                <i class="bi-card-heading me-2"></i>
+                Newsletter Management
+            </a>
+        </li>
+        <li class="nav-item">
             <button class="align-items-start nav-link text-white" data-bs-toggle="collapse"
                 data-bs-target="#events-management-collapse" aria-expanded="false">
                 <i class="bi-archive me-2"></i>
@@ -68,7 +74,7 @@
             </div>
         </li>
         <?php } ?>
-        <?php if ($_SESSION['user_type'] == 'Admin') { ?>
+        <?php if ($_SESSION['user_type'] == 'Reviewer') { ?>
         <li class="nav-item">
             <a href="review.php" class="nav-link text-white">
                 <i class="bi-archive me-2"></i>
@@ -78,7 +84,7 @@
         <?php } ?>
 
         <?php
-        if ($_SESSION['user_type'] == 'user' || $_SESSION['user_type'] == 'Admin') {
+        if ($_SESSION['user_type'] == 'user' || $_SESSION['user_type'] == 'Reviewer') {
         ?>
         <li class="nav-item">
             <button class="align-items-start nav-link text-white" data-bs-toggle="collapse"
@@ -141,7 +147,7 @@ $(function() {
     const eventManagementLinks = ['events-creation.php', 'schedule-presentation.php'];
     const researchesLinks = ['submission.php', 'ongoing-researches.php'];
 
-    const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', 'news-management.php', 
+    const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', 'news-management.php', 'newsletter-management.php', 
     ...userManagementLinks, ...requestsLinks, ...researchesLinks, ...eventManagementLinks]
 
 
