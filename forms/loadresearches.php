@@ -38,7 +38,7 @@ $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
-$stmt =  $db->connection->prepare("SELECT * FROM proposal WHERE 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
+$stmt =  $db->connection->prepare("SELECT * FROM proposal WHERE 1  && userID = $id ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
 
 // Bind values
 foreach ($searchArray as $key=>$search) {

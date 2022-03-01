@@ -18,25 +18,28 @@ $searchArray = array();
 ## Search
 $searchQuery = " ";
 if ($searchValue != '') {
-    $searchQuery = " AND (first_name LIKE :first_name ) ";
+    $searchQuery = " AND (first_name LIKE :first_name OR 
+        department LIKE :department OR last_name LIKE :last_name OR department LIKE :department) ";
     $searchArray = array(
         'first_name'=>"%$searchValue%",
+        'last_name'=>"%$searchValue%",
+        'department'=>"%$searchValue%"
    );
 }
 
 ## Total number of records without filtering
-$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM reviewer_list LEFT JOIN user ON reviewer_list.userID = user.userID");
+$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM user WHERE userID NOT IN (SELECT userID FROM reviewer_list)");
 $stmt->execute();
 $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM reviewer_list WHERE 1 ".$searchQuery);
+$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM user WHERE 1  AND userID NOT IN (SELECT userID FROM reviewer_list) ".$searchQuery);
 $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
-$stmt =  $db->connection->prepare("SELECT user.userID, user.first_name, user.last_name FROM reviewer_list LEFT JOIN user on reviewer_list.userID = user.userID WHERE 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
+$stmt =  $db->connection->prepare("SELECT * FROM user WHERE 1 AND userID NOT IN (SELECT userID FROM reviewer_list)  ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
 
 // Bind values
 foreach ($searchArray as $key=>$search) {
@@ -52,9 +55,9 @@ $data = array();
 
 foreach ($empRecords as $row) {
     $data[] = array(
-     "userID"=>$row['userID'],
-     "full_name"=>$row['first_name'].' '.$row['last_name'],
-     "checkbox"=> '<input type ="checkbox" class="revCb" value='.$row['userID'].'>'
+     "first_name"=>$row['first_name'].' '.$row['last_name'],
+     "department"=>$row['department'],
+     "id"=>$row['userID']
   );
 }
 

@@ -14,7 +14,7 @@ $DATE = date("y-m-d h:i:sa");
 $notifType = '1';
 $ToUSER = 'Admin';
 
-// Check if image file is a actual image or fake image
+// Check if image file is a pdf file
 if(isset($_POST["submit"])) {
   $title = $_POST['title'];
   $funding = $_POST['funding'];

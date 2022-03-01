@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
         $sql = "SELECT journals.id, journals.type, journals.publication_date, journals.volume, cover_photo.path FROM journals LEFT JOIN cover_photo ON journals.id=cover_photo.journal_id WHERE type = 'Patubas' ORDER BY id DESC LIMIT 10";
         $stmt = $db->connection->prepare($sql);
-        $stmt->bindParam(':search', $FORM_SEARCH);
+        // $stmt->bindParam(':search', $FORM_SEARCH);
         $stmt->execute();
         $row = $stmt->fetchAll();
 

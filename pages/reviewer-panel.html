@@ -27,11 +27,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <table class="table table-bordered table-striped" id="dataTable">
+                <div class="container" id="revData__container">
+                    <table class="table table-bordered table-striped" id="revData">
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Department</th>
+                                <th></th>
                             </tr>
                         </thead>
                     </table>
@@ -51,7 +53,7 @@
             'serverSide': true,
             'serverMethod': 'post',
             'lengthChange': true,
-            "scrollY": "500px",
+            'scrollY': '500px',
             'ajax': {
                 'url': 'forms/load_reviewer_panel.php'
             },
@@ -67,6 +69,44 @@
 
         $('#addNew').on('click', function () {
             $('#panel_reviewer').modal('show');
+            $("#revData").DataTable({
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'lengthChange': true,
+                'lengthMenu': [5, 10, 15, 20],
+                'scrollY': '400px',
+                'ajax': {
+                    'url': 'forms/addreviewerlist.php'
+                },
+                'columns': [
+                    { data: 'first_name' },
+                    { data: 'department' },
+                    {
+                        data: null,
+                        orderable: false,
+                        "render": function (data, type, row, meta) {
+                            return `
+                                <div class="btn-group" role="group">
+                                    <button type="button" id="addReviewer" value="${data.id}" class="btn btn-outline-primary btn-sm px-3">
+                                        Add Reviewer
+                                        </button>
+                                    </div>
+                            `
+                        }
+                    }
+                ],
+            })
+        })
+
+        $('.close').on('click', function () {
+            $('#panel_reviewer').modal('hide');
+        })
+
+        $(document).on('click', '#addReviewer', function() {
+            const id = $(this).val();
+
+            
         })
     });
 

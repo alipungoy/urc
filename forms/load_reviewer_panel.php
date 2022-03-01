@@ -28,18 +28,18 @@ if ($searchValue != '') {
 }
 
 ## Total number of records without filtering
-$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM user ");
+$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM reviewer_list LEFT JOIN user on reviewer_list.userID = user.userID ");
 $stmt->execute();
 $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM user WHERE 1 ".$searchQuery);
+$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM reviewer_list WHERE 1 ".$searchQuery);
 $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
-$stmt =  $db->connection->prepare("SELECT * FROM user WHERE 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
+$stmt =  $db->connection->prepare("SELECT user.first_name, user.last_name, user.department FROM reviewer_list LEFT JOIN user on reviewer_list.userID = user.userID WHERE 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
 
 // Bind values
 foreach ($searchArray as $key=>$search) {

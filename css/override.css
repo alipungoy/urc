@@ -1,96 +1,105 @@
 a {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 input#uploadFile {
-    display: none;
+  display: none;
 }
 
 input#uploadCoverPhoto {
-    display: none;
+  display: none;
 }
 
 input#importcsv {
-    display: none;
+  display: none;
 }
 
 /* Datatables CSS */
 
 .page-item.active .page-link {
-    background-color: #6c757d!important;
-    border-color: #6c757d!important;
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
 }
 
-.dataTables_paginate a  {
-    color: #6c757d;
+.dataTables_paginate a {
+  color: #6c757d;
 }
 
 .dataTables_paginate li:focus:active {
-    outline: none!important;
-    box-shadow: none;
+  outline: none !important;
+  box-shadow: none;
 }
 
 .dataTables_paginate li.disabled {
-    color: rgba(0,0,0,.5)!important;
+  color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .dataTable #showMore {
-    color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d;
-    padding: 0.25rem 0.5rem;
-    font-size: .875rem;
-    border-radius: 0.2rem;
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
 }
+
+#revData {
+  width: 100% !important;
+  /* margin-left: 50px !important; */
+}
+
+/* #addReviewer {
+  margin-left: 100px;
+} */
 
 /* End of Databale css */
 
 .nav-pills button.active {
-    background-color: #e48a2a!important;
-    font-weight: bold;
-    color: white!important;
+  background-color: #e48a2a !important;
+  font-weight: bold;
+  color: white !important;
 }
 
 /* Idk */
 .divider {
-    width: 5px;
-    height: auto;
-    display: inline-block;
+  width: 5px;
+  height: auto;
+  display: inline-block;
 }
 
 td.more-details {
-    background: url('assets/images/plussymbol.jpg') no-repeat center center;
-    cursor: pointer;
-    width: 20px;
-    height: 30px;
+  background: url("assets/images/plussymbol.jpg") no-repeat center center;
+  cursor: pointer;
+  width: 20px;
+  height: 30px;
 }
 
 tr.shown td.more-details {
-    background: url('assets/images/minussymbol.jpg') no-repeat center center;
+  background: url("assets/images/minussymbol.jpg") no-repeat center center;
 }
 
 a.dropdown-item:hover {
-    color: rgb(230, 226, 19);
+  color: rgb(230, 226, 19);
 }
 
 .dropMenu {
-    width: 220px !important;
-    height: 320px !important;
+  width: 220px !important;
+  height: 320px !important;
 }
 
 .dropdown:hover .dropDownMenu {
-    display: block;
-    margin-top: 0;
+  display: block;
+  margin-top: 0;
 }
 
 .postDetails {
-    width: 250px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-    padding: 5px;
-    font-size: 1.3rem;
-    margin: 0;
-    background: white;
+  padding: 5px;
+  font-size: 1.3rem;
+  margin: 0;
+  background: white;
 }
