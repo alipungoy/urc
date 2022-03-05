@@ -11,6 +11,7 @@
             <tr>
                 <th>Name</th>
                 <th>Department</th>
+                <th></th>
             </tr>
         </thead>
     </table>
@@ -57,9 +58,26 @@
             'ajax': {
                 'url': 'forms/load_reviewer_panel.php'
             },
+            'columnDefs': [
+                { 'className': 'dt-center', 'targets': '_all' }
+            ],
+            'autoWidth': false,
             'columns': [
                 { data: 'first_name' },
-                { data: 'department' }
+                { data: 'department' },
+                {
+                    data: null,
+                    orderable: false,
+                    "render": function (data, type, row, meta) {
+                        return `
+                                <div class="btn-group" role="group">
+                                    <button type="button" id="removeReviewer" value="${data.id}" class="btn btn-outline-danger btn-sm px-3">
+                                        Remove As Reviewer
+                                        </button>
+                                    </div>
+                            `
+                    }
+                }
             ],
             order: [[1, 'asc']],
             rowGroup: {
@@ -76,9 +94,13 @@
                 'lengthChange': true,
                 'lengthMenu': [5, 10, 15, 20],
                 'scrollY': '400px',
+                'destroy': true,
                 'ajax': {
                     'url': 'forms/addreviewerlist.php'
                 },
+                'columnDefs': [
+                    { 'className': 'dt-center', 'targets': '_all' }
+                ],
                 'columns': [
                     { data: 'first_name' },
                     { data: 'department' },
@@ -101,12 +123,50 @@
 
         $('.close').on('click', function () {
             $('#panel_reviewer').modal('hide');
+
         })
 
-        $(document).on('click', '#addReviewer', function() {
+        $(document).on('click', '#addReviewer', function () {
             const id = $(this).val();
+            console.log(id)
 
-            
+            $.ajax({
+                url: 'api/put/reviewer.php',
+                type: 'POST',
+                data: { userid: id },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    console.log(data)
+                    if (data == 'empty') {
+                        alert('no user selected');
+                    } else if (data == 'success') {
+                        alert('Reviewer Added ');
+                        location.reload();
+                    }
+                }
+            })
+        })
+
+        $(document).on('click', '#removeReviewer', function () {
+            const id = $(this).val();
+            console.log(id);
+
+            $.ajax({
+                url: 'api/delete/reviewer.php',
+                type: 'POST',
+                data: { userid: id },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    if (data == 'ok') {
+                        alert('Reviewer Removed');
+                        location.reload();
+                    }
+                }
+            })
         })
     });
 

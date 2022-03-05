@@ -74,7 +74,7 @@
             </div>
         </li>
         <?php } ?>
-        <?php if ($_SESSION['user_type'] == 'Reviewer') { ?>
+        <?php if ($_SESSION['check'] == '1') { ?>
         <li class="nav-item">
             <a href="review.php" class="nav-link text-white">
                 <i class="bi-archive me-2"></i>

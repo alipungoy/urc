@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['first_name']  = $row['first_name'];
                 $_SESSION['last_name']  = $row['last_name'];
                 $_SESSION['user_type'] = $row['user_type'];
+                $_SESSION['check'] = $row['reviewer'];
 
                 die(json_encode(array('result' => 'Succesfully logged in')));
             } else {

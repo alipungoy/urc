@@ -39,7 +39,7 @@ $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
-$stmt =  $db->connection->prepare("SELECT user.first_name, user.last_name, user.department FROM reviewer_list LEFT JOIN user on reviewer_list.userID = user.userID WHERE 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
+$stmt =  $db->connection->prepare("SELECT user.userID, user.first_name, user.last_name, user.department FROM reviewer_list LEFT JOIN user on reviewer_list.userID = user.userID WHERE 1 ".$searchQuery." ORDER BY ".$columnName." ".$columnSortOrder." LIMIT :limit,:offset");
 
 // Bind values
 foreach ($searchArray as $key=>$search) {
@@ -55,7 +55,7 @@ $data = array();
 
 foreach ($empRecords as $row) {
     $data[] = array(
-     "first_name"=>$row['first_name'].' '.$row['last_name'],
+     "id"=>$row['userID'], "first_name"=>$row['first_name'].' '.$row['last_name'],
      "department"=>$row['department']
   );
 }
