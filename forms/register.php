@@ -121,6 +121,8 @@ $DATE = date("y-m-d");
 
              if ($mail->send()) {
                  echo json_encode(array('result'=>'success'));
+             } else {
+                 echo json_encode(array('result'=>'failed'));
              }
          }
      }
