@@ -98,10 +98,10 @@
                     $('.submitBtn').text('Verifying Account');
                 },
                 success: function(data) {
-                alert(data.result.msg);
+                    alert(data.result.msg);
 
-                $('.submitBtn').text('Account Verified ✔').css('color', 'green');
-                    
+                    $('.submitBtn').text('Account Verified ✔').css('color', 'green');
+
                 },
             })
         })

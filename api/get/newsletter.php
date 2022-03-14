@@ -10,15 +10,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $stmt = $db->connection->prepare($show);
         $stmt->execute();
         $row = $stmt->fetchAll();
-        
+
         foreach ($row as $rows) {
-            $newsletters[] = (array('id' => $rows['id'],
-                            'title' => $rows['title'],
-                            'description' => $rows['description'],
-                            'poster' => $rows['poster'],
-                            'tags' => $rows['tags']));
+            $newsletters[] = (array(
+                'id' => $rows['id'],
+                'title' => $rows['title'],
+                'description' => $rows['description'],
+                'poster' => $rows['poster'],
+                'tags' => $rows['tags']
+            ));
         };
-        
+
         $totalData = $stmt->rowCount();
 
         $json_data = array(
@@ -31,4 +33,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         die($e->getMessage());
     }
 }
-

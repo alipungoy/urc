@@ -40,10 +40,18 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="newsletter-management.php" class="nav-link text-white">
-                <i class="bi-card-heading me-2"></i>
-                Newsletter Management
-            </a>
+            <button class="align-items-start nav-link text-white" data-bs-toggle="collapse"
+                data-bs-target="#content-management-collapse" aria-expanded="false">
+                <i class="bi-people me-2"></i>
+                Content Management
+                </a>
+            </button>
+            <div class="collapse ms-5" id="content-management-collapse" bis_skin_checked="1">
+                <ul class="fw-normal pb-1 small nav nav-pills flex-column">
+                    <li class="nav-item"><a href="addjournal.php" class="text-white nav-link">Journals</a></li>
+                    </li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item">
             <button class="align-items-start nav-link text-white" data-bs-toggle="collapse"
@@ -146,6 +154,7 @@ $(function() {
     const requestsLinks = [];
     const eventManagementLinks = ['events-creation.php', 'schedule-presentation.php'];
     const researchesLinks = ['submission.php', 'ongoing-researches.php'];
+    const contentLinks = ['newsletter-management.php'];
 
     const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', 'news-management.php', 'newsletter-management.php', 
     ...userManagementLinks, ...requestsLinks, ...researchesLinks, ...eventManagementLinks]
@@ -167,6 +176,10 @@ $(function() {
         if (researchesLinks.includes(currPagePath)) {
             $('#researches-collapse').addClass('show')
         }
+
+         if (contentLinks.includes(currPagePath)) {
+             $('#content-management-collapse').addClass('show')
+         }
 
         $(`a[href='${currPagePath}']`).addClass('active');
     }
