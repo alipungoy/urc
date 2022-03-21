@@ -21,29 +21,35 @@
 </section>
 
 <div class="modal fade" tabindex="-1" id="addNews">
-  <form id="addNewsletter_form" class="modal-dialog">
+  <form id="addJournal__form" class="modal-dialog" enctype="multipart/form-data">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Add Newsletter</h5>
+            <h5 class="modal-title">Add Journal</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="mb-3">
-                <label class="form-label">Title</label>
-                <input name="title" type="input" class="form-control" required>
+              <label class="form-label">Type</label>
+              <select class="form-control" name="journal__Type">
+                <option value=""></option>
+                <option value="Patubas">Patubas</option>
+                <option value="Scientia et Fides ">Scientia et Fides</option>
+              </select>
+              <small class="fst-italic text-muted">Select one Option</small>
             </div>
             <div class="mb-3">
                 <label class="form-label">Volume</label>
-                <input type="text" class="form-control">
+                <input name="vol__Number" type="number" class="form-control">
             </div>
             <div class="mb-3">
                 <label class="form-label">Attachment</label>
-                <input name="poster" type="file" class="form-control" required accept="application/pdf">
+                <input name="journalFile" type="file" class="form-control" required accept="application/pdf">
                 <small class="fst-italic text-muted">Accepts PDF file only</small>
             </div>
             <div class="mb-3">
               <label class="form-label">Cover Photo</label>
-              <input name="poster" type="file" class="form-control" required accept="image/*">
+              <input name="coverPhoto" type="file" class="form-control" required accept="image/*">
+              <small class="fst-italic text-muted">File Format must be JPEG</small>
           </div>
             <div class="mb-3">
                 <label class="form-label">Tags</label>
@@ -53,7 +59,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-success">Add Newsletter</button>
+            <button type="submit" class="btn btn-success">Add Journal</button>
         </div>
     </div>
 </form>
@@ -86,16 +92,19 @@
     });
 
     // Add new News
-    $("#addNews_form").submit(function (e) {
+    $("#addJournal__form").on('submit', function (e) {
       e.preventDefault();
+      const formData = new FormData(this);
 
       $.ajax({
         type: "POST",
-        url: 'api/post/news.php',
-        data: $('#addNews_form').serialize(),
-        dataType: "json",
+        url: 'api/put/journals.php',
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
         success: function (data) {
-          alert(data.message || 'Something went wrong');
+          alert(data.message || 'Success');
 
           if (data.type === 'success') {
             location.reload();
@@ -107,80 +116,80 @@
       });
     });
 
-    // Load data for edit
-    $('#editNews').on('show.bs.modal', function (e) {
-      const id = $(e.relatedTarget).closest('tr').data('id');
+    // // Load data for edit
+    // $('#editNews').on('show.bs.modal', function (e) {
+    //   const id = $(e.relatedTarget).closest('tr').data('id');
 
-      const field_id = $('#editNews').find('input[name="id"]')
-      const field_title = $('#editNews').find('input[name="title"]')
-      const field_details = $('#editNews').find('textarea[name="details"]')
-      const field_start = $('#editNews').find('input[name="start"]')
-      const field_end = $('#editNews').find('input[name="end"]')
-      const field_color = $('#editNews').find('input[name="color"]')
-      const field_with_registration = $('#editNews').find('input[name="with_registration"]')
+    //   const field_id = $('#editNews').find('input[name="id"]')
+    //   const field_title = $('#editNews').find('input[name="title"]')
+    //   const field_details = $('#editNews').find('textarea[name="details"]')
+    //   const field_start = $('#editNews').find('input[name="start"]')
+    //   const field_end = $('#editNews').find('input[name="end"]')
+    //   const field_color = $('#editNews').find('input[name="color"]')
+    //   const field_with_registration = $('#editNews').find('input[name="with_registration"]')
 
-      $.ajax({
-        type: "GET",
-        url: `api/get/news-details.php?id=${id}`,
-        dataType: "json",
-        success: function (response) {
-          if (response.type === 'success') {
-            field_id.val(response.data.id)
-            field_title.val(response.data.event_title);
-            field_details.val(response.data.events_information);
-            field_start.val(moment(response.data.event_from_time).format('YYYY-MM-DD'));
-            field_end.val(moment(response.data.event_to_time).format('YYYY-MM-DD'));
-            field_color.val(response.data.color);
-            console.log(field_with_registration)
-            field_with_registration.prop('checked', response.data.register_possible === 'on' ? true : false);
-          }
-        },
-        error: (e) => {
-          alert(e.responseText || 'Something went wrong')
-        }
-      });
-    })
+    //   $.ajax({
+    //     type: "GET",
+    //     url: `api/get/news-details.php?id=${id}`,
+    //     dataType: "json",
+    //     success: function (response) {
+    //       if (response.type === 'success') {
+    //         field_id.val(response.data.id)
+    //         field_title.val(response.data.event_title);
+    //         field_details.val(response.data.events_information);
+    //         field_start.val(moment(response.data.event_from_time).format('YYYY-MM-DD'));
+    //         field_end.val(moment(response.data.event_to_time).format('YYYY-MM-DD'));
+    //         field_color.val(response.data.color);
+    //         console.log(field_with_registration)
+    //         field_with_registration.prop('checked', response.data.register_possible === 'on' ? true : false);
+    //       }
+    //     },
+    //     error: (e) => {
+    //       alert(e.responseText || 'Something went wrong')
+    //     }
+    //   });
+    // })
 
     // Add new News
-    $("#editNews_form").submit(function (e) {
-      e.preventDefault();
+    // $("#editNews_form").submit(function (e) {
+    //   e.preventDefault();
 
-      $.ajax({
-        type: "POST",
-        url: 'api/put/news.php',
-        data: $('#editNews_form').serialize(),
-        dataType: "json",
-        success: function (data) {
-          alert(data.message || 'Something went wrong');
+    //   $.ajax({
+    //     type: "POST",
+    //     url: 'api/put/news.php',
+    //     data: $('#editNews_form').serialize(),
+    //     dataType: "json",
+    //     success: function (data) {
+    //       alert(data.message || 'Something went wrong');
 
-          if (data.type === 'success') {
-            location.reload();
-          }
-        },
-        error: (e) => {
-          alert(e.responseText || 'Something went wrong')
-        }
-      });
-    });
+    //       if (data.type === 'success') {
+    //         location.reload();
+    //       }
+    //     },
+    //     error: (e) => {
+    //       alert(e.responseText || 'Something went wrong')
+    //     }
+    //   });
+    // });
 
-    handleDelete = (id) => {
-      if (confirm(`Are you sure you want to delete this?`)) {
-        $.ajax({
-          type: "DELETE",
-          url: `api/delete/news.php?id=${id}`,
-          dataType: "json",
-          success: function (data) {
-            alert(data.message || 'Something went wrong');
+    // handleDelete = (id) => {
+    //   if (confirm(`Are you sure you want to delete this?`)) {
+    //     $.ajax({
+    //       type: "DELETE",
+    //       url: `api/delete/news.php?id=${id}`,
+    //       dataType: "json",
+    //       success: function (data) {
+    //         alert(data.message || 'Something went wrong');
 
-            if (data.type === 'success') {
-              location.reload();
-            }
-          },
-          error: (e) => {
-            alert(e.responseText || 'Something went wrong')
-          }
-        });
-      }
-    }
+    //         if (data.type === 'success') {
+    //           location.reload();
+    //         }
+    //       },
+    //       error: (e) => {
+    //         alert(e.responseText || 'Something went wrong')
+    //       }
+    //     });
+    //   }
+    // }
   })
 </script>

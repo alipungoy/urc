@@ -154,9 +154,9 @@ $(function() {
     const requestsLinks = [];
     const eventManagementLinks = ['events-creation.php', 'schedule-presentation.php'];
     const researchesLinks = ['submission.php', 'ongoing-researches.php'];
-    const contentLinks = ['newsletter-management.php'];
+    const contentLinks = ['newsletter-management.php', 'addjournal.php'];
 
-    const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', 'news-management.php', 'newsletter-management.php', 
+    const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', 'news-management.php', 'newsletter-management.php', 'addjournal.php', 
     ...userManagementLinks, ...requestsLinks, ...researchesLinks, ...eventManagementLinks]
 
 
