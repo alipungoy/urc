@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //cover photo
      $journalCover = $_FILES['coverPhoto'];
-     $coverPhoto = $_FILES['coverPhotos']['name'];
-     $cover = $_FILES['coverPhotos']['tmp_name'];
+     $coverPhoto = $_FILES['coverPhoto']['name'];
+     $cover = $_FILES['coverPhoto']['tmp_name'];
      $coverName = ($coverPhoto);
 
     try {
@@ -36,13 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $path = $path.strtolower($filename);
             if (move_uploaded_file($tmp, $path)) {
 
-                $insert = ("INSERT INTO journals (file_name, type, volume, publication_date, tags) VALUES ('" . $filename . "','" . $type . "', '" . $volume . "', '" . $DATE . "', '" . $tags . "')");
+                $insert = ("INSERT INTO journals (file_name, type, volume, publication_date, tags, cover_photo) VALUES ('" . $filename . "','" . $type . "', '" . $volume . "', '" . $DATE . "', '" . $tags . "', '".$cover."')");
                 $stmt = $db->connection->prepare($insert);
                 $stmt->execute();
-
-                if($stmt) {
-                    move_uploaded_file($cover, $path);
-                }
             }
             
         }

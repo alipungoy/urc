@@ -6,7 +6,7 @@ $journals = array();
 // Allow get request only
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
-        $sql = "SELECT journals.id, journals.type, journals.publication_date, journals.volume, cover_photo.path FROM journals LEFT JOIN cover_photo ON journals.id=cover_photo.journal_id WHERE type = 'Patubas' ORDER BY id DESC LIMIT 10";
+        $sql = "SELECT journals.id, journals.type, journals.volume, journals.publication_date, journals.tags, journals.cover_photo FROM journals WHERE type = 'Patubas' ORDER BY id DESC LIMIT 10";
         $stmt = $db->connection->prepare($sql);
         // $stmt->bindParam(':search', $FORM_SEARCH);
         $stmt->execute();
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             'type' => $rows['type'],
                             'date' => $rows['publication_date'],
                             'vol' => $rows['volume'],
-                            'cp' => $rows['path']
+                            'cp' => $rows['cover_photo']
                         ));
         };
 
