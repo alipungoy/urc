@@ -6,7 +6,7 @@ $journals = array();
 // Allow get request only
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
-        $show = ("SELECT journals.id, journals.type, journals.publication_date, journals.volume, journals.journal_name, cover_photo.path FROM journals LEFT JOIN cover_photo ON journals.id=cover_photo.journal_id");
+        $show = ("SELECT journals.id, journals.type, journals.publication_date, journals.volume, journals.cover_photo FROM journals LIMIT 3");
         $stmt = $db->connection->prepare($show);
         $stmt->execute();
         $row = $stmt->fetchAll();
@@ -16,8 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             'type' => $rows['type'],
                             'date' => $rows['publication_date'],
                             'vol' => $rows['volume'],
-                            'name' => $rows['journal_name'],
-                            'cp' => $rows['path']
+                            'cp' => $rows['cover_photo']
                         ));
         };
         

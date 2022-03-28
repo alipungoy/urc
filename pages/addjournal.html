@@ -23,46 +23,46 @@
 <div class="modal fade" tabindex="-1" id="addNews">
   <form id="addJournal__form" class="modal-dialog" enctype="multipart/form-data">
     <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Add Journal</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header">
+        <h5 class="modal-title">Add Journal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Type</label>
+          <select class="form-control" name="journal__Type">
+            <option value=""></option>
+            <option value="Patubas">Patubas</option>
+            <option value="Scientia et Fides ">Scientia et Fides</option>
+          </select>
+          <small class="fst-italic text-muted">Select one Option</small>
         </div>
-        <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Type</label>
-              <select class="form-control" name="journal__Type">
-                <option value=""></option>
-                <option value="Patubas">Patubas</option>
-                <option value="Scientia et Fides ">Scientia et Fides</option>
-              </select>
-              <small class="fst-italic text-muted">Select one Option</small>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Volume</label>
-                <input name="vol__Number" type="number" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Attachment</label>
-                <input name="journalFile" type="file" class="form-control" required accept="application/pdf">
-                <small class="fst-italic text-muted">Accepts PDF file only</small>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Cover Photo</label>
-              <input name="coverPhoto" type="file" class="form-control" required accept="image/*">
-              <small class="fst-italic text-muted">Supported File Format JPEG, JPG, PNG</small>
-          </div>
-            <div class="mb-3">
-                <label class="form-label">Tags</label>
-                <textarea name="tags" class="form-control" rows="3"></textarea>
-                <small class="fst-italic text-muted">Must be comma-separated values(Example: news, priority, urgent)</small>
-            </div>
+        <div class="mb-3">
+          <label class="form-label">Volume</label>
+          <input name="vol__Number" type="number" class="form-control">
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-success">Add Journal</button>
+        <div class="mb-3">
+          <label class="form-label">Attachment</label>
+          <input name="journalFile" type="file" class="form-control" required accept="application/pdf">
+          <small class="fst-italic text-muted">Accepts PDF file only</small>
         </div>
+        <div class="mb-3">
+          <label class="form-label">Cover Photo</label>
+          <input name="coverPhoto" type="file" class="form-control" required accept="image/*">
+          <small class="fst-italic text-muted">Supported File Format JPEG, JPG, PNG</small>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tags</label>
+          <textarea name="tags" class="form-control" rows="3"></textarea>
+          <small class="fst-italic text-muted">Must be comma-separated values(Example: news, priority, urgent)</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-success">Add Journal</button>
+      </div>
     </div>
-</form>
+  </form>
 </div>
 
 
@@ -104,11 +104,8 @@
         cache: false,
         processData: false,
         success: function (data) {
-          alert(data.message || 'Success');
-
-          if (data.type === 'success') {
-            location.reload();
-          }
+          alert('Journal Added');
+          location.reload();
         },
         error: (e) => {
           alert(e.responseText || 'Something went wrong')

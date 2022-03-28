@@ -26,23 +26,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     //cover photo
-     $journalCover = $_FILES['coverPhoto'];
-     $coverPhoto = $_FILES['coverPhoto']['name'];
-     $cover = $_FILES['coverPhoto']['tmp_name'];
-     $coverName = ($coverPhoto);
+    $coverPath = '../../journals/coverphoto/';
+    $journalCover = $_FILES['coverPhoto'];
+    $coverPhoto = $_FILES['coverPhoto']['name'];
+    $cover = $_FILES['coverPhoto']['tmp_name'];
+    $coverName = ($coverPhoto);
 
     try {
         if (in_array($ext, $valid_ext)) {
-            $path = $path.strtolower($filename);
+            $path = $path . strtolower($filename);
             if (move_uploaded_file($tmp, $path)) {
 
-                $insert = ("INSERT INTO journals (file_name, type, volume, publication_date, tags, cover_photo) VALUES ('" . $filename . "','" . $type . "', '" . $volume . "', '" . $DATE . "', '" . $tags . "', '".$cover."')");
+                $insert = ("INSERT INTO journals (file_name, type, volume, publication_date, tags, cover_photo) VALUES ('" . $filename . "','" . $type . "', '" . $volume . "', '" . $DATE . "', '" . $tags . "', '" . $coverName . "')");
                 $stmt = $db->connection->prepare($insert);
                 $stmt->execute();
-            }
-            
-        }
 
+                if ($stmt) {
+                    $coverPath = $coverPath . strtolower($coverName);
+                    move_uploaded_file($cover, $coverPath);
+                    
+                    echo json_encode(array('type' => 'success'));
+                }
+            }
+        }
     } catch (\Throwable $th) {
         $output = json_encode(array('type' => 'error', 'message' => $th->getMessage()));
         die($output);

@@ -39,13 +39,13 @@
                     return response.data.forEach(({ id, type, date, vol, cp }) => {
                         $("#patubasList").append(`<div class="col-4 p-3">
                         <a href="journal-details.php#${id}" class="card-link">
-                            <img src="upload/${cp}" class="card-img-top" style="height: 18rem">
                             <div class="card-body">
                                 <div class="mb-3">
                                     <h5 class="card-title mb-0">Vol. ${vol}</h5>
                                 <small class="text-muted">${new Date(date).toDateString()}</small>
                                     </div>
                             </div>
+                            <img src="journals/coverphoto/${cp}" class="card-img-top" style="height: 25rem; width: 20rem">
                         </a>
                     </div>`);
                     });
