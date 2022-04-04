@@ -1,64 +1,80 @@
 <section>
   <header class="d-flex align-items-center justify-content-between">
-    <h4>News Management</h4>
-    <button type="button" class="btn btn-outline-secondary px-3 btn-sm" data-bs-toggle="modal"
+    <h4>Journal Management</h4>
+    <button type="button" class="btn btn-outline-primary px-3 btn-sm" data-bs-toggle="modal"
       data-bs-target="#addNews">
       <i class="bi-plus-lg me-2"></i>
       Add New Journal
     </button>
   </header>
-  <table class="table table-striped table-bordered" id="news-management" width="100%" cellspacing="0">
+  <table class="table table-striped" id="journal-management" width="100%" cellspacing="0">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Title</th>
         <th>Type</th>
         <th>Publication Date</th>
         <th>Volume Number</th>
+        <th>Tags</th>
       </tr>
     </thead>
   </table>
 </section>
 
 <div class="modal fade" tabindex="-1" id="addNews">
-  <form id="addJournal__form" class="modal-dialog" enctype="multipart/form-data">
+  <form id="addJournal__form" class="modal-dialog modal-lg" enctype="multipart/form-data">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add Journal</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label">Type</label>
-          <select class="form-control" name="journal__Type">
-            <option value=""></option>
-            <option value="Patubas">Patubas</option>
-            <option value="Scientia et Fides ">Scientia et Fides</option>
-          </select>
-          <small class="fst-italic text-muted">Select one Option</small>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Volume</label>
-          <input name="vol__Number" type="number" class="form-control">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Attachment</label>
-          <input name="journalFile" type="file" class="form-control" required accept="application/pdf">
-          <small class="fst-italic text-muted">Accepts PDF file only</small>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Cover Photo</label>
-          <input name="coverPhoto" type="file" class="form-control" required accept="image/*">
-          <small class="fst-italic text-muted">Supported File Format JPEG, JPG, PNG</small>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Tags</label>
-          <textarea name="tags" class="form-control" rows="3"></textarea>
-          <small class="fst-italic text-muted">Must be comma-separated values(Example: news, priority, urgent)</small>
+        <div class="row">
+          <div class="col-md-6 border-end border-secondary">
+            <div class="mb-3">
+              <label class="form-label">Type</label>
+              <select class="form-control" name="journal__Type">
+                <option value=""></option>
+                <option value="Patubas">Patubas</option>
+                <option value="Scientia et Fides ">Scientia et Fides</option>
+              </select>
+              <small class="fst-italic text-muted">Select one Option</small>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Volume</label>
+              <input name="vol__Number" id="number" type="number" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Attachment</label>
+              <input name="journalFile" type="file" class="form-control" required accept="application/pdf">
+              <small class="fst-italic text-muted">Accepts PDF file only</small>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Cover Photo</label>
+              <input name="coverPhoto" id="photo" type="file" class="form-control" required accept="image/*">
+              <small class="fst-italic text-muted">Supported File Format JPEG, JPG, PNG</small>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Tags</label>
+              <textarea name="tags" class="form-control" rows="3"></textarea>
+              <small class="fst-italic text-muted">Must be comma-separated values(Example: news, priority,
+                urgent)</small>
+            </div>
+          </div>
+          <div class="col-md-6 ms-auto">
+            <h6>Preview</h6>
+            <div class="mb-3">
+              <div class="col-4 p-3">
+                <a>
+                  <div class="card-body" id="body">
+                  </div>
+                  <img src="./assets/images/no-file.png" id="imgPrev" class="card-img-top" style="height: 25rem; width: 20rem">
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" id="reset" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
         <button type="submit" class="btn btn-success">Add Journal</button>
       </div>
     </div>
@@ -69,21 +85,21 @@
 <script>
   $(document).ready(function () {
     // Fetch Data
-    $('#news-management').dataTable({
+    $('#journal-management').dataTable({
+      "scrollY": "500px",
       "pagingType": "full_numbers",
       "ajax": {
-        "url": "api/get/journals.php",
+        "url": "api/get/journal-data.php",
         type: 'get',
         "data": function (d) {
           d.extra_search = $('#extra').val();
         }
       },
       "columns": [
-        { "data": "id" },
-        { "data": "name" },
         { "data": "type" },
         { "data": "date" },
-        { "data": "vol" }
+        { "data": "vol" },
+        { "data": "data" }
       ],
       'createdRow': function (row, data, dataIndex) {
         $(row).attr('data-id', data.id);
@@ -99,20 +115,53 @@
       $.ajax({
         type: "POST",
         url: 'api/put/journals.php',
+        dataType: 'json',
         data: formData,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
-          alert('Journal Added');
-          location.reload();
-        },
-        error: (e) => {
-          alert(e.responseText || 'Something went wrong')
+          if(data.msg === "success"){
+            alert('Journal Published');
+            location.reload()
+          } else if (data.msg === 'exist') {
+            alert ('A Journal With The same Volume Is Already Published!')
+          }
         }
       });
     });
 
+
+    $('#photo').change(function () {
+      const file = this.files[0];
+      console.log(file);
+      if (file) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          console.log(e.target.result);
+          $('#imgPrev').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    $("#number").on('keyup', function () {
+      const volume = $('#number').val();
+      const date = new Date();
+      const dateToday = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+      console.log(volume);
+
+      $('#body').html(
+        `                        <div class="mb-3">
+                            <h5 class="card-title mb-0">Vol. ${volume}</h5>
+                        <small class="text-muted">${dateToday}</small>
+                            </div>`
+      )
+    });
+
+    $('#reset').on('click', function () {
+      $('#addJournal__form').trigger("change");
+    });
     // // Load data for edit
     // $('#editNews').on('show.bs.modal', function (e) {
     //   const id = $(e.relatedTarget).closest('tr').data('id');

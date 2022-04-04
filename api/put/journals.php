@@ -33,21 +33,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $coverName = ($coverPhoto);
 
     try {
-        if (in_array($ext, $valid_ext)) {
-            $path = $path . strtolower($filename);
-            if (move_uploaded_file($tmp, $path)) {
+        $check = ("SELECT volume, type FROM journals WHERE volume = '" . $volume . "' && type = '" . $type . "' ");
+        $stmt = $db->connection->prepare($check);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                $insert = ("INSERT INTO journals (file_name, type, volume, publication_date, tags, cover_photo) VALUES ('" . $filename . "','" . $type . "', '" . $volume . "', '" . $DATE . "', '" . $tags . "', '" . $coverName . "')");
-                $stmt = $db->connection->prepare($insert);
-                $stmt->execute();
 
-                if ($stmt) {
-                    $coverPath = $coverPath . strtolower($coverName);
-                    move_uploaded_file($cover, $coverPath);
-                    
-                    echo json_encode(array('type' => 'success'));
+        if ($row < 1) {
+            if (in_array($ext, $valid_ext)) {
+                $path = $path . strtolower($filename);
+                if (move_uploaded_file($tmp, $path)) {
+
+                    $insert = ("INSERT INTO journals (file_name, type, volume, publication_date, tags, cover_photo) VALUES ('" . $filename . "','" . $type . "', '" . $volume . "', '" . $DATE . "', '" . $tags . "', '" . $coverName . "')");
+                    $stmt = $db->connection->prepare($insert);
+                    $stmt->execute();
+
+                    if ($stmt) {
+                        $coverPath = $coverPath . strtolower($coverName);
+                        move_uploaded_file($cover, $coverPath);
+
+                        echo json_encode(array('msg' => 'success'));
+                    }
                 }
             }
+        } else {
+            echo json_encode(array('msg' => 'exist'));
         }
     } catch (\Throwable $th) {
         $output = json_encode(array('type' => 'error', 'message' => $th->getMessage()));
