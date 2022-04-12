@@ -54,7 +54,26 @@
             </p>
         </div>
         <div class="row" id="patubasList"></div>
-        <div class="text-center"><a href="journals.php" class="fs-5 fw-bold">View more Patubas...</a></div>
+        <div class="text-center"><a href="journals.php" class="fs-5 fw-bold">View more...</a></div>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center items-center container" id="Scientia">
+    <div>
+        <div class="mb-5 text-center">
+            <h2 class="text-cpu-blue fw-bold display-6">Scientia et Fides</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                officia
+                deserunt mollit anim id est laborum.
+            </p>
+        </div>
+        <div class="row" id="scientia__List"></div>
+        <div class="text-center"><a href="journals.php" class="fs-5 fw-bold">View more...</a></div>
     </div>
 </section>
 
@@ -125,13 +144,13 @@
                     </div>`);
                 });
 
-                    // var ifMultiple = false;
-                    // $thisGallery = $(this);
-                    // if($thisGallery.children('.owl-item').length > 1) {
-                    //     ifMultiple = true;
-                    // }
+                // var ifMultiple = false;
+                // $thisGallery = $(this);
+                // if($thisGallery.children('.owl-item').length > 1) {
+                //     ifMultiple = true;
+                // }
 
-                
+
                 var carouselLatestNews = $('#carouselLatestNews').owlCarousel({
                     loop: true,
                     margin: 10,
@@ -163,6 +182,36 @@
                                 </div>
                             </div>
                         </a>
+                    </div>`);
+                });
+            }
+        });
+
+        $.ajax({
+            url: 'api/get/journals-scientia.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (response) {
+                response.forEach(({ id, title, abstract, author, date, cp }) => {
+                    const truncate = jQuery.trim(abstract).substring(0, 200).trim(this) + "...";
+                    $("#scientia__List").append(
+                        `<div class="col-4 p-3"> 
+                       
+                            <div class="card-body"> 
+                                <img src="journals/coverphoto/${cp}" class="card-img-top mb-1" style="height: 25rem; width: 20rem">
+                                <div class="mb-2">
+                                    <a href="journal-details.php#${id}" class="card-link>
+                                    <h6 class="card-title">${title}</h6>
+                                    </a></br>
+                                    <small class="card-title mb-1">By:${author}</small>
+                                    <p class="scientia__Abstract">${truncate}</p>                                
+                                    <a href="journal-details.php#${id}" class="card-link">
+                                Read More
+                                 </a></br>                              
+                                <small class="text-muted">${new Date(date).toDateString()}</small>
+                                </div>
+
+                            </div>
                     </div>`);
                 });
             }

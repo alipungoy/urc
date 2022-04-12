@@ -60,3 +60,9 @@
 .owl-carousel:hover {
     cursor: pointer;
 }
+/* 
+.scientia__Abstract {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} */

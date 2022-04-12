@@ -5,7 +5,7 @@ $db = new db();
 // Allow post request only. doesn't seem to read PUT request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate for required fields
-    if (!isset($_POST["vol__Number"])) {
+    if (!isset($_POST["journals__Title"])) {
         $output = json_encode(array('type' => 'error', 'message' => 'Some required fields seems to be empty!'));
         die($output);
     }
@@ -13,10 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $DATE = date("y-m-d");
 
     // Assigned fields
+    $title = $_POST['journals__Title'];
+    $abstract =  $_POST['journals__Abstract'];
+    $authors = $_POST['journals__Authors'];
+
     $valid_ext = array('pdf');
     $path = '../../journals/';
-    $type = 'Patubas';
-    $volume = $_POST['vol__Number'];
     $tags = isset($_POST['tags']) ? $_POST['tags'] : '';
     $journalFIle = $_FILES['journalFile'];
     $file = $_FILES['journalFile']['name'];
@@ -33,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $coverName = ($coverPhoto);
 
     try {
-        $check = ("SELECT volume, type FROM journals WHERE volume = '" . $volume . "' && type = '" . $type . "' ");
+        $check = ("SELECT title FROM journals_scientia WHERE title = '". $title ."' ");
         $stmt = $db->connection->prepare($check);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -44,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $path = $path . strtolower($filename);
                 if (move_uploaded_file($tmp, $path)) {
 
-                    $insert = ("INSERT INTO journals (file_name, type, volume, publication_date, tags, cover_photo) VALUES ('" . $filename . "','" . $type . "', '" . $volume . "', '" . $DATE . "', '" . $tags . "', '" . $coverName . "')");
+                    $insert = ("INSERT INTO journals_scientia (title, abstract, author, publication_date, cover_photo) VALUES ('" . $title . "','" . $abstract . "', '" . $authors . "', '" . $DATE . "', '" . $coverName . "')");
                     $stmt = $db->connection->prepare($insert);
                     $stmt->execute();
 

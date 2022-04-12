@@ -1,10 +1,10 @@
 <section>
   <header class="d-flex align-items-center justify-content-between">
-    <h4>Journal Management</h4>
+    <h4>Patubas Management</h4>
     <button type="button" class="btn btn-outline-primary px-3 btn-sm" data-bs-toggle="modal"
       data-bs-target="#addNews">
       <i class="bi-plus-lg me-2"></i>
-      Add New Journal
+      Add New Patubas
     </button>
   </header>
   <table class="table table-striped" id="journal-management" width="100%" cellspacing="0">
@@ -29,15 +29,6 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6 border-end border-secondary">
-            <div class="mb-3">
-              <label class="form-label">Type</label>
-              <select class="form-control" name="journal__Type">
-                <option value=""></option>
-                <option value="Patubas">Patubas</option>
-                <option value="Scientia et Fides ">Scientia et Fides</option>
-              </select>
-              <small class="fst-italic text-muted">Select one Option</small>
-            </div>
             <div class="mb-3">
               <label class="form-label">Volume</label>
               <input name="vol__Number" id="number" type="number" class="form-control">
@@ -75,7 +66,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="reset" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-success">Add Journal</button>
+        <button type="submit" class="btn btn-success">Add patubas</button>
       </div>
     </div>
   </form>
@@ -89,7 +80,7 @@
       "scrollY": "500px",
       "pagingType": "full_numbers",
       "ajax": {
-        "url": "api/get/journal-data.php",
+        "url": "api/get/patubas-data.php",
         type: 'get',
         "data": function (d) {
           d.extra_search = $('#extra').val();

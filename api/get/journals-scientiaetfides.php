@@ -6,8 +6,9 @@ $journals = array();
 // Allow get request only
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
-        $show = ("SELECT * FROM journals_scientia LIMIT 3");
-        $stmt = $db->connection->prepare($show);
+        $sql = "SELECT * FROM journals_scientia LIMIT 10";
+        $stmt = $db->connection->prepare($sql);
+        // $stmt->bindParam(':search', $FORM_SEARCH);
         $stmt->execute();
         $row = $stmt->fetchAll();
 
@@ -22,8 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             ));
         };
 
-        echo json_encode($journals);
-    } catch (Exception $e) {
-        die($e->getMessage());
+        die(json_encode(array('type' => 'success', 'data' => $journals)));
+    } catch (\Throwable $th) {
+        $output = json_encode(array('type' => 'error', 'message' => $th->getMessage()));
+        die($output);
     }
 }

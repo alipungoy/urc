@@ -3,23 +3,27 @@
         <h3 class="display-6">Journals</h3>
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link px-5 active text-dark " id="pills-patubas-tab" data-bs-toggle="pill" data-bs-target="#pills-patubas" type="button" role="tab" aria-controls="pills-patubas" aria-selected="true">Patubas</button>
+                <button class="nav-link px-5 active text-dark " id="pills-patubas-tab" data-bs-toggle="pill"
+                    data-bs-target="#pills-patubas" type="button" role="tab" aria-controls="pills-patubas"
+                    aria-selected="true">Patubas</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link px-5 text-dark " id="pills-scientia-tab" data-bs-toggle="pill" data-bs-target="#pills-scientia" type="button" role="tab" aria-controls="pills-scientia" aria-selected="false">Scientia Et Fides</button>
+                <button class="nav-link px-5 text-dark " id="pills-scientia-tab" data-bs-toggle="pill"
+                    data-bs-target="#pills-scientia" type="button" role="tab" aria-controls="pills-scientia"
+                    aria-selected="false">Scientia Et Fides</button>
             </li>
-          </ul>
+        </ul>
     </div>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-patubas" role="tabpanel" aria-labelledby="pills-patubas-tab">
             <div id="patubasList" class="row"></div>
-            <small id="patubas-note" class="text-secondary"></small>    
+            <small id="patubas-note" class="text-secondary"></small>
         </div>
         <div class="tab-pane fade" id="pills-scientia" role="tabpanel" aria-labelledby="pills-scientia-tab">
             <div id="scientiaList" class="row"></div>
-            <small id="scientia-note" class="text-secondary"></small>    
+            <small id="scientia-note" class="text-secondary"></small>
         </div>
-      </div>
+    </div>
 
 </section>
 
@@ -38,14 +42,14 @@
 
                     return response.data.forEach(({ id, type, date, vol, cp }) => {
                         $("#patubasList").append(`<div class="col-4 p-3">
-                        <a href="journal-details.php#${id}" class="card-link">
+                        <a href="journal-details.php?Journal=Patubas#${id}" class="card-link">
                             <div class="card-body">
                                 <div class="mb-3">
+                                    <img src="journals/coverphoto/${cp}" class="card-img-top mb-3" style="height: 25rem; width: 20rem">
                                     <h5 class="card-title mb-0">Vol. ${vol}</h5>
                                 <small class="text-muted">${new Date(date).toDateString()}</small>
                                     </div>
-                            </div>
-                            <img src="journals/coverphoto/${cp}" class="card-img-top" style="height: 25rem; width: 20rem">
+                            </div>                       
                         </a>
                     </div>`);
                     });
@@ -59,7 +63,7 @@
         });
 
         $.ajax({
-            url: 'api/get/journals-scientia.php',
+            url: 'api/get/journals-scientiaetfides.php',
             dataType: 'json',
             method: 'get',
             success: function (response) {
@@ -69,19 +73,28 @@
                         $('#scientia-note').append('No Scientia Et Fides journals found...')
                     }
 
-                    return response.data.forEach(({ id, type, date, vol, cp }) => {
-                        $("#scientiaList").append(`<div class="col-4 p-3">
-                        <a href="journal-details.php#${id}" class="card-link">
-                            <img src="upload/${cp}" class="card-img-top" style="height: 18rem">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <h5 class="card-title mb-0">Vol. ${vol}</h5>
+                    return response.data.forEach(({ id, title, abstract, author, date, cp }) => {
+                    const truncate = jQuery.trim(abstract).substring(0, 200).trim(this) + "...";
+                    $("#scientiaList").append(
+                        `<div class="col-4 p-3"> 
+                       
+                            <div class="card-body"> 
+                                <img src="journals/coverphoto/${cp}" class="card-img-top mb-1" style="height: 25rem; width: 20rem">
+                                <div class="mb-2">
+                                    <a href="journal-details.php?Journal=Scientia-et-Fides#${id}" class="card-link>
+                                    <h6 class="card-title">${title}</h6>
+                                    </a></br>
+                                    <small class="card-title mb-1">By:${author}</small>
+                                    <p class="scientia__Abstract">${truncate}</p>                                
+                                    <a href="journal-details.php#${id}" class="card-link">
+                                Read More
+                                 </a></br>                              
                                 <small class="text-muted">${new Date(date).toDateString()}</small>
-                                    </div>
+                                </div>
+
                             </div>
-                        </a>
                     </div>`);
-                    });
+                });
                 }
 
                 return alert(response.message);

@@ -48,7 +48,8 @@
             </button>
             <div class="collapse ms-5" id="content-management-collapse" bis_skin_checked="1">
                 <ul class="fw-normal pb-1 small nav nav-pills flex-column">
-                    <li class="nav-item"><a href="addjournal.php" class="text-white nav-link">Journals</a></li>
+                    <li class="nav-item"><a href="manage-patubas.php" class="text-white nav-link">Patubas</a></li>
+                    <li class="nav-item"><a href="manage-scientia.php" class="text-white nav-link">Scientia et Fides</a></li>
                     </li>
                 </ul>
             </div>
@@ -154,9 +155,10 @@ $(function() {
     const requestsLinks = [];
     const eventManagementLinks = ['events-creation.php', 'schedule-presentation.php'];
     const researchesLinks = ['submission.php', 'ongoing-researches.php'];
-    const contentLinks = ['newsletter-management.php', 'addjournal.php'];
+    const contentLinks = ['newsletter-management.php', 'manage-patubas.php', 'manage-scientia.php'];
 
-    const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', 'news-management.php', 'newsletter-management.php', 'addjournal.php', 
+    const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', 'news-management.php', 'newsletter-management.php', 'manage-patubas.php',
+    'manage-scientia.php', 
     ...userManagementLinks, ...requestsLinks, ...researchesLinks, ...eventManagementLinks]
 
 
