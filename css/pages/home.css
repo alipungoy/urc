@@ -1,65 +1,84 @@
 .post .article-v2 .entry-title {
-    font-size: 16px;
-    color: #666666;
-    font-weight: 600;
+  font-size: 16px;
+  color: #666666;
+  font-weight: 600;
 }
 
 .post .article-v2 .article-header {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .post .article-v2 .article-content-main {
-    -webkit-box-shadow: 1px 0px 20px 1px rgba(0, 0, 0, 0.15);
-    box-shadow: 1px 0px 20px 1px rgba(0, 0, 0, 0.15);
-    padding: 30px;
-    position: relative;
-    background: #fff;
-    margin-top: -75px;
-    border: solid;
-    border-color: rgba(61, 59, 59, 0.15);
+  -webkit-box-shadow: 1px 0px 20px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 1px 0px 20px 1px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  position: relative;
+  background: #fff;
+  margin-top: -75px;
+  border: solid;
+  border-color: rgba(61, 59, 59, 0.15);
 }
 
 @media only screen and (max-width: 1024px) {
-    .post .article-v2 .article-content-main {
-        padding: 15px;
-        margin-bottom: 30px;
-    }
+  .post .article-v2 .article-content-main {
+    padding: 15px;
+    margin-bottom: 30px;
+  }
 }
 
 .post .article-v2 .article-content p:last-of-type {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .post .article-v2 .article-thumb {
-    position: relative;
-    left: 8px;
-    margin-bottom: 0;
+  position: relative;
+  left: 8px;
+  margin-bottom: 0;
 }
 
 .post .article-v2 .article-footer {
-    border-top: 1px solid #ebebeb;
-    padding-top: 15px;
-    margin-top: 20px;
+  border-top: 1px solid #ebebeb;
+  padding-top: 15px;
+  margin-top: 20px;
 }
 
 .post .article-v2 .article-footer .more-link {
-    color: #ffa800;
+  color: #ffa800;
 }
 
 .post .article-v2 .article-footer .footer-meta a {
-    color: #aaa;
-    font-size: 15px;
-    margin-right: 5px;
+  color: #aaa;
+  font-size: 15px;
+  margin-right: 5px;
 }
 
 .post .article-v2 .article-footer .footer-meta a i {
-    font-size: 16px;
-    margin-left: 2px;
+  font-size: 16px;
+  margin-left: 2px;
 }
 
 .owl-carousel:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
+
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 64px;
+  height: 64px;
+  z-index: 9999;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease-out;
+  background-image: url(../../assets/images/back-to-top-icon-png-0.jpg);
+  background-size: cover;
+  opacity: 0.4;
+}
+.back-to-top:hover {
+  opacity: 1;
+}
+
 /* 
 .scientia__Abstract {
     white-space: nowrap;

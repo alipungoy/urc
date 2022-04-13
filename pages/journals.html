@@ -74,27 +74,28 @@
                     }
 
                     return response.data.forEach(({ id, title, abstract, author, date, cp }) => {
-                    const truncate = jQuery.trim(abstract).substring(0, 200).trim(this) + "...";
-                    $("#scientiaList").append(
-                        `<div class="col-4 p-3"> 
+                        const truncate = jQuery.trim(abstract).substring(0, 200).trim(this) + "...";
+                        $("#scientiaList").append(
+                            `<div class="col-4 p-3"> 
                        
-                            <div class="card-body"> 
-                                <img src="journals/coverphoto/${cp}" class="card-img-top mb-1" style="height: 25rem; width: 20rem">
-                                <div class="mb-2">
-                                    <a href="journal-details.php?Journal=Scientia-et-Fides#${id}" class="card-link>
-                                    <h6 class="card-title">${title}</h6>
-                                    </a></br>
-                                    <small class="card-title mb-1">By:${author}</small>
-                                    <p class="scientia__Abstract">${truncate}</p>                                
-                                    <a href="journal-details.php#${id}" class="card-link">
-                                Read More
-                                 </a></br>                              
-                                <small class="text-muted">${new Date(date).toDateString()}</small>
-                                </div>
+                       <div class="card-body"> 
+                           <img src="journals/coverphoto/${cp}" class="card-img-top mb-1" style="height: 25rem; width: 20rem">
+                           <div class="mb-2">
+                               <a href="journal-details.php#${id}" class="card-link">
+                               <h6 class="card-title">${title}</h6>
+                               </a>
+                               <small class="card-title fst-italic mb-2">By: ${author}</small></br>
+                               <p class="scientia__Abstract mt-2">${truncate}</p>                                
+                               <a href="journal-details.php#${id}" class="card-link">
+                           Read More
+                            </a></br>                              
+                           <small class="text-muted">${new Date(date).toDateString()}</small>
+                           </div>
 
-                            </div>
-                    </div>`);
-                });
+                       </div>
+               </div>`
+                        );
+                    });
                 }
 
                 return alert(response.message);

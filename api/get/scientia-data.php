@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         foreach ($row as $rows) {
             $events[] = (array(
+                'id' => $rows['id'],
                 'title' => $rows['title'],
                 'abstract' => $rows['abstract'],
                 'author' => $rows['author'],

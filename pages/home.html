@@ -43,14 +43,14 @@
     <div>
         <div class="mb-5 text-center">
             <h2 class="text-cpu-blue fw-bold display-6">Patubas</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex
-                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                officia
-                deserunt mollit anim id est laborum.
+            <p class="fw-light">
+                Patubas is an Ilonggo word for
+                “product” or “fruit”. It is a fitting
+                description for this multidisciplinary
+                research journal which is indeed, a
+                product or fruit of our labors as
+                researchers or the “seekers” of truth in its
+                varied dimensions.
             </p>
         </div>
         <div class="row" id="patubasList"></div>
@@ -62,14 +62,9 @@
     <div>
         <div class="mb-5 text-center">
             <h2 class="text-cpu-blue fw-bold display-6">Scientia et Fides</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex
-                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                officia
-                deserunt mollit anim id est laborum.
+            <p class="fw-light">
+                It is the official journal of Higher Education Publication of Central Philippine University (ISSN
+                2546-1338) is internationally refereed, comes out semi-annually and is being uploaded here in this page.
             </p>
         </div>
         <div class="row" id="scientia__List"></div>
@@ -110,6 +105,8 @@
         </div>
     </div>
 </section>
+
+<a href="#" class="back-to-top"></a>
 
 
 <script>
@@ -194,17 +191,18 @@
             success: function (response) {
                 response.forEach(({ id, title, abstract, author, date, cp }) => {
                     const truncate = jQuery.trim(abstract).substring(0, 200).trim(this) + "...";
+
                     $("#scientia__List").append(
                         `<div class="col-4 p-3"> 
                        
                             <div class="card-body"> 
                                 <img src="journals/coverphoto/${cp}" class="card-img-top mb-1" style="height: 25rem; width: 20rem">
                                 <div class="mb-2">
-                                    <a href="journal-details.php#${id}" class="card-link>
+                                    <a href="journal-details.php#${id}" class="card-link">
                                     <h6 class="card-title">${title}</h6>
-                                    </a></br>
-                                    <small class="card-title mb-1">By:${author}</small>
-                                    <p class="scientia__Abstract">${truncate}</p>                                
+                                    </a>
+                                    <small class="card-title fst-italic mb-2">By: ${author}</small></br>
+                                    <p class="scientia__Abstract mt-2">${truncate}</p>                                
                                     <a href="journal-details.php#${id}" class="card-link">
                                 Read More
                                  </a></br>                              
@@ -212,9 +210,27 @@
                                 </div>
 
                             </div>
-                    </div>`);
+                    </div>`
+                    );
                 });
             }
         });
+
+$(window).scroll(function(){
+  // Show button after 100px
+  var showAfter = 100;
+  if ($(this).scrollTop() > showAfter ) { 
+   $('.back-to-top').fadeIn();
+  } else { 
+   $('.back-to-top').fadeOut();
+  }
+ });
+ 
+ //Click event to scroll to top
+ $('.back-to-top').click(function(){
+  $('html, body').animate({scrollTop : 0},800);
+  return false;
+ });
+
     });
 </script>
