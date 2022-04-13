@@ -39,6 +39,21 @@
     </div>
 </section>
 
+
+<section class="d-flex justify-content-center items-center container" id="newsletters">
+    <div>
+        <div class="mb-5 text-center">
+            <h2 class="text-cpu-blue fw-bold display-6">NewsLetters</h2>
+            <p class="fw-light">
+                It is the official journal of Higher Education Publication of Central Philippine University (ISSN
+                2546-1338) is internationally refereed, comes out semi-annually and is being uploaded here in this page.
+            </p>
+        </div>
+        <div class="row" id="scientia__List"></div>
+        <div class="text-center"><a href="journals.php" class="fs-5 fw-bold">View more...</a></div>
+    </div>
+</section>
+
 <section class="d-flex justify-content-center items-center container" id="patubas">
     <div>
         <div class="mb-5 text-center">
@@ -62,6 +77,20 @@
     <div>
         <div class="mb-5 text-center">
             <h2 class="text-cpu-blue fw-bold display-6">Scientia et Fides</h2>
+            <p class="fw-light">
+                It is the official journal of Higher Education Publication of Central Philippine University (ISSN
+                2546-1338) is internationally refereed, comes out semi-annually and is being uploaded here in this page.
+            </p>
+        </div>
+        <div class="row" id="scientia__List"></div>
+        <div class="text-center"><a href="journals.php" class="fs-5 fw-bold">View more...</a></div>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center items-center container" id="latestResearches">
+    <div>
+        <div class="mb-5 text-center">
+            <h2 class="text-cpu-blue fw-bold display-6">Latest Researches</h2>
             <p class="fw-light">
                 It is the official journal of Higher Education Publication of Central Philippine University (ISSN
                 2546-1338) is internationally refereed, comes out semi-annually and is being uploaded here in this page.
@@ -111,6 +140,25 @@
 
 <script>
     $(function () {
+
+        //Scroll To top
+        $(window).scroll(function () {
+            // Show button after 300px
+            var showAfter = 300;
+            if ($(this).scrollTop() > showAfter) {
+                $('.back-to-top').fadeIn();
+            } else {
+                $('.back-to-top').fadeOut();
+            }
+        });
+
+        //Click event to scroll to top
+        $('.back-to-top').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 800);
+            return false;
+        });
+
+        //carousel
         var carouselHero = $('#carouselHero').owlCarousel({
             loop: true,
             margin: 10,
@@ -122,6 +170,7 @@
             items: 1,
         });
 
+        //fetch latest news
         $.ajax({
             url: 'api/get/latest-news.php',
             dataType: 'json',
@@ -161,7 +210,7 @@
             }
         });
 
-
+        //fetch Patubas Journals
         $.ajax({
             url: 'api/get/journals.php',
             dataType: 'json',
@@ -184,6 +233,7 @@
             }
         });
 
+        //fetch scientia et fides journals
         $.ajax({
             url: 'api/get/journals-scientia.php',
             dataType: 'json',
@@ -215,22 +265,5 @@
                 });
             }
         });
-
-$(window).scroll(function(){
-  // Show button after 100px
-  var showAfter = 100;
-  if ($(this).scrollTop() > showAfter ) { 
-   $('.back-to-top').fadeIn();
-  } else { 
-   $('.back-to-top').fadeOut();
-  }
- });
- 
- //Click event to scroll to top
- $('.back-to-top').click(function(){
-  $('html, body').animate({scrollTop : 0},800);
-  return false;
- });
-
     });
 </script>

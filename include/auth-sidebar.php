@@ -50,6 +50,7 @@
                 <ul class="fw-normal pb-1 small nav nav-pills flex-column">
                     <li class="nav-item"><a href="manage-patubas.php" class="text-white nav-link">Patubas</a></li>
                     <li class="nav-item"><a href="manage-scientia.php" class="text-white nav-link">Scientia et Fides</a></li>
+                    <li class="nav-item"><a href="homepage-videos.php" class="text-white nav-link">Videos</a></li>
                     </li>
                 </ul>
             </div>
@@ -155,10 +156,10 @@ $(function() {
     const requestsLinks = [];
     const eventManagementLinks = ['events-creation.php', 'schedule-presentation.php'];
     const researchesLinks = ['submission.php', 'ongoing-researches.php'];
-    const contentLinks = ['newsletter-management.php', 'manage-patubas.php', 'manage-scientia.php'];
+    const contentLinks = ['newsletter-management.php', 'manage-patubas.php', 'manage-scientia.php', 'homepage-videos.php'];
 
     const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', 'news-management.php', 'newsletter-management.php', 'manage-patubas.php',
-    'manage-scientia.php', 
+    'manage-scientia.php', 'homepage-videos.php',
     ...userManagementLinks, ...requestsLinks, ...researchesLinks, ...eventManagementLinks]
 
 
