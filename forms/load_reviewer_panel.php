@@ -34,7 +34,7 @@ $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM reviewer_list WHERE 1 ".$searchQuery);
+$stmt =  $db->connection->prepare("SELECT COUNT(*) AS allcount FROM reviewer_list LEFT JOIN user on reviewer_list.userID = user.userID WHERE 1 ".$searchQuery);
 $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];

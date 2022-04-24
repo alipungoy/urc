@@ -2,8 +2,7 @@
     <div id="nav__header" class="position-relative">
         <div id="nav__header__container" class="d-flex align-items-center w-50 position-absolute start-0 end-0 mx-auto">
             <a href="index.php">
-                <img src="https://cpu.edu.ph/wp-content/uploads/2018/04/cpu-logo.png"
-                    alt="Central Philippine University" id="nav__header__logo" height="110">
+                <img src="https://cpu.edu.ph/wp-content/uploads/2018/04/cpu-logo.png" alt="Central Philippine University" id="nav__header__logo" height="110">
             </a>
             <div class="text-center ms-3">
                 <h3 id="nav__header__text" class="mb-0 fs-4">CENTRAL PHILIPPINE UNIVERSITY</h3>
@@ -18,8 +17,7 @@
                     <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarAboutUs" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarAboutUs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         About Us
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarAboutUs">
@@ -37,8 +35,7 @@
                     <a class="nav-link" href="events.php">Events</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarResearches" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarResearches" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Researches
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarResearches">
@@ -58,18 +55,18 @@
             </ul>
             <ul class="nav ms-10">
                 <?php
-        if (!isset($_SESSION['loggedin'])) {
-            ?>
-                <li class="nav-item">
-                    <a class="nav-link" id="register" href="#">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="login" href="#">Login</a>
-                </li>
+                if (!isset($_SESSION['loggedin'])) {
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link" id="register" href="#">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="login" href="#">Login</a>
+                    </li>
                 <?php
-        } elseif ($_SESSION['user_type'] == 'Admin' || $_SESSION['user_type'] == 'Reviewer' || $_SESSION['user_type'] == 'user') {
-            ?>
-                <!-- <li class="nav-item dropdown">
+                } elseif ($_SESSION['user_type'] == 'Admin' || $_SESSION['user_type'] == 'Reviewer' || $_SESSION['user_type'] == 'user') {
+                ?>
+                    <!-- <li class="nav-item dropdown">
                     <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarSearch" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-search fa-fw"></i>
@@ -89,51 +86,50 @@
                     </div>
                 </li> -->
 
-                <!-- Nav Item - Alerts -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarAlerts" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="bi-bell" style="font-size: 1.1rem;"></i>
-                        <!-- Counter - Alerts -->
-                        <span class="badge badge-danger badge-counter" id="notifbadge"></span>
-                    </a>
-                    <!-- Dropdown - Alerts -->
-                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="navbarAlerts">
-                        <h6 class="dropdown-header">
-                            Alerts Center
-                        </h6>
-                        <div id="notif"></div>
-                        <a class="dropdown-item text-center small text-gray-500" href="#">Show All Notification</a>
-                    </div>
-                </li>
+                    <!-- Nav Item - Alerts -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarAlerts" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="bi-bell" style="font-size: 1.1rem;"></span>
+                            <!-- Counter - Alerts -->
+                            <span class="position-absolute top-0 start-0 badge rounded-pill bg-danger" style="border-radius:10px; " id="notifbadge"></span>
+                        </a>
+                        <!-- Dropdown - Alerts -->
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="navbarAlerts">
+                            <h6 class="dropdown-header text-info">
+                                Alerts Center
+                            </h6>
+                            <div class="dropdown-item" id="notif">
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarAccount" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi-person-circle" style="font-size: 1.1rem;"></i>
+                            </div>
+                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Notification</a>
+                        </div>
+                    </li>
 
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarAccount">
-                    <a class="dropdown-item" href="dashboard.php">
-                            Dashboard
+                    <li class="nav-item dropdown">
+                        <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi-person-circle" style="font-size: 1.1rem;"></i>
+
                         </a>
-                        <a class="dropdown-item" href="profile.php">
-                            Profile
-                        </a>
-                       <div class="dropdown-item" style="cursor: not-allowed;">Settings</div>
-                        <a class="dropdown-item" href="404.php">
-                            Activity Log
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" id="logout" data-toggle="modal" data-target="#logoutModal">
-                            Logout
-                        </a>
-                    </div>
-                </li>
+                        <div class="dropdown-menu" aria-labelledby="navbarAccount">
+                            <a class="dropdown-item" href="dashboard.php">
+                                Dashboard
+                            </a>
+                            <a class="dropdown-item" href="profile.php">
+                                Profile
+                            </a>
+                            <div class="dropdown-item" style="cursor: not-allowed;">Settings</div>
+                            <a class="dropdown-item" href="404.php">
+                                Activity Log
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" id="logout" data-toggle="modal" data-target="#logoutModal">
+                                Logout
+                            </a>
+                        </div>
+                    </li>
                 <?php
-        }
-            ?>
+                }
+                ?>
             </ul>
         </div>
     </div>
@@ -143,7 +139,7 @@
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-        <div class="modal-header">
+            <div class="modal-header">
                 <h5 class="modal-title">Ready to Leave?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -165,12 +161,10 @@
             </div>
             <form id="frmLogin" class="modal-body row g-3">
                 <div class="form-group">
-                    <input id="frmLoginUsername" type="text" class="form-control" name="USERNAME"
-                        placeholder="Username or Email" required="required" value="">
+                    <input id="frmLoginUsername" type="text" class="form-control" name="USERNAME" placeholder="Username or Email" required="required" value="">
                 </div>
                 <div class="form-group">
-                    <input id="frmLoginPassword" type="password" class="form-control" name="PASSWORD"
-                        placeholder="Password" required="required" value="" autocomplete="current-password">
+                    <input id="frmLoginPassword" type="password" class="form-control" name="PASSWORD" placeholder="Password" required="required" value="" autocomplete="current-password">
                 </div>
                 <small>
                     <a href="#" style="cursor: not-allowed" title="Coming Soon...">Forgot Password?</a>
@@ -194,18 +188,15 @@
             </div>
             <form id="frmRegister" class="modal-body row g-3">
                 <div class="form-group">
-                    <input type="text" id="frmRegisterUsername" class="form-control" name="USERNAME"
-                        placeholder="Username" required="required" value="">
+                    <input type="text" id="frmRegisterUsername" class="form-control" name="USERNAME" placeholder="Username" required="required" value="">
                 </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-6">
-                            <input type="text" class="form-control" name="FIRST_NAME" placeholder="First Name"
-                                required="required" value="">
+                            <input type="text" class="form-control" name="FIRST_NAME" placeholder="First Name" required="required" value="">
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control" name="LAST_NAME" placeholder="Last Name"
-                                required="required" value="">
+                            <input type="text" class="form-control" name="LAST_NAME" placeholder="Last Name" required="required" value="">
                         </div>
                     </div>
                 </div>
@@ -242,16 +233,13 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" name="EMAIL" placeholder="E-mail" required="required"
-                        value="">
+                    <input type="email" class="form-control" name="EMAIL" placeholder="E-mail" required="required" value="">
                 </div>
                 <div class="form-group">
-                    <input id="frmRegisterPassword" type="password" class="form-control" name="PASSWORD"
-                        placeholder="Password" required="required" value="">
+                    <input id="frmRegisterPassword" type="password" class="form-control" name="PASSWORD" placeholder="Password" required="required" value="">
                 </div>
                 <div class="form-group">
-                    <input id="frmRegisterConfirmPassword" type="password" class="form-control" name="CONFIRM_PASSWORD"
-                        placeholder="Confirm Password" required="required">
+                    <input id="frmRegisterConfirmPassword" type="password" class="form-control" name="CONFIRM_PASSWORD" placeholder="Confirm Password" required="required">
                 </div>
                 <div class="modal-footer">
                     <small class="text-center">Already have an account? <a id="chgSgnIn" href="#">Sign in</a></small>
@@ -265,110 +253,147 @@
 </div>
 
 <script>
-$(function() {
-    $('#login').on('click', function(e) {
-        e.preventDefault();
-        $('#loginModal').modal('show');
-    });
+    $(function() {
+        $('#login').on('click', function(e) {
+            e.preventDefault();
+            $('#loginModal').modal('show');
+        });
 
-    $('#register').on('click', function(e) {
-        e.preventDefault();
-        $('#regModal').modal('show');
-    })
+        $('#register').on('click', function(e) {
+            e.preventDefault();
+            $('#regModal').modal('show');
+        })
 
-    $('#chgSgnIn').on('click', function(e) {
-        e.preventDefault();
-        $('#regModal').modal('hide');
-        $('#loginModal').modal('show');
-    });
+        $('#chgSgnIn').on('click', function(e) {
+            e.preventDefault();
+            $('#regModal').modal('hide');
+            $('#loginModal').modal('show');
+        });
 
-    $('#chngReg').on('click', function(e) {
-        e.preventDefault();
-        $('#loginModal').modal('hide');
-        $('#regModal').modal('show');
-    });
+        $('#chngReg').on('click', function(e) {
+            e.preventDefault();
+            $('#loginModal').modal('hide');
+            $('#regModal').modal('show');
+        });
 
-    $('#logout').on('click', function(e) {
-        e.preventDefault();
-        $('#logoutModal').modal('show');
-    });
+        $('#logout').on('click', function(e) {
+            e.preventDefault();
+            $('#logoutModal').modal('show');
+        });
 
 
-    //login form
-    $('#frmLogin').on('submit', function(e) {
-        e.preventDefault();
-        var FormData = $('#frmLogin').serialize();
+        //login form
+        $('#frmLogin').on('submit', function(e) {
+            e.preventDefault();
+            var FormData = $('#frmLogin').serialize();
 
-        $.ajax({
-            type: 'post',
-            url: 'api/post/login.php',
-            data: FormData,
-            dataType: 'json',
-            beforeSend: function() {
-                $('#frmBtnLogin').text("Logging in");
-            },
-            success: function(data) {
-                if (data.error) {
-                    $('#frmLoginPassword').text('');
-                    $('#frmBtnLogin').text("Log in");
+            $.ajax({
+                type: 'post',
+                url: 'api/post/login.php',
+                data: FormData,
+                dataType: 'json',
+                beforeSend: function() {
+                    $('#frmBtnLogin').text("Logging in");
+                },
+                success: function(data) {
+                    if (data.error) {
+                        $('#frmLoginPassword').text('');
+                        $('#frmBtnLogin').text("Log in");
 
-                    bootbox.alert({
-                        title: 'ERROR!',
-                        message: data.error.msg,
+                        bootbox.alert({
+                            title: 'ERROR!',
+                            message: data.error.msg,
+                        });
+                    } else {
+                        location.reload();
+                    }
+
+                }
+            });
+        });
+
+        //register form
+        $('#frmRegister').on('submit', function(e) {
+            e.preventDefault();
+            var FormData = $('#frmRegister').serialize();
+            var formPassword = $('#frmRegisterPassword');
+            var formConfirmPassword = $('#frmRegisterConfirmPassword');
+
+            if (formPassword.val().length < 6) {
+                alert('Password must be longer than 6 characters');
+                formPassword.val('');
+                formConfirmPassword.val('');
+
+                return;
+            }
+
+            if (formPassword.val() != formConfirmPassword.val()) {
+                alert("Password doesn't match");
+                formConfirmPassword.val('');
+
+                return;
+            }
+
+            $.ajax({
+                type: 'post',
+                url: 'forms/register.php',
+                data: FormData,
+                dataType: 'json',
+                encode: true,
+                beforeSend: function() {
+                    $('#frmBtnRegister').text("Registering..");
+                },
+                success: function(data) {
+                    if (data.error) {
+                        $('#frmLoginUsername').text('');
+
+                        alert(data.error.msg);
+                    } else {
+                        bootbox.alert('A Confirmation has been sent to the email you provided')
+                        $('#frmRegister').trigger("reset");
+                        $('#regModal').modal("hide");
+                    }
+
+                    $('#frmBtnRegister').text("Register");
+                }
+            });
+        });
+
+        //update view with notif using ajax
+        function load_unseen_notif(view = '') {
+            $.ajax({
+                url: 'api/post/fetch_notification.php',
+                method: 'post',
+                data: {
+                    view: view
+                },
+                dataType: 'json',
+                success: function(data) {
+                    data.notif.forEach(({
+                        msg,
+                        date
+                    }) => {
+                        $('#notif').append(`
+                    <a class="dropdown-item" href="#">
+                    <strong>${msg}</strong><br/>
+                    <small><em>${date}</em></small>
+                     </a></br>`);
                     });
-                } else {
-                    location.reload();
+                    if (data.unseen_notif > 0) {
+                        $('#notifbadge').html(data.unseen_notif);
+                    }
                 }
-
-            }
-        });
-    });
-
-    //register form
-    $('#frmRegister').on('submit', function(e) {
-        e.preventDefault();
-        var FormData = $('#frmRegister').serialize();
-        var formPassword = $('#frmRegisterPassword');
-        var formConfirmPassword = $('#frmRegisterConfirmPassword');
-
-        if (formPassword.val().length < 6) {
-            alert('Password must be longer than 6 characters');
-            formPassword.val('');
-            formConfirmPassword.val('');
-
-            return;
+            });
         }
+        load_unseen_notif();
 
-        if (formPassword.val() != formConfirmPassword.val()) {
-            alert("Password doesn't match");
-            formConfirmPassword.val('');
+        $(document).on('click', '#navbarAlerts', function() {
+            $('#notifbadge').html('');
 
-            return;
-        }
-
-        $.ajax({
-            type: 'post',
-            url: 'forms/register.php',
-            data: FormData,
-            dataType: 'json',
-            encode: true,
-            beforeSend: function() {
-                $('#frmBtnRegister').text("Registering..");
-            },
-            success: function(data) {
-                if (data.error) {
-                    $('#frmLoginUsername').text('');
-
-                    alert(data.error.msg);
-                } else {
-                    bootbox.alert('A Confirmation has been sent to the email you provided')
-                    $('#frmRegister').trigger("reset");
-                    $('#regModal').modal("hide");
-                }
-
-                $('#frmBtnRegister').text("Register");
-            }
+            load_unseen_notif('yes');
         });
+        setInterval(function() {
+            load_unseen_notif();;
+        }, 5000);
     });
-});
 </script>

@@ -18,24 +18,23 @@ $searchArray = array();
 ## Search 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " AND (fullname LIKE :fullname or 
-        title LIKE :title OR 
-        status LIKE :status ) ";
+   $searchQuery = " AND (status LIKE :status or 
+        title LIKE :title) ";
    $searchArray = array( 
-        'fullname'=>"%$searchValue%", 
         'title'=>"%$searchValue%",
-        'status'=>"%$searchValue%"
+        'status'=>"%$searchValue%",
+        // 'fullname'=>"%$searchValue%"
    );
 }
 
 ## Total number of records without filtering
-$stmt = $db->connection->prepare("SELECT COUNT(title) AS allcount FROM proposal");
+$stmt = $db->connection->prepare("SELECT COUNT(*) AS allcount FROM proposal");
 $stmt->execute();
 $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$stmt =  $db->connection->prepare("SELECT COUNT(title) as allcount FROM proposal WHERE 1 ".$searchQuery);
+$stmt =  $db->connection->prepare("SELECT COUNT(*) as allcount FROM proposal LEFT JOIN proposal_authors ON proposal.proposalID = proposal_authors.proposal_id WHERE 1 ".$searchQuery);
 $stmt->execute($searchArray);
 $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];

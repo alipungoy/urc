@@ -42,7 +42,7 @@
         <li class="nav-item">
             <button class="align-items-start nav-link text-white" data-bs-toggle="collapse"
                 data-bs-target="#content-management-collapse" aria-expanded="false">
-                <i class="bi-people me-2"></i>
+                <i class="bi bi-files me-2"></i>
                 Content Management
                 </a>
             </button>

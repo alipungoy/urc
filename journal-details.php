@@ -4,7 +4,7 @@
 require_once('./include/header.php');
 ?>
 
-<!-- TODO: Faulan to work on this so he could gain experience. Refer to jquery implementation on this project -->
+<!-- TODO:  work on this so he could gain experience. Refer to jquery implementation on this project -->
 
 <body>
     <?php
