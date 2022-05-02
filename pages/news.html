@@ -28,37 +28,6 @@
             }
         });
 
-        $.ajax({
-            url: 'api/get/latest-newsletter.php',
-            dataType: 'json',
-            method: 'get',
-            success: function ({ data }) {
-                data.forEach(({ id, title, poster, start, end }) => {
-                    $("#carouselLatestNewsletter").append(`<div class="item">
-                        <object data="${poster}#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" width="100%" height="300px"> <p>Your web browser doesn't have a PDF plugin or File not found.
-                            </p></object>
-                            <small class="text-center d-block">${title}</small>
-                    </div>`);
-                });
-
-                var carouselLatestNews = $('#carouselLatestNewsletter').owlCarousel({
-                    loop: true,
-                    margin: 10,
-                    nav: true,
-                    responsive: {
-                        0: {
-                            items: 1
-                        },
-                        600: {
-                            items: 3
-                        },
-                        1000: {
-                            items: 5
-                        }
-                    }
-                });
-            }
-        });
     });
 
 </script>

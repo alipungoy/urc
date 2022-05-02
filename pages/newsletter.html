@@ -1,0 +1,29 @@
+<section class="container mt-5">
+    <div class="mb-5">
+        <h3 class="display-6 mb-3">Newsletters</h3>
+        <div id="newsletter" class="row"></div>
+    </div>
+</section>
+
+<script>
+    $(function () {
+        $.ajax({
+            url: 'api/get/latest-newsletter.php',
+            dataType: 'json',
+            method: 'get',
+            success: function ({ data }) {
+                data.forEach(({ volume, id, file_name, date, cover_photo}) => {
+                    $("#newsletter").append(`<div class="col-4"><div class="card  m-1">
+                        <img src="newsletters/coverphoto/${cover_photo}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <a href="#" class="card-title mb-0">Newsletter Vol. ${volume} ${new Date(date).toDateString().substr(4, 3)} ${new Date(date).toDateString().substr(11, 5)}</a>
+                                </div>
+                        </div>
+                    </div></div>`);
+                });
+            }
+        });
+    });
+
+</script>

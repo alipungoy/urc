@@ -38,7 +38,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarNews">
                         <li><a class="dropdown-item" href="news.php">News</a></li>
                         <li><a class="dropdown-item" href="events.php">Events</a></li>
-                        <li><a class="dropdown-item" href="events.php">Newsletters</a></li>
+                        <li><a class="dropdown-item" href="newsletter.php">Newsletters</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
