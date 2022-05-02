@@ -5,49 +5,55 @@ $db = new db();
 // Allow post request only. doesn't seem to read PUT request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate for required fields
-    if (!isset($_POST["title"]) || !isset($_POST["description"])) {
+    if (!isset($_POST["volume"])) {
         $output = json_encode(array('type' => 'error', 'message' => 'Some required fields seems to be empty!'));
         die($output);
     }
 
-     // Assigned fields
-     $FORM_ID = $_POST['id'];
-     $FORM_TITLE = $_POST['title'];
-     $FORM_DESCRIPTION = $_POST['description'];
-     $FORM_TAGS = isset($_POST['tags']) ? $_POST['tags'] : '';
+    $DATE = date("y-m-d");
+
+    // Assigned fields
+    $volume = $_POST['volume'];
+    $date =  $_POST['date'];
+
+    $valid_ext = array('pdf');
+    $path = '../../newsletters/';
+    $newsletter = $_FILES['newsletter_file'];
+    $file = $_FILES['newsletter_file']['name'];
+    $tmp = $_FILES['newsletter_file']['tmp_name'];
+    $filename = ($file);
+    $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+
+
+    //cover photo
+    $coverPath = '../../newsletters/coverphoto/';
+    $journalCover = $_FILES['poster'];
+    $coverPhoto = $_FILES['poster']['name'];
+    $cover = $_FILES['poster']['tmp_name'];
+    $coverName = ($coverPhoto);
 
     try {
-        if (isset($_FILES["poster"]['name'])) {
-            $FORM_POSTER = stripslashes($_FILES["poster"]["name"]);
 
-            $UPLOAD_DIR = 'uploads/';
-            $FILE_EXTENSION = strtolower(pathinfo($FORM_POSTER, PATHINFO_EXTENSION));
-            $FILE_NAME = md5(date("ymdHis")).'.'.$FILE_EXTENSION;
-            $FILE_PATH = $UPLOAD_DIR . basename($FILE_NAME);
+            if (in_array($ext, $valid_ext)) {
+                $path = $path . strtolower($filename);
+                if (move_uploaded_file($tmp, $path)) {
 
-            if($FILE_EXTENSION != 'pdf') {
-                $output = json_encode(array('type' => 'error', 'message' => 'Poster file is not in pdf format!'));
-                die($output);
+                    $insert = ("INSERT INTO urc_newsletters (file_name, volume, date, cover_photo) VALUES (?, ?, ?, ?)");
+                    $stmt = $db->connection->prepare($insert);
+                    $stmt->bindParam(1, $filename);
+                    $stmt->bindParam(2, $volume);
+                    $stmt->bindParam(3, $date);
+                    $stmt->bindParam(4, $coverName);
+                    $stmt->execute();
+
+                    if ($stmt) {
+                        $coverPath = $coverPath . strtolower($coverName);
+                        move_uploaded_file($cover, $coverPath);
+
+                        echo json_encode(array('msg' => 'success'));
+                    }
+                }
             }
- 
-            move_uploaded_file($_FILES['poster']['tmp_name'], '../../' . $FILE_PATH);
-
-            $sql = "UPDATE newsletter SET poster = :poster WHERE id = :id";
-            $stmt = $db->connection->prepare($sql);
-            $stmt->bindParam(':id', $FORM_ID);
-            $stmt->bindParam(':poster', $FILE_PATH);
-            $stmt->execute();
-        }
-
-        $sql = "UPDATE newsletter SET title = :title, description = :description, tags = :tags WHERE id = :id";
-        $stmt = $db->connection->prepare($sql);
-        $stmt->bindParam(':id', $FORM_ID);
-        $stmt->bindParam(':title', $FORM_TITLE);
-        $stmt->bindParam(':description', $FORM_DESCRIPTION);
-        $stmt->bindParam(':tags', $FORM_TAGS);
-        $stmt->execute();
-
-        die(json_encode(array('type' => 'success', 'message' => 'Succesfully Updated Newsletter')));
     } catch (\Throwable $th) {
         $output = json_encode(array('type' => 'error', 'message' => $th->getMessage()));
         die($output);

@@ -66,17 +66,14 @@
                     <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarSearch" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-search"></i>
                     </a>
-                    <div class="dropdown-menu p-2" aria-labelledby="navbarSearch" style="min-width: 15vw">
-                        <form class="navbar-search" id='search_form'>
+                    <div class="dropdown-menu p-2" aria-labelledby="navbarSearch">
+                        <form class="navbar-search"  action="search-result.php" method="GET" id='search_form'>
                             <div class="input-group" id="search_bar">
-                                <input type="text" id="searchBox" class="form-control bg-light border-0 small" placeholder="Search for..." autocomplete="off" aria-label="Search" aria-describedby="basic-addon2">
+                                <input type="text" id="searchBox" name="q" class="form-control bg-light border-0 small" placeholder="Search for..." autocomplete="off" aria-label="Search" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary search" type="button">
+                                    <button class="btn btn-primary search" type="submit">
                                         <i class="bi bi-search"></i>
                                     </button>
-                                    <div class="body">
-                                        </body>
-                                    </div>
                                 </div>
                         </form>
                     </div>
@@ -408,53 +405,6 @@
 
 
         //search function
-        $('#search_form').on('keyup', function(e) {
-            e.preventDefault();
-            const searchVal = $('#searchBox').val();
-            console.log(searchVal);
-            $.ajax({
-                url: 'api/post/search.php',
-                dataType: 'JSON',
-                method: 'POST',
-                data: {
-                    "term": searchVal
-                },
-                beforeSend: function() {
-                    if(!$('#searchBox').val()) {
-                        $('.body').html('')
-            };
-                },
-                success: function(data) {
-                    if (data != 'empty') {
-                        data.forEach(({
-                            id,
-                            abstract,
-                            authors,
-                            title
-                        }) => {
-                            $(".body").append(`
-                    <div class="dropdown-item>
-                    <div class="col-sm-2">
-                    <div class="card m-1">
-                        <div class="card-body">
-                            <div class="mb-3">
-                            <a href="journal-details.php?type=patubas&id=${id}">${title}</a></br>
-                            <small class="text-muted">${authors}</small>
-                            <p class="card-text">${abstract}</p>
-                        </div>
-                    </div></div></div>`);
-                        });
-                    } else {
-                        $('.body').html(`<div class="dropdown-item">
-                        <div class="col-sm-2">
-                        <div class="card  m-1">
-                        No Result Found
-                        </div>
-                        </div>
-                        </div> `)
-                    }
-                }
-            })
-        })
+
     });
 </script>

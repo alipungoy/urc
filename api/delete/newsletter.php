@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $FORM_ID = $_GET['id'];
 
     try {
-        $sql = "DELETE FROM newsletter where id =:id";
+        $sql = "DELETE FROM urc_newsletters where id =:id";
         $stmt = $db->connection->prepare($sql);
         $stmt->bindParam(':id', $FORM_ID, PDO::PARAM_INT);
         $stmt->execute();

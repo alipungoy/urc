@@ -1,34 +1,50 @@
+<h3 class="display-6 mb-3">Search Result</h3>
 <section class="container mt-5">
     <div class="mb-5">
-        <h3 class="display-6 mb-3">Search Result</h3>
-        <div id="result" class="row">
-            
+        <div id="result" class="row container">
+            <ol class="d-block">
+
+            </ol>
         </div>
     </div>
 </section>
 
 <script>
     $(function () {
-        const val = window.location.search.slice(1).split("=")[1];
-        console.log(val);
+        const val = window.location.search.slice(3).split('+');
+        const data = val.join(" ");
+        console.log(data);
+
         $.ajax({
             url: 'api/post/search.php',
-            dataType: 'JSON',
-            method: 'POST',
-            data: {"term": val},
-            success: function(data){
-                data.forEach(({id, abstract, authors, title}) => {
-                    $("#result").append(`<div class="col-4"><div class="card  m-1">
-                        <img src="assets/images/news-placeholder.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <div class="mb-3">
-                            <a href="journal-details.php?type=patubas&id=${id}">${title}</a></br>
-                            <small class="text-muted">${authors}</small>
-                            <p class="card-text">${abstract}</p>
-                        </div>
-                    </div></div>`);
-                });
+            dataType: 'json',
+            type: 'POST',
+            data: { "term": data },
+            success: function (data) {
+                if (data != 'empty') {
+                    data.forEach(({
+                        id,
+                        abstract,
+                        authors,
+                        title
+                    }) => {
+                        $("#result").append(`<li>
+                            <div>
+                                <a href="journal-details.php?type=patubas&id=${id}">${title}</a>
+                                <div>
+                                    <p>${abstract}
+                                        </p>
+                                </div>
+                                <div>
+                                    <small>${authors}</small>
+                                    </div>
+                            </li>`);
+                    });
+                } else {
+                    $('#result').append(`<h1> test </h1>`)
+                }
             }
+
         })
     });
 </script>

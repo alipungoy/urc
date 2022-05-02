@@ -6,7 +6,7 @@ $newsletters = array();
 // Allow post request only
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
-        $show = ("SELECT * FROM newsletter");
+        $show = ("SELECT * FROM urc_newsletters");
         $stmt = $db->connection->prepare($show);
         $stmt->execute();
         $row = $stmt->fetchAll();
@@ -14,10 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         foreach ($row as $rows) {
             $newsletters[] = (array(
                 'id' => $rows['id'],
-                'title' => $rows['title'],
-                'description' => $rows['description'],
-                'poster' => $rows['poster'],
-                'tags' => $rows['tags']
+                'volume' => $rows['volume'],
+                'date' => $rows['date'],
+                'cover' => $rows['cover_photo']
             ));
         };
 

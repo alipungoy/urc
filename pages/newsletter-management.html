@@ -11,10 +11,8 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Poster</th>
-                <th>Tags</th>
+                <th>Volume</th>
+                <th>Date</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -30,23 +28,21 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    <input name="title" type="input" class="form-control" required>
+                    <label class="form-label">Volume</label>
+                    <input name="volume" type="number" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea name="description" class="form-control" rows="3"
-                        required></textarea>
+                    <label class="form-label">Date</label>
+                    <input name="date" type="date" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Cover</label>
+                    <input name="poster" type="file" class="form-control" required  accept="image/*">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Attachment</label>
-                    <input name="poster" type="file" class="form-control" required accept="application/pdf">
+                    <input name="newsletter_file" type="file" class="form-control" required accept="application/pdf">
                     <small class="fst-italic text-muted">Accepts PDF file only</small>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Tags</label>
-                    <textarea name="tags" class="form-control" rows="3"></textarea>
-                    <small class="fst-italic text-muted">Must be comma-separated values(Example: news, priority, urgent)</small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -97,6 +93,7 @@
     $(document).ready(function () {
         // Fetch Data
         $('#newsletter-management').dataTable({
+            "scrollY": "500px",
             "pagingType": "full_numbers",
             "ajax": {
                 "url": "api/get/newsletter.php",
@@ -107,28 +104,21 @@
             },
             "columns": [
                 { "data": "id" },
-                { "data": "title" },
-                { "data": "description" },
-                {
-                    "data": "poster", render: (data) => `<div><object data="${data}" type="application/pdf" width="200px" height="300px"> <p>Your web browser doesn't have a PDF plugin or File not found.
-   </p></object><a href="${data}" class="d-block" target="_blank">Click here to open the file</a><div>` },
-                { "data": "tags", render: (data) => data },
+                { "data": "volume" },
+                { "data": "date" },
                 {
                     "data": null,
                     orderable: false,
                     "render": function (data, type, row, meta) {
                         return `
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-outline-secondary btn-sm px-3" data-bs-toggle="modal" data-bs-target="#editNewsletter">
-                            Edit
-                        </button>
-                        <button type="button" class="btn btn-outline-danger fw-bold btn-sm px-3" onclick="handleDelete(${data.id})" >
+                            <button type="button" class="btn btn-outline-danger fw-bold btn-sm px-3" onclick="handleDelete(${data.id})" >
                             Delete
                         </button>
-                        </div>
-                        `
+                        </button>
+                        </div>`;
                     }
-                },
+                }
             ],
             'createdRow': function (row, data, dataIndex) {
                 $(row).attr('data-id', data.id);
@@ -137,60 +127,78 @@
         });
 
         // Add new News
-        $("#addNewsletter_form").submit(function (e) {
+        $("#addNewsletter_form").on('submit', function (e) {
             e.preventDefault();
-
-            const file_data = $('#addNewsletter_form').find('input[type="file"]')[0].files[0];
-            const form_data = new FormData();                  
-            form_data.append('poster', file_data);
-
-            const formSerializeArray = $("#addNewsletter_form").serializeArray();
-
-            formSerializeArray.forEach((f) => {
-                form_data.append(f.name, f.value)
-            })
+            const formData = new FormData(this);
 
             $.ajax({
                 type: "POST",
-                url: 'api/post/newsletter.php',
-                data: new FormData(this),
-                processData: false,
+                url: 'api/put/newsletter.php',
+                dataType: 'json',
+                data: formData,
                 contentType: false,
-                dataType: "json",
+                cache: false,
+                processData: false,
                 success: function (data) {
-                    alert(data.message || 'Something went wrong');
-
-                    if (data.type === 'success') {
-                        location.reload();
+                    if (data.msg === "success") {
+                        alert('Newsletter Added');
+                        location.reload()
+                    } else if (data.msg === 'exist') {
+                        alert('A Journal With The same Volume Is Already Published!')
                     }
-                },
-                error: (e) => {
-                    alert(e.responseText || 'Something went wrong')
                 }
             });
         });
 
-        // Load data for edit
-        $('#editNewsletter').on('show.bs.modal', function (e) {
+
+        $('#photo').change(function () {
+            const file = this.files[0];
+            console.log(file);
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    console.log(e.target.result);
+                    $('#imgPrev').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        $("#number").on('keyup', function () {
+            const volume = $('#number').val();
+            const date = new Date();
+            const dateToday = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            console.log(volume);
+
+            $('#body').html(
+                `                        <div class="mb-3">
+                              <h5 class="card-title mb-0">Vol. ${volume}</h5>
+                          <small class="text-muted">${dateToday}</small>
+                              </div>`
+            )
+        });
+
+        $('#reset').on('click', function () {
+            $('#addJournal__form').trigger("change");
+        });
+
+        // // Load data for edit
+        $('#editScientia').on('show.bs.modal', function (e) {
             const id = $(e.relatedTarget).closest('tr').data('id');
 
-            const field_id = $('#editNewsletter').find('input[name="id"]')
-            const field_title = $('#editNewsletter').find('input[name="title"]')
-            const field_description = $('#editNewsletter').find('textarea[name="description"]')
-            const field_tags = $('#editNewsletter').find('input[name="tags"]')
-            const field_poster_link = $('#editNewsletter').find('a[id="poster_link"]')
+            const field_id = $('#editScientia').find('input[name="id"]')
+            const field_title = $('#editScientia').find('textarea[name="journals__Title"]')
+            const field_details = $('#editScientia').find('textarea[name="journals__Abstract"]')
 
             $.ajax({
                 type: "GET",
-                url: `api/get/newsletter-details.php?id=${id}`,
+                url: `api/get/scientia-details.php?id=${id}`,
                 dataType: "json",
                 success: function (response) {
                     if (response.type === 'success') {
                         field_id.val(response.data.id)
                         field_title.val(response.data.title);
-                        field_description.val(response.data.description);
-                        field_tags.val(response.data.tags);
-                        field_poster_link.attr('href', response.data.poster)
+                        field_details.val(response.data.abstract);
                     }
                 },
                 error: (e) => {
@@ -199,33 +207,16 @@
             });
         })
 
-        // Add new News
-        $("#editNewsletter_form").submit(function (e) {
+        //Add new News
+        $("#editScientia_form").submit(function (e) {
             e.preventDefault();
-
-            const file_data = $('#editNewsletter_form').find('input[type="file"]')[0].files[0];
-            const form_data = new FormData();
-
-            if (file_data) {
-                form_data.append('poster', file_data);
-            }        
-
-            const formSerializeArray = $("#editNewsletter_form").serializeArray();
-
-            formSerializeArray.forEach((f) => {
-                form_data.append(f.name, f.value)
-            })
-
             $.ajax({
                 type: "POST",
-                url: 'api/put/newsletter.php',
-                data: form_data,
+                url: 'api/put/scientia.php',
+                data: $('#editScientia_form').serialize(),
                 dataType: "json",
-                processData: false,
-                contentType: false,
                 success: function (data) {
                     alert(data.message || 'Something went wrong');
-
                     if (data.type === 'success') {
                         location.reload();
                     }
@@ -236,24 +227,36 @@
             });
         });
 
-        handleDelete = (id) => {
-            if (confirm(`Are you sure you want to delete this?`)) {
-                $.ajax({
-                    type: "DELETE",
-                    url: `api/delete/newsletter.php?id=${id}`,
-                    dataType: "json",
-                    success: function (data) {
-                        alert(data.message || 'Something went wrong');
+        $('#journal__Attachment').change(function (e) {
+            const filename = e.target.files[0].name;
+            // alert('The Filename is "' + filename + '" ');
 
-                        if (data.type === 'success') {
-                            location.reload();
-                        }
-                    },
-                    error: (e) => {
-                        alert(e.responseText || 'Something went wrong')
-                    }
-                });
-            }
-        }
+            $.ajax({
+                type: 'POST',
+                url: 'api/get/pdfparser.php',
+                data: { filename: filename },
+                success: function (data) {
+                    $('#journals__Abstract').text(data);
+                }
+            });
+        })
+         handleDelete = (id) => {
+           if (confirm(`Are you sure you want to delete this?`)) {
+             $.ajax({
+               type: "DELETE",
+               url: `api/delete/newsletter.php?id=${id}`,
+               dataType: "json",
+               success: function (data) {
+                 alert(data.message || 'Something went wrong')
+                 if (data.type === 'success') {
+                   location.reload();
+                 }
+               },
+               error: (e) => {
+                 alert(e.responseText || 'Something went wrong')
+               }
+             });
+           }
+         }
     })
 </script>

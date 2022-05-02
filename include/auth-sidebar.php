@@ -34,12 +34,6 @@
             </div>
         </li>
         <li class="nav-item">
-            <a href="news-management.php" class="nav-link text-white">
-                <i class="bi-newspaper me-2"></i>
-                News Management
-            </a>
-        </li>
-        <li class="nav-item">
             <button class="align-items-start nav-link text-white" data-bs-toggle="collapse"
                 data-bs-target="#content-management-collapse" aria-expanded="false">
                 <i class="bi bi-files me-2"></i>
@@ -52,6 +46,20 @@
                     <li class="nav-item"><a href="manage-scientia.php" class="text-white nav-link">Scientia et Fides</a></li>
                     <li class="nav-item"><a href="homepage-videos.php" class="text-white nav-link">Videos</a></li>
                     </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+        <button class="align-items-start nav-link text-white" data-bs-toggle="collapse"
+                data-bs-target="#news-management-collapse" aria-expanded="false">
+                <i class="bi-newspaper me-2"></i>
+                News Management
+                </a>
+            </button>
+            <div class="collapse ms-5" id="news-management-collapse" bis_skin_checked="1">
+                <ul class="fw-normal pb-1 small nav nav-pills flex-column">
+                    <li class="nav-item"><a href="news-management.php" class="text-white nav-link">Add News</a></li>
+                    <li class="nav-item"><a href="newsletter-management.php" class="text-white nav-link">Newsletters</a></li>
                 </ul>
             </div>
         </li>
@@ -156,7 +164,8 @@ $(function() {
     const requestsLinks = [];
     const eventManagementLinks = ['events-creation.php', 'schedule-presentation.php'];
     const researchesLinks = ['submission.php', 'ongoing-researches.php'];
-    const contentLinks = ['newsletter-management.php', 'manage-patubas.php', 'manage-scientia.php', 'homepage-videos.php'];
+    const contentLinks = ['manage-patubas.php', 'manage-scientia.php', 'homepage-videos.php'];
+    const newsLinks = ['news-management.php', 'newsletter-management.php'];
 
     const validLinks = ['dashboard.php', 'review.php', 'website-statistics.php', 'news-management.php', 'newsletter-management.php', 'manage-patubas.php',
     'manage-scientia.php', 'homepage-videos.php',
@@ -182,6 +191,9 @@ $(function() {
 
          if (contentLinks.includes(currPagePath)) {
              $('#content-management-collapse').addClass('show')
+         }
+         if (newsLinks.includes(currPagePath)) {
+             $('#news-management-collapse').addClass('show')
          }
 
         $(`a[href='${currPagePath}']`).addClass('active');
