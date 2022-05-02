@@ -1,17 +1,16 @@
 <?php
-if (isset($_GET["fileName"])) {
     // Get parameters
-    $file = urldecode($_GET["fileName"]); // Decode URL-encoded string
+    $file = $_GET['file']; // Decode URL-encoded string
 
     /* Test whether the file name contains illegal characters
     such as "../" using the regular expression */
-    $filepath = "../journals/" . $file;
+    $filepath = "../journals/".$file;
 
     // Process download
     if (file_exists($filepath)) {
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
+        header('Content-Disposition: attachment; filename="'.urldecode($file).'"');
         header('Expires: 0');
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
@@ -23,4 +22,4 @@ if (isset($_GET["fileName"])) {
         http_response_code(404);
         die();
     }
-}
+

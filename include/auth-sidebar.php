@@ -64,7 +64,7 @@
             </button>
             <div class="collapse ms-5" id="events-management-collapse" bis_skin_checked="1">
                 <ul class="fw-normal pb-1 small nav nav-pills flex-column">
-                    <li class="nav-item"><a href="events-creation.php" class="text-white nav-link">Overview</a></li>
+                    <li class="nav-item"><a href="events-creation.php" class="text-white nav-link">Schedule of Events</a></li>
                     <li class="nav-item"><a href="schedule-presentation.php" class="text-white nav-link">Schedule Presentation</a></li>
                 </ul>
             </div>

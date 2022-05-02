@@ -6,7 +6,7 @@ $events = array();
 // Allow post request only
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
-        $show = ("SELECT * FROM journals WHERE type = 'Patubas' ");
+        $show = ("SELECT * FROM journals");
         $stmt = $db->connection->prepare($show);
         $stmt->execute();
         $row = $stmt->fetchAll();
@@ -14,10 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         foreach ($row as $rows) {
             $events[] = (array(
                 'id' => $rows['id'],
-                'type' => $rows['type'],
                 'date' => $rows['publication_date'],
                 'vol' => $rows['volume'],
-                'data' => $rows['tags']
             ));
         };
 

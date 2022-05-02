@@ -31,8 +31,15 @@
                         <li><a class="dropdown-item" href="research-process-flow.php">Research Process Flow</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="events.php">Events</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarNews" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        News & Events
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarNews">
+                        <li><a class="dropdown-item" href="news.php">News</a></li>
+                        <li><a class="dropdown-item" href="events.php">Events</a></li>
+                        <li><a class="dropdown-item" href="events.php">Newsletters</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarResearches" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,7 +60,27 @@
                     <a class="nav-link" href="contact.php">Contact Us</a>
                 </li>
             </ul>
-            <ul class="nav ms-10">
+            <!--search bar -->
+            <ul class="nav ms-10"> 
+                <li class="nav-item">
+                    <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarSearch" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-search"></i>
+                    </a>
+                    <div class="dropdown-menu p-2" aria-labelledby="navbarSearch" style="min-width: 15vw">
+                        <form class="navbar-search" id='search_form'>
+                            <div class="input-group" id="search_bar">
+                                <input type="text" id="searchBox" class="form-control bg-light border-0 small" placeholder="Search for..." autocomplete="off" aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary search" type="button">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                    <div class="body">
+                                        </body>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </li>
                 <?php
                 if (!isset($_SESSION['loggedin'])) {
                 ?>
@@ -66,41 +93,24 @@
                 <?php
                 } elseif ($_SESSION['user_type'] == 'Admin' || $_SESSION['user_type'] == 'Reviewer' || $_SESSION['user_type'] == 'user') {
                 ?>
-                    <!-- <li class="nav-item dropdown">
-                    <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarSearch" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-search fa-fw"></i>
-                    </a>
-                    <div class="dropdown-menu p-2" aria-labelledby="navbarSearch" style="min-width: 15vw">
-                        <form class="navbar-search">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small"
-                                    placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li> -->
 
                     <!-- Nav Item - Alerts -->
                     <li class="nav-item dropdown">
                         <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarAlerts" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="bi-bell" style="font-size: 1.1rem;"></span>
                             <!-- Counter - Alerts -->
-                            <span class="position-absolute top-0 start-0 badge rounded-pill bg-danger" style="border-radius:10px; " id="notifbadge"></span>
+                            <span class="position-absolute top-0 start-0 badge rounded-pill bg-danger" style="border-radius:10px; font-size: .7rem" id="notifbadge"></span>
                         </a>
                         <!-- Dropdown - Alerts -->
                         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="navbarAlerts">
-                            <h6 class="dropdown-header text-info">
+                            <h6 class="d-flex justify-content-center dropdown-header text-info">
                                 Alerts Center
                             </h6>
-                            <div class="dropdown-item" id="notif">
-
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-list" id="notif">
+                                <small class="dropdown-item" style="color: #c0c7d1;">No New Notifications!</small>
                             </div>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-center small text-gray-500" href="#">Show All Notification</a>
                         </div>
                     </li>
@@ -359,7 +369,7 @@
             });
         });
 
-        //update view with notif using ajax
+        //notification functions
         function load_unseen_notif(view = '') {
             $.ajax({
                 url: 'api/post/fetch_notification.php',
@@ -394,6 +404,57 @@
         });
         setInterval(function() {
             load_unseen_notif();;
-        }, 5000);
+        }, 5000); //end of notification function
+
+
+        //search function
+        $('#search_form').on('keyup', function(e) {
+            e.preventDefault();
+            const searchVal = $('#searchBox').val();
+            console.log(searchVal);
+            $.ajax({
+                url: 'api/post/search.php',
+                dataType: 'JSON',
+                method: 'POST',
+                data: {
+                    "term": searchVal
+                },
+                beforeSend: function() {
+                    if(!$('#searchBox').val()) {
+                        $('.body').html('')
+            };
+                },
+                success: function(data) {
+                    if (data != 'empty') {
+                        data.forEach(({
+                            id,
+                            abstract,
+                            authors,
+                            title
+                        }) => {
+                            $(".body").append(`
+                    <div class="dropdown-item>
+                    <div class="col-sm-2">
+                    <div class="card m-1">
+                        <div class="card-body">
+                            <div class="mb-3">
+                            <a href="journal-details.php?type=patubas&id=${id}">${title}</a></br>
+                            <small class="text-muted">${authors}</small>
+                            <p class="card-text">${abstract}</p>
+                        </div>
+                    </div></div></div>`);
+                        });
+                    } else {
+                        $('.body').html(`<div class="dropdown-item">
+                        <div class="col-sm-2">
+                        <div class="card  m-1">
+                        No Result Found
+                        </div>
+                        </div>
+                        </div> `)
+                    }
+                }
+            })
+        })
     });
 </script>

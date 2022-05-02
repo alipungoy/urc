@@ -4,6 +4,7 @@
 require_once('./include/header.php');
 ?>
 
+<link rel="stylesheet" type="text/css" href="css/pages/journal-details.css">
 <!-- TODO:  work on this so he could gain experience. Refer to jquery implementation on this project -->
 
 <body>

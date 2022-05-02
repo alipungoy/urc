@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Assigned fields
     $valid_ext = array('pdf');
     $path = '../../journals/';
-    $type = 'Patubas';
     $volume = $_POST['vol__Number'];
     $tags = isset($_POST['tags']) ? $_POST['tags'] : '';
     $journalFIle = $_FILES['journalFile'];
@@ -33,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $coverName = ($coverPhoto);
 
     try {
-        $check = ("SELECT volume, type FROM journals WHERE volume = '" . $volume . "' && type = '" . $type . "' ");
+        $check = ("SELECT volume FROM journals WHERE volume = '" . $volume . "' ");
         $stmt = $db->connection->prepare($check);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -44,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $path = $path . strtolower($filename);
                 if (move_uploaded_file($tmp, $path)) {
 
-                    $insert = ("INSERT INTO journals (file_name, type, volume, publication_date, tags, cover_photo) VALUES ('" . $filename . "','" . $type . "', '" . $volume . "', '" . $DATE . "', '" . $tags . "', '" . $coverName . "')");
+                    $insert = ("INSERT INTO journals (file_name, volume, publication_date, cover_photo) VALUES ('" . $filename . "', '" . $volume . "', '" . $DATE . "', '" . $coverName . "')");
                     $stmt = $db->connection->prepare($insert);
                     $stmt->execute();
 

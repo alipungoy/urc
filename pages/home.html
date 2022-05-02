@@ -43,13 +43,13 @@
 <section class="d-flex justify-content-center items-center container" id="newsletters">
     <div>
         <div class="mb-5 text-center">
-            <h2 class="text-cpu-blue fw-bold display-6">NewsLetters</h2>
+            <h2 class="text-cpu-blue fw-bold display-6">Newsletters</h2>
             <p class="fw-light">
                 It is the official journal of Higher Education Publication of Central Philippine University (ISSN
                 2546-1338) is internationally refereed, comes out semi-annually and is being uploaded here in this page.
             </p>
         </div>
-        <div class="row" id="scientia__List"></div>
+        <div class="row" id="newsletter__List"></div>
         <div class="text-center"><a href="journals.php" class="fs-5 fw-bold">View more...</a></div>
     </div>
 </section>
@@ -216,13 +216,12 @@
             dataType: 'json',
             method: 'get',
             success: function (response) {
-                response.forEach(({ id, type, date, vol, cp }) => {
+                response.forEach(({ id, title, type, date, vol, cp }) => {
                     $("#patubasList").append(`<div class="col-4 p-3">
-                        <a href="journal-details.php#${id}" class="card-link">
+                        <a href="journal-details.php?type=patubas&id=${id}" class="card-link">
                             <img src="journals/coverphoto/${cp}" class="card-img-top" style="height: 25rem; width: 20rem">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <h6 class="card-title mb-0">${type}</h6> </br>
                                     <h5 class="card-title mb-0">Vol. ${vol}</h5>                               
                                     <small class="text-muted">${new Date(date).toDateString()}</small>
                                 </div>
@@ -243,17 +242,16 @@
                     const truncate = jQuery.trim(abstract).substring(0, 200).trim(this) + "...";
 
                     $("#scientia__List").append(
-                        `<div class="col-4 p-3"> 
-                       
+                        `<div class="col-4 p-3">                      
                             <div class="card-body"> 
                                 <img src="journals/coverphoto/${cp}" class="card-img-top mb-1" style="height: 25rem; width: 20rem">
                                 <div class="mb-2">
-                                    <a href="journal-details.php#${id}" class="card-link">
+                                    <a href="journal-details.php?type=scientia&id=${id}" class="card-link">
                                     <h6 class="card-title">${title}</h6>
                                     </a>
                                     <small class="card-title fst-italic mb-2">By: ${author}</small></br>
                                     <p class="scientia__Abstract mt-2">${truncate}</p>                                
-                                    <a href="journal-details.php#${id}" class="card-link">
+                                    <a href="journal-details.phptype=scientia&id=${id}" class="card-link">
                                 Read More
                                  </a></br>                              
                                 <small class="text-muted">${new Date(date).toDateString()}</small>

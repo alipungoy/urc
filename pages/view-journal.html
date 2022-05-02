@@ -1,41 +1,97 @@
-<section class="container mt-5">
-    <h3 id="title" class="display-6 mb-0">...</h3>
-    <div id="info" class="mb-3 d-flex align-items-center" style="font-size: small"></div>
-    <div class="mb-5">
+<section id="scientia" class="container mt-5">
+    <h3 class="display-6 mb-0 title">...</h3>
+    <div id="info" class="mb-3 d-flex align-items-center author" style="font-size: medium; font-style: italic;"></div>
+    <!-- <div class="mb-5">
         <div id="img"></div>
         <p class="text-center mt-2">Click image to download</p>
-    </div>
-    <div class="mb-3">
-        <h3>About Patubas</h3>
-        <p>Patubas is published once a year under the auspices of Central Philippine University, Jaro, Iloilo City,
-            Philippines.</p>
-    </div>
-    <small>Opinions and facts contained in the articles published in this issue of Patubas are the sole
-        responsibility of the individual authors and not of the Editorial Board, Patubas or Central Philippine
-        University.</small>
-    </div>
+    </div> -->
+    <section class="mt-5">
+        <div class="mb-3">
+            <h3>Abstract</h3></br>
+            <h3 class="border-bottom border-secondary mb-5"></h3>
+            <p class="abstract">Patubas is published once a year under the auspices of Central Philippine University,
+                Jaro, Iloilo City,
+                Philippines.</p>
+        </div>
+        </div>
+    </section>
+</section>
 
-    <script>
+<section id="patubas" class="container mt-5">
+    <h3 class="display-8 mb-0 volume text-info">...</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="mb-5">
+                <div class="img d-flex justify-content-start">
+                </div>
+                <small class="text-center mt-2 fst-italic">* Click image to download</small>
+            </div>
+        </div>
+        <div class="col-md-4" id="patubasDetails">
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(function () {
+        var type = window.location.search.slice(1).split("&")[0].split("=")[1];
+        var id = window.location.search.slice(1).split("&")[1].split("=")[1];
+        console.log(id)
         $(function () {
-            var eventid = window.location.hash.substr(1);
-            console.log(eventid)
-            $(function () {
-                $.ajax({
-                    url: 'forms/journaldisplay.php',
-                    type: 'get',
-                    data: { "eventid": eventid },
-                    dataType: 'JSON',
-                    success: function (data) {
-                        const type = data.type
-                        const date = data.date
-                        const vol = data.volume
-                        const image = `<a href="forms/download.php?fileName=${data.name}" title="Click Image to download"><img class="img-fluid" src="upload/${data.cp}"></a>`
+            $.ajax({
+                url: 'forms/journaldisplay.php',
+                type: 'get',
+                data: { "type": type, "id": id },
+                dataType: 'JSON',
+                success: function (data) {
+                    if (type === 'scientia') {
+                        $(".title").html(data.title);
+                        $(".abstract").html(data.abstract)
+                        $('.author').html('By:' + data.author)
+                    } else if (type === 'patubas') {
+                        return data.forEach(({ id, abstract, authors, cp, date, file, title, volume }) => {
+                            $('.volume').html(`Volume ${volume} No. 1 ${date}`)
+                            $('.img').html(`<img src="journals/coverphoto/${cp}" id="${file}" class="download" style="height: 30rem; width: 20rem; object-fit: contain;">`);
+                            $('#patubasDetails').append(`<a href="#" class="fw-bold title" id="${id}">${title}</a>
+                            <div id="details${id}" style="display: none">
+                            <p class="fst-italic authors">By: ${authors}</p>
+                            <h6 class="fw-bold">Abstract</h6 class="fw-bold">
+                            <p class="abstract">${abstract}</p></div><hr>`);
 
-                        $("#title").text(type + ' Volume ' + vol);
-                        $("#info").append(`<p class="me-3"><i class="bi bi-person me-1"></i>cpuurc</p><p class="me-3"><i class="bi bi-calendar-event me-2"></i>${new Date(date).toDateString()}</p><p class="me-3"><i class="bi bi-info me-1"></i>${type}</p>`);
-                        $("#img").append(image);
+                        })
                     }
-                });
+                }
             });
-        })
-    </script>
+        });
+
+        $(document).ready(function () {
+            const type = window.location.search.slice(1).split("&")[0].split("=")[1];
+            const id = window.location.search.slice(1).split("&")[1].split("=")[1];
+
+            if (type === 'patubas') {
+                $("#scientia").css("display", "none")
+            }
+            else if (type === 'scientia') {
+                $("#patubas").css("display", "none")
+            }
+        });
+
+        //download
+        $(document).on('click', '.img', function (e) {
+            e.preventDefault();
+            const id = $(".download").attr('id');
+
+            window.location = "forms/download.php?file=" + id;
+        });
+
+
+        $(document).on('click', 'a.title', function (e) {
+            e.preventDefault();
+            const id = $(this).attr('id');
+            $('#details' + id).slideToggle('slow');
+        });
+
+
+    })
+</script>

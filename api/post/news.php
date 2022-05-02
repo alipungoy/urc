@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $FORM_START = $_POST['start'];
     $FORM_END = $_POST['end'];
     // This should be boolean
-    $FORM_WITH_REGISTRATION = isset($_POST['with_registration']) ? 'on' : 'off';
     // This should've been hexcode instead of name
     // https://stackoverflow.com/questions/2553566/how-to-convert-a-string-color-to-its-hex-code-or-rgb-value
     $FORM_COLOR = isset($_POST['color']) ? $_POST['color'] : 'blue';
