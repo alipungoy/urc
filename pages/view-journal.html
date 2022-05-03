@@ -18,20 +18,55 @@
 </section>
 
 <section id="patubas" class="container mt-5">
-    <h3 class="display-8 mb-0 volume text-info">...</h3>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="mb-5">
-                <div class="img d-flex justify-content-start">
-                </div>
-                <small class="text-center mt-2 fst-italic">* Click image to download</small>
-            </div>
+    <div class="col-xs-12 col-sm-12 col-md-9 main-content">
+        <div class="page-header">            
         </div>
-        <div class="col-md-4" id="patubasDetails">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-12">
+                        <div class="thumbnail">                          
+                        </div>
+                        <div class="col-xs-6 col-sm-12 mt-5">
+                            <div class="word-break">
+                                <h6>
+                                    Download
+                                </h6>
+                                <div class="mb-4">
+                                    <span>
+                                        <i class="bi bi-file-earmark-fill"></i>
+                                        <a href="#" class="download" id="">Journal Issue Full Text</a>
+                                    </span>
+                                    <div>
+                                        Downloads: 40
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="word-break table">
+                                <h6>Page Views</h6>
+                                233
+                            </div>
+                            <div class="word-break table" id="date">                            
+                            </div>
+                            <div class="word-break">
+                                <h6>Author</h6>
+                                <small class="text-info">URC</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div id="patubasDetails" class="mt-5">
+                    <h5>Contents</h5>
+                    <div>
+                        <ul id="tree"></ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-
 
 <script>
     $(function () {
@@ -51,13 +86,17 @@
                         $('.author').html('By:' + data.author)
                     } else if (type === 'patubas') {
                         return data.forEach(({ id, abstract, authors, cp, date, file, title, volume }) => {
-                            $('.volume').html(`Volume ${volume} No. 1 ${date}`)
-                            $('.img').html(`<img src="journals/coverphoto/${cp}" id="${file}" class="download" style="height: 30rem; width: 20rem; object-fit: contain;">`);
-                            $('#patubasDetails').append(`<a href="#" class="fw-bold title" id="${id}">${title}</a>
+                            $('.download').attr('id', file);
+                            $('.page-header').html(`<h2>Volume ${volume} No. 1 ${date}</h2><hr>`)
+                            $('#date').html(`<h6>Date</h6>
+                            ${date}`)
+                            $('.thumbnail').html(`
+                            <img src="journals/coverphoto/${cp}" id="${file}">`);
+                            $('#tree').append(`
+                            <a href="#" class="fs-6 title" id="${id}">${title}</a></br>
+                            <i class="fst-italic authors">By: ${authors}</i>
                             <div id="details${id}" style="display: none">
-                            <p class="fst-italic authors">By: ${authors}</p>
-                            <h6 class="fw-bold">Abstract</h6 class="fw-bold">
-                            <p class="abstract">${abstract}</p></div><hr>`);
+                            <p class="abstract mt-2">${abstract}</p></div><hr>`);
 
                         })
                     }
@@ -78,11 +117,23 @@
         });
 
         //download
-        $(document).on('click', '.img', function (e) {
+        $(document).on('click', '.download', function (e) {
             e.preventDefault();
             const id = $(".download").attr('id');
 
-            window.location = "forms/download.php?file=" + id;
+            $.ajax({
+                url: 'forms/check.php',
+                dataType: 'json',
+                type: 'POST',
+                success: function(data){
+                    if(data === 'true'){
+                        window.location = "forms/download.php?file=" + id;
+                    }
+                    else {
+                        alert('You Need To Be logged In to download FIle!');
+                    }
+                }
+            })
         });
 
 
