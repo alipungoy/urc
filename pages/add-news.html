@@ -1,0 +1,82 @@
+<section>
+    <header>
+        <h4>Add News</h4>
+    </header>
+    <div id="addNews">
+        <form id="addNews_form">
+            <div>
+                <div>
+                    <h5>Add News</h5>
+                </div>
+                <div class="body">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input name="title" id="title" type="input" class="form-control" required>
+                    </div>
+                    <div id="editor">
+                    </div>
+                    <div id="toolbar"></div>
+                    <!-- <div class="mb-3">
+                        <label class="form-label">Images</label>
+                        <input name="imahge" type="file" class="form-control" required>
+                    </div> -->
+                </div>
+                <div>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Add News</button>
+                </div>
+            </div>
+        </form>
+        <div id="preview"></div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        //editor
+        DecoupledEditor.create(document.querySelector("#editor"), {
+            ckfinder: {
+                uploadUrl: 'vendor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+            },
+
+        })
+            .then(editor => {
+                const toolbarContainer = document.querySelector('#toolbar');
+
+                toolbarContainer.appendChild(editor.ui.view.toolbar.element);
+                editor.editing.view.focus();
+                fileContent = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+
+        $("#addNews_form").submit(function (e) {
+            e.preventDefault()
+             const contents = fileContent.getData();
+             const title = $('#title').val();
+             console.log(title)
+
+             const formData = new FormData(this);
+
+            $.ajax({
+                type: "POST",
+                url: 'api/post/news.php',
+                data: {details: contents, title: title},
+                dataType: "json",
+                success: function (data) {
+                    alert(data.message || 'Something went wrong');
+
+                    if (data.type === 'success') {
+                        location.reload();
+                    }
+                },
+                error: (e) => {
+                    alert(e.responseText || 'Something went wrong')
+                }
+            });
+        });
+    });
+</script>

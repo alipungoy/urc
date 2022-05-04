@@ -12,15 +12,14 @@
             dataType: 'json',
             method: 'get',
             success: function (response) {
-                response.forEach(({ id, title, details, start, end }) => {
+                response.forEach(({ id, title, date}) => {
                     $("#latestNews").append(`<div class="col-4"><div class="card  m-1">
                         <img src="assets/images/news-placeholder.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <div class="mb-3">
                                 <h5 class="card-title mb-0">${title}</h5>
-                            <small class="text-muted">${new Date(start).toDateString()} - ${new Date(end).toDateString()}</small>
+                            <small class="text-muted"><i class="bi bi-calendar-event"> - ${date}</i></small>
                                 </div>
-                            <p class="card-text">${details}</p>
                             <a href="events-details.php#${id}" class="card-link">Read More</a>
                         </div>
                     </div></div>`);

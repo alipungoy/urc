@@ -5,7 +5,7 @@ $db = new db();
 // Allow post request only
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
-        $show = ("SELECT * FROM urc_newsletters ORDER BY id LIMIT 10");
+        $show = ("SELECT  FROM urc_newsletters ORDER BY id LIMIT 10");
         $stmt = $db->connection->prepare($show);
         $stmt->execute();
         $result = $stmt->fetchAll();
