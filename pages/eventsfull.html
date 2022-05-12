@@ -1,13 +1,19 @@
 <section class="container mt-5">
-    <div class="row">
-        <div class="col-xs-12 col-md-7">
-            <a href="#">
+        <div>
+            <h1>
                 <h2 id="title"></h2>
-            </a>
-        <div id="details">   
+            </h1>
+            <p class="text-muted">
+                By
+                <span>
+                    URC
+                </span>
+                 | 
+                <span id="date"></span>
+            </p>
+            <div id="details" class="mt-5">
+            </div>
         </div>
-    </div>
-    </div>
 </section>
 
 
@@ -28,7 +34,7 @@
 
                     $("#title").append(title);
                     $("#date").append(date);
-                    $("#details").append(details);
+                    $("#details").html(details);
                 }
             });
         });

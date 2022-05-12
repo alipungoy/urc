@@ -160,7 +160,7 @@
 
         //Click event to scroll to top
         $('.back-to-top').click(function () {
-            $('html, body').animate({ scrollTop: 0 }, 800);
+            $('html, body').animate({ scrollTop: 0 }, 200);
             return false;
         });
 
@@ -182,15 +182,15 @@
             dataType: 'json',
             method: 'get',
             success: function (response) {
-                response.forEach(({ id, title, details, start, end }) => {
+                response.forEach(({ id, title, date }) => {
                     $("#carouselLatestNews").append(`<div class="card mx-auto" style="width: 60%;">
                         <img src="assets/images/news-placeholder.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <div class="mb-3">
                                 <h5 class="card-title mb-0">${title}</h5>
-                            <small class="text-muted">${new Date(start).toDateString()} - ${new Date(end).toDateString()}</small>
+                            <small class="text-muted">${new Date(date).toDateString()}</small>
+                            <p><i class="bi bi-person"> URC</i></p>
                                 </div>
-                            <p class="card-text">${details}</p>
                             <a href="events-details.php#${id}" class="card-link">Read More</a>
                         </div>
                     </div>`);
@@ -257,7 +257,7 @@
                                     </a>
                                     <small class="card-title fst-italic mb-2">By: ${author}</small></br>
                                     <p class="scientia__Abstract mt-2">${truncate}</p>                                
-                                    <a href="journal-details.phptype=scientia&id=${id}" class="card-link">
+                                    <a href="journal-details.php?type=scientia&id=${id}" class="card-link">
                                 Read More
                                  </a></br>                              
                                 <small class="text-muted">${new Date(date).toDateString()}</small>
