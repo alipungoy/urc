@@ -1,5 +1,6 @@
 <section class="container mt-5">
-        <div>
+    <div class="row">
+        <div class="col-9 border-end border-2">
             <h1>
                 <h2 id="title"></h2>
             </h1>
@@ -8,13 +9,36 @@
                 <span>
                     URC
                 </span>
-                 | 
+                |
                 <span id="date"></span>
             </p>
-            <div id="details" class="mt-5">
+            <div class="col-lg-7">
+                <div id="details" class="mt-5">
+                </div>
             </div>
         </div>
+        <div class="col-3">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control border-secondary border-1" aria-label="search" placeholder="Search For...">
+                <button class="btn border-secondary border-1" style="background-color: rgb(254, 170, 14);" type="button">
+                    <i class="bi bi-search"></i>
+                </button>
+              </div>
+              <div class="mt-5">
+                 <h5>Recent News</h5>
+                 <div class="list-group list-group-flush">
+                     <a href="#" class="list-group-item">Weekly Centralian Link (May 6, 2022)</a>
+                     <a href="#" class="list-group-item">Weekly Centralian Link (May 6, 2022)</a>
+                     <a href="#" class="list-group-item">Weekly Centralian Link (May 6, 2022)</a>
+                     <a href="#" class="list-group-item">Weekly Centralian Link (May 6, 2022)</a>
+                     <a href="#" class="list-group-item">Weekly Centralian Link (May 6, 2022)</a>
+                 </div> 
+              </div>
+        </div><hr>
+    </div>
 </section>
+
+<a href="#" class="back-to-top"></a>
 
 
 <script>
@@ -37,6 +61,23 @@
                     $("#details").html(details);
                 }
             });
+        });
+
+        //Scroll To top
+        $(window).scroll(function () {
+            // Show button after 300px
+            var showAfter = 300;
+            if ($(this).scrollTop() > showAfter) {
+                $('.back-to-top').fadeIn();
+            } else {
+                $('.back-to-top').fadeOut();
+            }
+        });
+
+        //Click event to scroll to top
+        $('.back-to-top').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 200);
+            return false;
         });
     })
 </script>

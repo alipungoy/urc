@@ -5,25 +5,26 @@
     <div class="row">
         <div class="col-12">
             <form id="addNews_form">
-                <div>
-                    <div class="body">
+                <div class="body">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input name="title" id="title" type="input" class="form-control" required>
+                    </div>
+                    <div class="editor">
                         <div class="mb-3">
-                            <label class="form-label">Title</label>
-                            <input name="title" id="title" type="input" class="form-control" required>
+                            <textarea name="details" id="editor"></textarea>
+                            <div class="mt-4 d-flex justify-content-end">
+                                <button type="button" id="clear" class="btn btn-danger">Cancel</button>
+                                <button type="submit" class="btn btn-success ml-2">Add News</button>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <textarea name="details" id="editor" cols="30" rows="10"></textarea>
-                        </div>
-                        <!-- <div id="toolbar"></div> -->
-                        <!-- <div class="mb-3">
+                    </div>
+                    <!-- <div id="toolbar"></div> -->
+                    <!-- <div class="mb-3">
                         <label class="form-label">Images</label>
                         <input name="imahge" type="file" class="form-control" required>
                     </div> -->
-                    </div>
-                    <div class="mt-4 d-flex justify-content-end">
-                        <button type="button" id="clear" class="btn btn-danger">Cancel</button>
-                        <button type="submit" class="btn btn-success ml-2">Add News</button>
-                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -35,7 +36,6 @@
             </div>
         </div> -->
     </div>
-
 </section>
 
 
@@ -65,16 +65,14 @@
         //     });
 
         var editor = new FroalaEditor('#editor', {
-            heightMin: 300,
-            heigtMax: 500,
-
+            toolbarSticky: true,
+            scrollableContainer: '.editor',
             imageUploadURL: './forms/upload_image.php',
             imageUploadParams: {
                 id: 'my_editor'
             },
             dragInline: false,
             pluginsEnabled: ['image', 'link', 'draggable'],
-            
 
         })
 

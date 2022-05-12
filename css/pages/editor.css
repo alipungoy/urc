@@ -1,0 +1,8 @@
+.editor{
+    position: absolute;
+    top:190px;
+    left:30px;
+    right:30px;
+    bottom:0px;
+    overflow: auto;
+  }

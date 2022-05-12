@@ -70,3 +70,27 @@ aside {
         flex-direction: row;
     }
 }
+
+/* back to top */
+.back-to-top {
+    display: inline-block;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 64px;
+    height: 64px;
+    z-index: 9999;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s ease-out;
+    background-image: url(../assets/images/back-to-top-icon-png-0.jpg);
+    background-size: cover;
+    opacity: .5;
+  }
+  .back-to-top:hover {
+    opacity: 1;
+    transform: scale(1.3);
+    transition-timing-function: ease-in;
+    transition: 0.2s;
+  }
+  

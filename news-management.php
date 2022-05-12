@@ -6,6 +6,7 @@
   require_once('./include/auth-validate.php');
 ?>
 
+<link rel="stylesheet" type="text/css" href="css/pages/editor.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css"/>
 <link rel="stylesheet" type="text/css" href="vendor/wysiwyg-editor/css/froala_editor.min.css">
 <link rel="stylesheet" type="text/css" href="vendor/wysiwyg-editor/css/plugins/image.min.css">
