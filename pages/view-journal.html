@@ -143,6 +143,15 @@
             $('#details' + id).slideToggle('slow');
         });
 
+        $(document).ready(function () {
+            const id = window.location.search.slice(1).split("&")[1].split("=")[1];
+
+            $.ajax({
+                url: 'api/put/journal-stat.php?id=' + id,
+                method: 'get',
+                dataType: 'JSON',
+            })
+        })
 
     })
 </script>
