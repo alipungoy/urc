@@ -41,7 +41,24 @@
 
 <script>
     $(function () {
-        var eventid = window.location.hash.substr(1);
+        // show latest news
+        $(function () {
+            $.ajax({
+                url: 'api/get/latest-news.php',
+                dataType: 'JSON',
+                method: 'get',
+                success: function (data) {
+                    data.forEach(({ title, id, date }) => {
+                        $("#latest_news").append(`
+                    <a href="events-details.php?id=${id}" class="list-group-item" id="latestNews_links">${title} (${new Date(date).toDateString('default', { month: 'long' })})</a>
+                    `)
+                    })
+                }
+            })
+        });
+
+        // fetch news details
+        var eventid = window.location.search.slice(1).split("=")[1];
         console.log(eventid)
         $(function () {
             $.ajax({
@@ -78,18 +95,6 @@
             return false;
         });
 
-        // show latest news
-        $.ajax({
-            url: 'api/get/latest-news.php',
-            dataType: 'JSON',
-            method: 'get',
-            success: function (data) {
-                data.forEach(({ title, id, date }) => {
-                    $("#latest_news").append(`
-                    <a href="events-details.php#${id}" class="list-group-item">${title} (${new Date(date).toDateString('default',{month: 'long'})})</a>
-                    `) 
-                })
-            }
-        })
+
     })
 </script>

@@ -6,3 +6,26 @@
     bottom:0px;
     overflow: auto;
   }
+
+  /* .event-editor {
+    position: absolute;
+    top:20px;
+    left:30px;
+    right:30px;
+    bottom:0px;
+    overflow: auto;
+  } */
+  .contentlist{
+    padding:0 0 0 5px;
+    position:relative;
+    border-right: 1px #f8f7f3 solid;
+    /* background-image:url(images/bubble.png); */
+    /* background-color: black; */
+    }
+
+    .itemconfiguration {
+		height:580px;
+		/* background-color:#CCC; */		
+        overflow:auto;
+		position:relative;
+    }
