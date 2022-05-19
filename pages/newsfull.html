@@ -1,11 +1,9 @@
 <section class="container mt-5">
     <div class="row">
         <div class="col-9 border-end border-2">
-            <div class="d-flex align-items-center justify-content-between">
+            <h1>
                 <h2 id="title"></h2>
-                <button class="btn btn-outline-warning d-none" id="registration" data-bs-toggle="modal" data-bs-target="#reg_Modal">Click here to
-                    register</button>
-                </div><hr>
+            </h1>
             <p class="text-muted">
                 By
                 <span>
@@ -38,25 +36,6 @@
     </div>
 </section>
 
-<!-- Modal -->
-<div class="modal fade" id="reg_Modal" tabindex="-1" aria-labelledby="reg_Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <a href="#" class="back-to-top"></a>
 
 
@@ -65,14 +44,14 @@
         // show latest news
         $(function () {
             $.ajax({
-                url: 'api/get/latest-events.php',
+                url: 'api/get/latest-news.php',
                 dataType: 'JSON',
                 method: 'get',
                 success: function (data) {
                     var id = window.location.search.slice(1).split("=")[1];
                     data.forEach(({ title, id, date }) => {
                         $("#latest_news").append(`
-                    <a href="events-details.php?id=${id}" class="list-group-item latestNews_links" id="${id}">${title} (${new Date(date).toDateString('default', { month: 'long' })})</a>
+                    <a href="news-details.php?id=${id}" class="list-group-item latestNews_links" id="${id}">${title} (${new Date(date).toDateString('default', { month: 'long' })})</a>
                     `)
                     })
                     $("a.latestNews_links[id=" + id + "]").css("color", "blue").addClass('disabled');
@@ -80,12 +59,18 @@
             })
         });
 
+        // add active class to active link
+        // var search = window.location.search;
+        // var pathname = window.location.pathname.slice(5);
+        // var link = pathname + search;
+
+
+
         // fetch news details
         var eventid = window.location.search.slice(1).split("=")[1];
-        console.log(eventid)
         $(function () {
             $.ajax({
-                url: 'forms/eventsdisplaypage.php',
+                url: 'forms/newsdisplaypage.php',
                 type: 'get',
                 data: { "eventid": eventid },
                 dataType: 'JSON',
@@ -94,19 +79,14 @@
                         window.location.href = '404.php';
                     }
                     else {
-                    const title = data.title
-                    const date = data.date
-                    const details = data.details
-                    const reg = data.reg
-                        
-                    $("#title").append(title);
-                    $("#date").append(date);
-                    $("#details").html(details);
+                        const title = data.title
+                        const date = data.date
+                        const details = data.details
 
-                    if (reg == 'on') {
-                        $("#registration").removeClass('d-none');
+                        $("#title").append(title);  
+                        $("#date").append(date);
+                        $("#details").html(details);
                     }
-                }
                 }
             });
         });

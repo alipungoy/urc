@@ -21,7 +21,7 @@ if ($type === 'scientia') {
     );
     echo json_encode($data);
 } elseif ($type === 'patubas') {
-    $patubas = ("SELECT journals.file_name, journals.volume, journals.publication_date, journals.cover_photo, journal_patubas_details.title, journal_patubas_details.authors, journal_patubas_details.abstract,
+    $patubas = ("SELECT journals.file_name, journals.volume, journals.publication_date, journals.cover_photo, journals.views, journals.downloads, journal_patubas_details.title, journal_patubas_details.authors, journal_patubas_details.abstract,
     journal_patubas_details.id FROM 
     journals LEFT JOIN journal_patubas_details ON journals.id = journal_patubas_details.journal_id WHERE journals.id = :id && journal_patubas_details.journal_id");
     $stmt = $db->connection->prepare($patubas);
@@ -38,7 +38,10 @@ if ($type === 'scientia') {
             'file' => $rows['file_name'],
             'title' => $rows['title'],
             'authors' => $rows['authors'],
-            'abstract' => $rows['abstract']));
+            'abstract' => $rows['abstract'],
+            'views' => $rows['views'],
+            'downloads' => $rows['downloads']
+        ));
     };
     echo json_encode($data);
 }

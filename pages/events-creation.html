@@ -24,12 +24,11 @@
                 <form class="eventform">
                     <div class="itemconfiguration">
                         <div class="modal-body">
-                            <div class="card-body">
+                            <div class="card-body p-5">
                                 <div class="mb-3">
                                     <label class="form-label">Event Title</label>
                                     <input name="eventitle" type="input" class="form-control" required>
                                 </div>
-                                <div></div>
                                 <div class="mb-3">
                                     <textarea name="eventDetails" id="editor" required></textarea>
                                 </div>
@@ -60,28 +59,30 @@
     </div>
 </div>
 
-<div class="modal fade" id="updateEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title text-primary" id="exampleModalLabel">Update Event</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                <button class="btn-close" type="button" id="close-update-modal" data-dismiss="modal" aria-label="Close">
                 </button>
             </div>
             <div class="modal-body">
                 <div class="card-body" id="testmodal">
                     <form class="updateEventForm">
-                        <div class="form-group" id="updateID">
-                            <label for="fromTime">Start:</label>
-                            <input type="datetime-local" id="fromTime" name="updateStart">
-                            <br />
-                            <label for="toTime">End:</label>
-                            <input type="datetime-local" id="toTime" name="updateEnd">
+                        <div class="modal-body">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">End Date</label>
+                                    <input class="form-control" type="datetime-local" id="fromTime" name="updateEnd">
+                                </div>
+                            </div>
                         </div>
-                        <button class="btn btn-secondary" id="reset">Reset</button>
-                        <button class="btn btn-success" id="updatesubmit" type="submit">Update</button>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" id="reset">Reset</button>
+                            <button class="btn btn-success" id="updatesubmit" type="submit">Update</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -104,12 +105,17 @@
             dragInline: false,
             pluginsEnabled: ['image', 'link', 'draggable', 'align'],
 
-        })
+        });
 
-
+        //Interactive calendar
         var calendar = $('#calendar').fullCalendar({
             editable: true,
-            eventColor: 'green',
+            eventLimit: true,
+            views: {
+                agenda: {
+                    eventLimit: 6
+                }
+            },
             eventDidMount: function (info) {
                 var tooltip = new Tooltip(info.el, {
                     title: info.event.extendedProps.description,
@@ -123,7 +129,7 @@
             selectHelper: true,
             eventClick: function (event) {
                 var id = event.id;
-                $('#updateEvent').modal('show');
+                $('#update-modal').modal('show');
                 $('#updateID').append(`<div class="formid" data-id="${id}"/>`);
                 var dataid = $('#formid').attr('data-id');
 
@@ -135,17 +141,18 @@
                         $.ajax({
                             type: 'post',
                             url: 'forms/updateEvent.php?id=' + id,
+                            cache: 'false',
+                            async: 'false',
                             data: eventForm,
                             dataType: 'json',
                             encode: true,
-                            beforeSend: function () {
-                                $('#updatesubmit').text("Updating Event....");
-                            },
                             success: function (data) {
-                                alert(data.msg)
-                                $('#updateEvent').modal('hide');
-                                calendar.fullCalendar('refetchEvents');
-                                $('#updatesubmit').text("Update");
+                                if (data == 'ok') {
+                                    $('#update-modal').modal('hide');
+                                    calendar.fullCalendar('refetchEvents');
+                                } else {
+                                    bootbox.alert('Something Went Wrong....')
+                                }
                             }
                         });
                     })
@@ -173,6 +180,11 @@
                 })
             },
         });
+
+        $('#close-update-modal').click(function () {
+            $('#update-modal').modal('hide');
+        });
+
         $(function () {
             $('.eventform').on('submit', function (e) {
                 e.preventDefault();

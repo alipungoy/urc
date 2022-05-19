@@ -8,7 +8,7 @@
 <script>
     $(function () {
         $.ajax({
-            url: 'api/get/latest-news.php',
+            url: 'api/get/latest-events.php',
             dataType: 'json',
             method: 'get',
             success: function (response) {
@@ -20,8 +20,7 @@
                                 <h5 class="card-title mb-0">${title}</h5>
                             <small class="text-muted">${new Date(start).toDateString()} - ${new Date(end).toDateString()}</small>
                                 </div>
-                            <p class="card-text">${details}</p>
-                            <a href="events-details.php#${id}" class="card-link">Read More</a>
+                            <a href="events-details.php?id=${id}" class="card-link">Read More</a>
                         </div>
                     </div></div>`);
                 });
