@@ -1,31 +1,84 @@
 <section class="container mt-5">
     <div class="mb-5">
-        <h3 class="display-6 mb-3">News</h3>
-        <div id="latestNews" class="row"></div>
+        <h3 class="display-6 mb-3" style="color: #e48a2a;">News & Events</h3>
+        <hr>
+        <div class="row">
+            <div class="col-md-4 d-flex justify-content-start">
+                <div id="" class="mb-5">
+                    <h4 class="mb-5" style="color: #dd790f;">Latest Events</h4>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-start border-start border-end border-1">
+                <div class="mb-5 p-2">
+                    <h4 class="mb-5" style="color: #dd790f;">Latest News</h4>
+                    <div id="latestNews"></div>
+                    <div id="pagination"></div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-start">
+                <div id="" class="mb-5 p-2">
+                    <h4 class="mb-5" style="color: #dd790f;">Latest Newsletters</h4>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 <script>
     $(function () {
+
+        var $pagination = $('#pagination'),
+            totalRecords = 0,
+            records = [],
+            displayRecords = [],
+            recPerPage = 4,
+            page = 1,
+            totalPages = 0;
+
         $.ajax({
             url: 'api/get/latest-news.php',
             dataType: 'json',
             method: 'get',
-            success: function (response) {
-                response.forEach(({ id, title, date}) => {
-                    $("#latestNews").append(`<div class="col-4"><div class="card  m-1">
-                        <img src="assets/images/news-placeholder.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <h5 class="card-title mb-0">${title}</h5>
-                            <small class="text-muted"><i class="bi bi-calendar-event"> - ${date}</i></small>
-                                </div>
-                            <a href="news-details.php?id=${id}" class="card-link">Read More</a>
-                        </div>
-                    </div></div>`);
-                });
+            success: function (data) {
+                records = data;
+                totalRecords = records.length;
+                totalPages = Math.ceil(totalRecords / recPerPage);
+
+                console.log(totalPages);
+
+                apply_pagination()
             }
         });
+
+        function append_results() {
+            var div;
+            $('#latestNews').html('');
+            for (var i = 0; i < displayRecords.length; i++) {
+                div = $('<div class="list-group">');
+                div.append("<a href='news-details.php?id=" + displayRecords[i].id + "'><h6 class='list-group-item-heading'>" + displayRecords[i].title + "</h6></a>");
+                div.append("<small class='text-muted'>By Central Philippine University Research Center | "+ new Date(displayRecords[i].date).toDateString("default", { month: "long" }).slice(4)+" |</small'")
+                div.append("<br>");
+                $('#latestNews').append(div);
+            }
+        }
+
+        function apply_pagination() {
+            $pagination.twbsPagination({
+                totalPages: totalPages,
+                visiblePages: 6,
+                onPageClick: function (event, page) {
+                    displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
+                    endRec = (displayRecordsIndex) + recPerPage;
+                    // console.log(displayRecordsIndex + 'ssssssssss' + endRec);
+                    displayRecords = records.slice(displayRecordsIndex, endRec);
+                    append_results();
+                }
+            })
+        }
+
+
+
+        // pagination
 
     });
 

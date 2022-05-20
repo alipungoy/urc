@@ -7,6 +7,8 @@ require_once('./include/header.php');
 <link href="vendor/owl.carousel.min.css" rel="stylesheet">
 <script src="vendor/owl.carousel.min.js"></script>
 <link href="vendor/owl.theme.default.min.css" rel="stylesheet">
+<script src="vendor/twbs-pagination/jquery.twbsPagination.min.js"></script>
+
 
 <body>
     <?php
