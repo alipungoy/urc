@@ -29,7 +29,7 @@ session_start();
     <title>University Research Center</title>
     <link rel="icon" type="image/png" href="assets/images/logo.png" sizes="32x32">
     <base href="<?php echo $path ?>">
-    <link rel="stylesheet" type="text/css" href="vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="libs/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <?php include('scripts.php');?>
