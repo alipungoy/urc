@@ -10,13 +10,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $stmt = $db->connection->prepare($show);
         $stmt->execute();
         $row = $stmt->fetchAll();
-    
+
         foreach ($row as $rows) {
-            $events[] = (array('id' => $rows['id'],
-                        'title' => $rows['title'],
-                    'date' => $rows['date']));
+            $events[] = (array(
+                'id' => $rows['id'],
+                'title' => $rows['title'],
+                'date' => $rows['date']
+            ));
         };
-    
+
         echo json_encode($events);
     } catch (Exception $e) {
         die($e->getMessage());

@@ -8,14 +8,14 @@
 
 <link rel="stylesheet" type="text/css" href="css/pages/editor.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css"/>
-<link rel="stylesheet" type="text/css" href="vendor/wysiwyg-editor/css/froala_editor.min.css">
-<link rel="stylesheet" type="text/css" href="vendor/wysiwyg-editor/css/plugins/image.min.css">
-<link rel="stylesheet" type="text/css" href="vendor/wysiwyg-editor/css/plugins/image_manager.min.css">
+<link rel="stylesheet" type="text/css" href="libs/wysiwyg-editor/css/froala_editor.min.css">
+<link rel="stylesheet" type="text/css" href="libs/wysiwyg-editor/css/plugins/image.min.css">
+<link rel="stylesheet" type="text/css" href="libs/wysiwyg-editor/css/plugins/image_manager.min.css">
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js"></script>
-<script src="vendor/wysiwyg-editor/js/froala_editor.min.js"></script>
-<script src="vendor/wysiwyg-editor/js/plugins/image.min.js"></script>
-<script src="vendor/wysiwyg-editor/js/plugins/align.min.js"></script>
-<script src="vendor/wysiwyg-editor/js/plugins/draggable.min.js"></script>
+<script src="libs/wysiwyg-editor/js/froala_editor.min.js"></script>
+<script src="libs/wysiwyg-editor/js/plugins/image.min.js"></script>
+<script src="libs/wysiwyg-editor/js/plugins/align.min.js"></script>
+<script src="libs/wysiwyg-editor/js/plugins/draggable.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <body>

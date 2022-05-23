@@ -3,22 +3,18 @@
         <h3 class="display-6 mb-3" style="color: #e48a2a;">News & Events</h3>
         <hr>
         <div class="row">
-            <div class="col-md-4 d-flex justify-content-start">
+            <!-- <div class="col-md-4 d-flex justify-content-start">
                 <div id="" class="mb-5">
                     <h4 class="mb-5" style="color: #dd790f;">Latest Events</h4>
                 </div>
-            </div>
-            <div class="col-md-4 d-flex justify-content-start border-start border-end border-1">
+            </div> -->
+            <div class="col-md-9 d-flex justify-content-start border-end border-1">
                 <div class="mb-5 p-2">
-                    <h4 class="mb-5" style="color: #dd790f;">Latest News</h4>
                     <div id="latestNews"></div>
                     <div id="pagination"></div>
                 </div>
             </div>
-            <div class="col-md-4 d-flex justify-content-start">
-                <div id="" class="mb-5 p-2">
-                    <h4 class="mb-5" style="color: #dd790f;">Latest Newsletters</h4>
-                </div>
+            <div class="col-md-3 d-flex justify-content-end" id="quickLinks">
             </div>
         </div>
     </div>
@@ -26,12 +22,12 @@
 
 <script>
     $(function () {
-
+        //pagination-start
         var $pagination = $('#pagination'),
             totalRecords = 0,
             records = [],
             displayRecords = [],
-            recPerPage = 4,
+            recPerPage = 15,
             page = 1,
             totalPages = 0;
 
@@ -44,9 +40,14 @@
                 totalRecords = records.length;
                 totalPages = Math.ceil(totalRecords / recPerPage);
 
-                console.log(totalPages);
+                console.log(data);
 
-                apply_pagination()
+                if (totalRecords <= recPerPage) {
+                    apply_pagination()
+                }
+                else {
+                    alert('test')
+                }
             }
         });
 
@@ -54,10 +55,9 @@
             var div;
             $('#latestNews').html('');
             for (var i = 0; i < displayRecords.length; i++) {
-                div = $('<div class="list-group">');
-                div.append("<a href='news-details.php?id=" + displayRecords[i].id + "'><h6 class='list-group-item-heading'>" + displayRecords[i].title + "</h6></a>");
-                div.append("<small class='text-muted'>By Central Philippine University Research Center | "+ new Date(displayRecords[i].date).toDateString("default", { month: "long" }).slice(4)+" |</small'")
-                div.append("<br>");
+                div = $('<div class="list-group mb-4 p-2">');
+                div.append("<a href='news-details.php?id=" + displayRecords[i].id + "'><h4 class='display-7 list-group-item-heading'>" + displayRecords[i].title + "</h4></a>");
+                div.append("<small class='text-muted'>By Central Philippine University Research Center | " + new Date(displayRecords[i].date).toDateString("default", { month: "long" }).slice(4) + " |</small'");
                 $('#latestNews').append(div);
             }
         }
@@ -75,10 +75,19 @@
                 }
             })
         }
+        // pagination-end
 
 
-
-        // pagination
+        // load quicklinks
+        $.ajax({
+            url: 'include/quick-links.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (data) {
+                // console.log(data);
+                $('#quickLinks').html(data);
+            }
+        })
 
     });
 

@@ -1,32 +1,12 @@
-<section class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-5">
-        <h3 class="display-6">Journals</h3>
-        <ul class="nav nav-pills" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link px-5 active text-dark " id="pills-patubas-tab" data-bs-toggle="pill"
-                    data-bs-target="#pills-patubas" type="button" role="tab" aria-controls="pills-patubas"
-                    aria-selected="true">Patubas</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link px-5 text-dark" id="pills-scientia-tab" data-bs-toggle="pill"
-                    data-bs-target="#pills-scientia" type="button" role="tab" aria-controls="pills-scientia"
-                    aria-selected="false">Scientia Et Fides</button>
-            </li>
-        </ul>
-    </div>
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-patubas" role="tabpanel" aria-labelledby="pills-patubas-tab">
-            <div id="patubasList" class="row"></div>
-            <small id="patubas-note" class="text-secondary"></small>
-        </div>
-        <div class="tab-pane fade" id="pills-scientia" role="tabpanel" aria-labelledby="pills-scientia-tab">
-            <div id="scientiaList" class="row"></div>
-            <small id="scientia-note" class="text-secondary"></small>
-        </div>
-    </div>
+<section id="patubas" class="container mt-5">
+    <div class="col-xs-12 col-sm-12 col-md-9 main-content">
+        <div class="page-header">
 
+        </div>
+        <div class="row" id="scientiaList">
+        </div>
+        <div id="scientiaPagination"></div>
 </section>
-
 <script>
     $(function () {
         $.ajax({
@@ -62,47 +42,123 @@
             }
         });
 
+
+
+        // $.ajax({
+        //     url: 'api/get/journals-scientiaetfides.php',
+        //     dataType: 'json',
+        //     method: 'get',
+        //     success: function (response) {
+
+        //         if (response.type === 'success') {
+        //             if (response.data.length === 0) {
+        //                 $('#scientia-note').append('No Scientia Et Fides journals found...')
+        //             }
+
+        //             return response.data.forEach(({ id, title, abstract, author, date, cp }) => {
+        //                 const truncate = jQuery.trim(abstract).substring(0, 200).trim(this) + "...";
+        //                 $("#scientiaList").append(
+        //                     `<div class="col-4 p-3"> 
+
+        //                <div class="card-body"> 
+        //                    <img src="journals/coverphoto/${cp}" class="card-img-top mb-1" style="height: 25rem; width: 20rem">
+        //                    <div class="mb-2">
+        //                        <a href="journal-details.php?type=scientia&id=${id}" class="card-link">
+        //                        <h6 class="card-title">${title}</h6>
+        //                        </a>
+        //                        <small class="card-title fst-italic mb-2">By: ${author}</small></br>
+        //                        <p class="scientia__Abstract mt-2">${truncate}</p>                                
+        //                        <a href="journal-details.php?type=scientia&id=${id}" class="card-link">
+        //                    Read More
+        //                     </a></br>                              
+        //                    <small class="text-muted">${new Date(date).toDateString()}</small>
+        //                    </div>
+
+        //                </div>
+        //        </div>`
+        //                 );
+        //             });
+        //         }
+
+        //         return alert(response.message);
+        //     },
+        //     error: (e) => {
+        //         alert(e.responseText || 'Something went wrong')
+        //     }
+        // });
+
+        // pagination 
+        var $pagination = $('#scientiaPagination'),
+            totalRecords = 0,
+            records = [],
+            displayScientia = [],
+            recPerPage = 10,
+            page = 1,
+            totalPages = 0;
+
         $.ajax({
             url: 'api/get/journals-scientiaetfides.php',
             dataType: 'json',
             method: 'get',
-            success: function (response) {
+            success: function (data) {
+                records = data;
+                totalRecords = records.length;
+                totalPages = Math.ceil(totalRecords / recPerPage);
 
-                if (response.type === 'success') {
-                    if (response.data.length === 0) {
-                        $('#scientia-note').append('No Scientia Et Fides journals found...')
-                    }
+                console.log(totalRecords);
 
-                    return response.data.forEach(({ id, title, abstract, author, date, cp }) => {
-                        const truncate = jQuery.trim(abstract).substring(0, 200).trim(this) + "...";
-                        $("#scientiaList").append(
-                            `<div class="col-4 p-3"> 
-                       
-                       <div class="card-body"> 
-                           <img src="journals/coverphoto/${cp}" class="card-img-top mb-1" style="height: 25rem; width: 20rem">
-                           <div class="mb-2">
-                               <a href="journal-details.php?type=scientia&id=${id}" class="card-link">
-                               <h6 class="card-title">${title}</h6>
-                               </a>
-                               <small class="card-title fst-italic mb-2">By: ${author}</small></br>
-                               <p class="scientia__Abstract mt-2">${truncate}</p>                                
-                               <a href="journal-details.php?type=scientia&id=${id}" class="card-link">
-                           Read More
-                            </a></br>                              
-                           <small class="text-muted">${new Date(date).toDateString()}</small>
-                           </div>
+                apply_pagination()
 
-                       </div>
-               </div>`
-                        );
-                    });
-                }
 
-                return alert(response.message);
-            },
-            error: (e) => {
-                alert(e.responseText || 'Something went wrong')
             }
         });
+
+        function append_results() {
+            var div;
+            $('#scientiaList').html('');
+            for (var i = 0; i < displayScientia.length; i++) {
+                const truncate = jQuery.trim(displayScientia[i].abstract).substring(0, 200).trim(this) + "...";
+                div = $('<div class="col-md-3">');
+                divv = $('<div class="col-md-8">');
+                div.append("<div class='row'>");
+                div.append("<div class='col-xs-6 col-sm-12'><div class='thumbnail'>");
+                div.append("<img src='journals/coverphoto/" + displayScientia[i].cp + "'></div>");
+                div.append("<div class='col-xs-6 col-sm-12 mt-5'> <div class='word-break'>");
+                div.append("</div></div></div>");
+                divv.append("<a href='journal-details.php?type=scientia&id=" + displayScientia[i].id + "'><h5>" + displayScientia[i].title + "</h5></a>")
+                divv.append("<small class='text-muted'> " + new Date(displayScientia[i].date).toDateString() + " </small></br>")
+                divv.append("<small class='card-title fst-italic mb-2'>By: " + displayScientia[i].author + "</small>");
+                divv.append("<p class='mt-2'>" + truncate + "</p>");
+                divv.append("<a href='journal-details.php?type=scientia&id=" + displayScientia[i].id + "'> Read More</a>");
+                divv.append("</div></div>");
+                $('#scientiaList').append(div);
+                $('#scientiaList').append(divv);
+            }
+        }
+
+        function apply_pagination() {
+            $pagination.twbsPagination({
+                totalPages: totalPages,
+                visiblePages: 6,
+                onPageClick: function (event, page) {
+                    displayScientiaIndex = Math.max(page - 1, 0) * recPerPage;
+                    endRec = (displayScientiaIndex) + recPerPage;
+                    // console.log(displayRecordsIndex + 'ssssssssss' + endRec);
+                    displayScientia = records.slice(displayScientiaIndex, endRec);
+                    append_results();
+                }
+            })
+        }
+
+      // load quicklinks
+        $.ajax({
+            url: 'include/quick-links.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (data) {
+                // console.log(data);
+                $('#quickLinks').html(data);
+            }
+        })
     });
 </script>

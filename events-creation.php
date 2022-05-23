@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<link href="vendor/fullcalendar.min.css" rel="stylesheet">
+<link href="libs/fullcalendar.min.css" rel="stylesheet">
 
 <?php
   require_once('./include/header.php');

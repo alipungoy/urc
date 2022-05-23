@@ -3,6 +3,8 @@
 <?php
 require_once('./include/header.php');
 ?>
+<script src="libs/twbs-pagination/jquery.twbsPagination.min.js"></script>
+
 
 <body>
     <?php

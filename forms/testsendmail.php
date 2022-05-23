@@ -1,5 +1,5 @@
 <?php
-require_once('../vendor/autoload.php');
+require_once('../libs/autoload.php');
 $TOKEN = bin2hex(random_bytes(50));
 
 $transport = (new Swift_SmtpTransport('smtp.google.com', 587))

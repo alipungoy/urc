@@ -1,4 +1,7 @@
-<ul class="list-group list-group-flush">
+<?php
+
+$quickLinks = '<ul class="list-group list-group-flush">
+<a>
     <li class="list-group-item">
         About us
         <ul class="list-group list-group-flush">
@@ -22,4 +25,6 @@
     <li class="list-group-item"><a href="journals.php" class="link-secondary">Journals</a></li>
     <li class="list-group-item"><a href="statistics.php" class="link-secondary">Statistics</a></li>
     <li class="list-group-item"><a href="contact.php" class="link-secondary">Contact Us</a></li>
-</ul>
+</a></ul>';
+
+echo json_encode($quickLinks);

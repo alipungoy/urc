@@ -1,5 +1,5 @@
 <?php
-require('../vendor/PHPMailer/PHPMailerAutoload.php');
+require('../libs/PHPMailer/PHPMailerAutoload.php');
 include('../db/connection.php');
 $db = new db();
 

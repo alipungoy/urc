@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             ));
         };
 
-        die(json_encode(array('type' => 'success', 'data' => $journals)));
+        die(json_encode($journals));
     } catch (\Throwable $th) {
         $output = json_encode(array('type' => 'error', 'message' => $th->getMessage()));
         die($output);
