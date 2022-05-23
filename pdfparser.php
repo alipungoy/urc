@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php';
+require 'libs/autoload.php';
 $parser  = new \Smalot\PdfParser\Parser();
 $filename =  $_POST['filename'];
 

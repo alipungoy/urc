@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="../css/pages/confirmation.css">
-<script src="../vendor/js/jquery.min.js"></script>
+<script src="../libs/js/jquery.min.js"></script>
 
 <head>
     <meta charset="UTF-8">

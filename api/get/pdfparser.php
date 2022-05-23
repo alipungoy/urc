@@ -1,5 +1,5 @@
 <?php
-require '../../vendor/autoload.php';
+require '../../libs/autoload.php';
 $config = new \Smalot\PdfParser\Config();
 $config->setFontSpaceLimit(-50);
 
