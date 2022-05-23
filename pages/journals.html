@@ -1,46 +1,47 @@
 <section id="patubas" class="container mt-5">
+    <h3 class="display-6 mb-3" style="color: #e48a2a;">Scientia et Fides</h3>
+    <hr>
     <div class="col-xs-12 col-sm-12 col-md-9 main-content">
-        <div class="page-header">
-
+        <div class="row p-2" id="scientiaList">
         </div>
-        <div class="row" id="scientiaList">
+        <div class="d-flex justify-content-center" id="scientiaPagination">
         </div>
-        <div id="scientiaPagination"></div>
+    </div>
 </section>
 <script>
     $(function () {
-        $.ajax({
-            url: 'api/get/journals-patubas.php',
-            dataType: 'json',
-            method: 'get',
-            success: function (response) {
+        // $.ajax({
+        //     url: 'api/get/journals-patubas.php',
+        //     dataType: 'json',
+        //     method: 'get',
+        //     success: function (response) {
 
-                if (response.type === 'success') {
-                    if (response.data.length === 0) {
-                        $('#patubas-note').append('No Patubas journals found...')
-                    }
+        //         if (response.type === 'success') {
+        //             if (response.data.length === 0) {
+        //                 $('#patubas-note').append('No Patubas journals found...')
+        //             }
 
-                    return response.data.forEach(({ id, type, date, vol, cp }) => {
-                        $("#patubasList").append(`<div class="col-4 p-3">
-                        <a href="journal-details.php?type=patubas&id=${id}" class="card-link">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <img src="journals/coverphoto/${cp}" class="card-img-top mb-3" style="height: 25rem; width: 20rem">
-                                    <h5 class="card-title mb-0">Vol. ${vol}</h5>
-                                <small class="text-muted">${new Date(date).toDateString()}</small>
-                                    </div>
-                            </div>                       
-                        </a>
-                    </div>`);
-                    });
-                }
+        //             return response.data.forEach(({ id, type, date, vol, cp }) => {
+        //                 $("#patubasList").append(`<div class="col-4 p-3">
+        //                 <a href="journal-details.php?type=patubas&id=${id}" class="card-link">
+        //                     <div class="card-body">
+        //                         <div class="mb-3">
+        //                             <img src="journals/coverphoto/${cp}" class="card-img-top mb-3" style="height: 25rem; width: 20rem">
+        //                             <h5 class="card-title mb-0">Vol. ${vol}</h5>
+        //                         <small class="text-muted">${new Date(date).toDateString()}</small>
+        //                             </div>
+        //                     </div>                       
+        //                 </a>
+        //             </div>`);
+        //             });
+        //         }
 
-                return alert(response.message);
-            },
-            error: (e) => {
-                alert(e.responseText || 'Something went wrong')
-            }
-        });
+        //         return alert(response.message);
+        //     },
+        //     error: (e) => {
+        //         alert(e.responseText || 'Something went wrong')
+        //     }
+        // });
 
 
 
@@ -119,7 +120,7 @@
             for (var i = 0; i < displayScientia.length; i++) {
                 const truncate = jQuery.trim(displayScientia[i].abstract).substring(0, 200).trim(this) + "...";
                 div = $('<div class="col-md-3">');
-                divv = $('<div class="col-md-8">');
+                divv = $('<div class="col-md-8 shadow p-3 mb-5 bg-body rounded">');
                 div.append("<div class='row'>");
                 div.append("<div class='col-xs-6 col-sm-12'><div class='thumbnail'>");
                 div.append("<img src='journals/coverphoto/" + displayScientia[i].cp + "'></div>");
@@ -150,7 +151,7 @@
             })
         }
 
-      // load quicklinks
+        // load quicklinks
         $.ajax({
             url: 'include/quick-links.php',
             dataType: 'json',
