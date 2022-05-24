@@ -6,7 +6,7 @@ $journals = array();
 // Allow get request only
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
-        $show = ("SELECT * FROM journals_scientia ORDER BY ID desc");
+        $show = ("SELECT * FROM journals_scientia ORDER BY ID desc LIMIT 5");
         $stmt = $db->connection->prepare($show);
         $stmt->execute();
         $row = $stmt->fetchAll();

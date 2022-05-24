@@ -1,10 +1,14 @@
 <section id="patubas" class="container mt-5">
     <h3 class="display-6 mb-3" style="color: #e48a2a;">Scientia et Fides</h3>
     <hr>
-    <div class="col-xs-12 col-sm-12 col-md-9 main-content">
-        <div class="row p-2" id="scientiaList">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-9 main-content border-end shadow-lg p-1 mb-2 bg-body rounded">
+            <div class="row p-3" id="scientiaList">
+            </div>
+            <div class="d-flex justify-content-center" id="scientiaPagination">
+            </div>
         </div>
-        <div class="d-flex justify-content-center" id="scientiaPagination">
+        <div class="col-md-3" id="quickLinks">         
         </div>
     </div>
 </section>
@@ -123,7 +127,7 @@
                 divv = $('<div class="col-md-8 shadow p-3 mb-5 bg-body rounded">');
                 div.append("<div class='row'>");
                 div.append("<div class='col-xs-6 col-sm-12'><div class='thumbnail'>");
-                div.append("<img src='journals/coverphoto/" + displayScientia[i].cp + "'></div>");
+                div.append("<img src='journals/coverphoto/" + displayScientia[i].cp + "' class='shadow p-1 mb-2 bg-body rounded'></div>");
                 div.append("<div class='col-xs-6 col-sm-12 mt-5'> <div class='word-break'>");
                 div.append("</div></div></div>");
                 divv.append("<a href='journal-details.php?type=scientia&id=" + displayScientia[i].id + "'><h5>" + displayScientia[i].title + "</h5></a>")

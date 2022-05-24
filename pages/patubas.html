@@ -1,0 +1,167 @@
+<section id="patubas" class="container mt-5">
+    <h3 class="display-6 mb-3" style="color: #e48a2a;">Patubas</h3>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-9 main-content border-end shadow-lg p-1 mb-2 bg-body rounded">
+            <div class="row p-5" id="patubasList">
+            </div>
+            <div class="d-flex justify-content-center" id="patubasPagination">
+            </div>
+        </div>
+        <div class="col-md-3" id="quickLinks">
+        </div>
+    </div>
+</section>
+<script>
+    $(function () {
+        // $.ajax({
+        //     url: 'api/get/journals-patubas.php',
+        //     dataType: 'json',
+        //     method: 'get',
+        //     success: function (response) {
+
+        //         if (response.type === 'success') {
+        //             if (response.data.length === 0) {
+        //                 $('#patubas-note').append('No Patubas journals found...')
+        //             }
+
+        //             return response.data.forEach(({ id, type, date, vol, cp }) => {
+        //                 $("#patubasList").append(`<div class="col-4 p-3">
+        //                 <a href="journal-details.php?type=patubas&id=${id}" class="card-link">
+        //                     <div class="card-body">
+        //                         <div class="mb-3">
+        //                             <img src="journals/coverphoto/${cp}" class="card-img-top mb-3" style="height: 25rem; width: 20rem">
+        //                             <h5 class="card-title mb-0">Vol. ${vol}</h5>
+        //                         <small class="text-muted">${new Date(date).toDateString()}</small>
+        //                             </div>
+        //                     </div>                       
+        //                 </a>
+        //             </div>`);
+        //             });
+        //         }
+
+        //         return alert(response.message);
+        //     },
+        //     error: (e) => {
+        //         alert(e.responseText || 'Something went wrong')
+        //     }
+        // });
+
+
+
+        // $.ajax({
+        //     url: 'api/get/journals-scientiaetfides.php',
+        //     dataType: 'json',
+        //     method: 'get',
+        //     success: function (response) {
+
+        //         if (response.type === 'success') {
+        //             if (response.data.length === 0) {
+        //                 $('#scientia-note').append('No Scientia Et Fides journals found...')
+        //             }
+
+        //             return response.data.forEach(({ id, title, abstract, author, date, cp }) => {
+        //                 const truncate = jQuery.trim(abstract).substring(0, 200).trim(this) + "...";
+        //                 $("#scientiaList").append(
+        //                     `<div class="col-4 p-3"> 
+
+        //                <div class="card-body"> 
+        //                    <img src="journals/coverphoto/${cp}" class="card-img-top mb-1" style="height: 25rem; width: 20rem">
+        //                    <div class="mb-2">
+        //                        <a href="journal-details.php?type=scientia&id=${id}" class="card-link">
+        //                        <h6 class="card-title">${title}</h6>
+        //                        </a>
+        //                        <small class="card-title fst-italic mb-2">By: ${author}</small></br>
+        //                        <p class="scientia__Abstract mt-2">${truncate}</p>                                
+        //                        <a href="journal-details.php?type=scientia&id=${id}" class="card-link">
+        //                    Read More
+        //                     </a></br>                              
+        //                    <small class="text-muted">${new Date(date).toDateString()}</small>
+        //                    </div>
+
+        //                </div>
+        //        </div>`
+        //                 );
+        //             });
+        //         }
+
+        //         return alert(response.message);
+        //     },
+        //     error: (e) => {
+        //         alert(e.responseText || 'Something went wrong')
+        //     }
+        // });
+
+        // pagination 
+        var $pagination = $('#patubasPagination'),
+            totalRecords = 0,
+            records = [],
+            displayPatubas = [],
+            recPerPage = 10,
+            page = 1,
+            totalPages = 0;
+
+        $.ajax({
+            url: 'api/get/journals-patubas.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (data) {
+                records = data;
+                totalRecords = records.length;
+                totalPages = Math.ceil(totalRecords / recPerPage);
+
+                console.log(totalRecords);
+
+                apply_pagination()
+
+
+            }
+        });
+
+        function append_results() {
+            var div;
+            $('#patubasList').html('');
+            for (var i = 0; i < displayPatubas.length; i++) {
+                const truncate = jQuery.trim(displayPatubas[i].abstract).substring(0, 200).trim(this) + "...";
+                const date = new Date(displayPatubas[i].date).toDateString("default", { month: "long" }).slice(4)
+                div = $('<div class="col-md-4">');
+                divv = $('<div class="col-md-8 mt-3">');
+                div.append("<div class='row'>");
+                div.append("<div class='col-xs-6 col-sm-12'><div class='thumbnail'>");
+                div.append("<img src='journals/coverphoto/" + displayPatubas[i].cp + "' class='shadow p-1 mb-2 bg-body rounded'></div>");
+                div.append("<div class='col-xs-6 col-sm-12 mt-5'> <div class='word-break'>");
+                div.append("</div></div></div>");
+                divv.append("<a href='journal-details.php?type=patubas&id=" + displayPatubas[i].id + "'><h5>Volume " + displayPatubas[i].vol + ", " + date + "</h5></a>")
+                divv.append("<p class='text-muted'>Patubas multidisciplinary research journal is published under the auspices of Central Philippine University, Jaro, Iloilo City, Philippines.</p>")
+                divv.append("</div></div>");
+                $('#patubasList').append(div);
+                $('#patubasList').append(divv);
+            }
+        }
+
+        function apply_pagination() {
+            $pagination.twbsPagination({
+                totalPages: totalPages,
+                visiblePages: 6,
+                onPageClick: function (event, page) {
+                    displayScientiaIndex = Math.max(page - 1, 0) * recPerPage;
+                    endRec = (displayScientiaIndex) + recPerPage;
+                    // console.log(displayRecordsIndex + 'ssssssssss' + endRec);
+                    displayPatubas = records.slice(displayScientiaIndex, endRec);
+                    append_results();
+                }
+            })
+        }
+
+        // load quicklinks
+        $.ajax({
+            url: 'include/quick-links.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (data) {
+                // console.log(data);
+                $('#quickLinks').html(data);
+            }
+        })
+    });
+</script>

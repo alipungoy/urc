@@ -46,12 +46,23 @@
                         Researches
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarResearches">
-                        <li><a class="dropdown-item" href="faculty-research.php">Faculty Research</a></li>
-                        <li><a class="dropdown-item" href="student-research.php">Student Research</a></li>
+                        <li><h6 class="dropdown-header">Faculty Research</h6></li>
+                        <li><a class="dropdown-item" href="faculty-research.php">Completed</a></li>
+                        <li><a class="dropdown-item" href="faculty-research.php">Ongoing</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><h6 class="dropdown-header">Student Research</h6></li>
+                        <li><a class="dropdown-item" href="student-research.php">Completed</a></li>
+                        <li><a class="dropdown-item" href="student-research.php">Ongoing</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="journals.php">Journals</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarJournals" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Journals
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarResearches">
+                        <li><a class="dropdown-item" href="scientia.php">Scientia et Fides</a></li>
+                        <li><a class="dropdown-item" href="patubas.php">Patubas</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="feedback.php">Feedback</a>
