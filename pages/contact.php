@@ -10,7 +10,7 @@
     <h3 class="display-6 mb-3">Contact Us</h3>
     <div id="mapid" class="ml-auto mr-auto"></div>
    </div>
-   <?php include('include/quick-links.html');?>
+   <div id="quickLinks"></div>
 </section>
 
 <script>
@@ -24,4 +24,15 @@
     zoomOffset: -1,
     accessToken: 'pk.eyJ1IjoibWZhdWxhbjEyIiwiYSI6ImNrcDIzMjlsbjFxNHgybnFnaHlndXh4M3YifQ.Z1QcorEXTRnFQSRWrm6KZg'
   }).addTo(mymap);
+
+  $.ajax({
+            url: 'include/quick-links.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (data) {
+                // console.log(data);
+                $('#quickLinks').html(data);
+            }
+        });
+        
 </script>

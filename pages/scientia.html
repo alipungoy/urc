@@ -12,6 +12,9 @@
         </div>
     </div>
 </section>
+
+<a href="#" class="back-to-top"></a>
+
 <script>
     $(function () {
         // $.ajax({
@@ -156,14 +159,39 @@
         }
 
         // load quicklinks
+        $(function () {
         $.ajax({
             url: 'include/quick-links.php',
             dataType: 'json',
             method: 'get',
             success: function (data) {
                 // console.log(data);
+                const link = window.location.href.split('/')[4];
+                console.log(link);
                 $('#quickLinks').html(data);
+
+                $("a.quickLinks[href='" + link + "']").css("color", "blue").addClass('disabled');
             }
-        })
+        });
+    });
+
+        //scroll to top
+                //Scroll To top
+                $(window).scroll(function () {
+            // Show button after 300px
+            var showAfter = 300;
+            if ($(this).scrollTop() > showAfter) {
+                $('.back-to-top').fadeIn();
+            } else {
+                $('.back-to-top').fadeOut();
+            }
+        });
+
+        //Click event to scroll to top
+        $('.back-to-top').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 200);
+            return false;
+        });
+
     });
 </script>

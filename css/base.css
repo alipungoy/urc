@@ -94,3 +94,7 @@ aside {
     transition: 0.2s;
   }
   
+  .disabled {
+      pointer-events: none;
+      cursor: default;
+  }

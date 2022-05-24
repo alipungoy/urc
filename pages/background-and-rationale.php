@@ -40,5 +40,23 @@
             Aliquet eget sit amet tellus cras adipiscing enim eu turpis.
         </p>
     </div>
-    <?php include('include/quick-links.html');?>
+    <div id="quickLinks"></div>
 </section>
+
+<script>
+    $(function () {
+        $.ajax({
+            url: 'include/quick-links.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (data) {
+                // console.log(data);
+                const link = window.location.href.split('/')[4];
+                console.log(link);
+                $('#quickLinks').html(data);
+
+                $("a.quickLinks[href='" + link + "']").css("color", "blue").addClass('disabled');
+            }
+        });
+    });
+</script>

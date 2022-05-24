@@ -2,7 +2,7 @@
 include('../../db/connection.php');
 $db = new db();
 
-// Allow post request only
+// Allow get request only
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
      // Validate for required fields
      if (!isset($_GET["id"])) {

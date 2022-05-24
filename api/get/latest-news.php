@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $events[] = (array(
                 'id' => $rows['id'],
                 'title' => $rows['title'],
-                'date' => $rows['date']
+                'date' => $rows['date'],
+                'details' => $rows['details']
             ));
         };
 
