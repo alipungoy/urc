@@ -31,7 +31,12 @@
             method: 'get',
             success: function (data) {
                 // console.log(data);
+                const link = window.location.href.split('/')[4];
+                console.log(link);
                 $('#quickLinks').html(data);
+
+                $("a.quickLinks[href='" + link + "']").css("color", "blue").addClass('disabled');
+
             }
         });
         
