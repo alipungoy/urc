@@ -130,7 +130,14 @@
                         window.location = "forms/download.php?file=" + id;
                     }
                     else {
-                        alert('You Need To Be logged In to download FIle!');
+                        bootbox.alert({
+                            closeButton: false,
+                            message: "You Need to Be Signed in to download the file!",
+                            className: "text-danger",
+                            callback: function(){
+                                $('#loginModal').modal('show');
+                            }
+                        });
                     }
                 }
             })
