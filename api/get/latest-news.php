@@ -6,7 +6,7 @@ $events = array();
 // Allow post request only
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
-        $show = ("SELECT * FROM urc_news ORDER BY id DESC");
+        $show = ("SELECT * FROM urc_news ORDER BY id ASC");
         $stmt = $db->connection->prepare($show);
         $stmt->execute();
         $row = $stmt->fetchAll();
