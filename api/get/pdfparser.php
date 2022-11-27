@@ -5,16 +5,20 @@ $config->setFontSpaceLimit(-50);
 
 $parser  = new \Smalot\PdfParser\Parser([], $config);
 // $filename = $_POST['filename'];
-$file  = "C:/Users/Mikel/Downloads/Newsletter-Vol.-15-December-2018.pdf";
+$file  = "C:/Users/Mikel/Downloads/07_CPURJ_ConcepcionEL_1999.pdf";
 
 $pdf = $parser->parseFile($file);
 
-$image = $pdf->getObjectsByType('XObject', 'Image');
+$metaData = $pdf -> getDetails();
 
-foreach($image as $images){
-    echo '<img src="data:image/jpg;base64, '. base64_encode($images->getContent()).'"/>';
-
+foreach ($metaData as $data => $value) {
+    if(is_array($value)) {
+        $value = implode(',', $value);
+    }
+    echo $data . '=>' .$value . "\n"; 
 }
+
+
 
 
 
