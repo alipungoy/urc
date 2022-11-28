@@ -9,14 +9,19 @@ $file  = "C:/Users/Mikel/Downloads/07_CPURJ_ConcepcionEL_1999.pdf";
 
 $pdf = $parser->parseFile($file);
 
+
+
 $metaData = $pdf -> getDetails();
 
-foreach ($metaData as $data => $value) {
-    if(is_array($value)) {
-        $value = implode(',', $value);
-    }
-    echo $data . '=>' .$value . "\n"; 
-}
+echo json_encode(array($metaData));
+
+
+// foreach ($metaData as $data => $value) {
+//     if(is_array($value)) {
+//         $value = implode(',', $value);
+//     }
+//     echo $data . '=>' .$value . "\n"; 
+// }
 
 
 

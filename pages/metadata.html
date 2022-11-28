@@ -1,0 +1,35 @@
+<div class="container">
+    <table class="table">
+        <thead id="metadata">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>CreationDate</th>
+            </tr>
+            <tr id="details">
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+    $(function () {
+
+        //Get metadata from pdf
+        $.ajax({
+            url: 'api/get/pdfparser.php',
+            dataType: 'json',
+            method: 'get',
+            success: function (response) {
+                response.forEach(({ Title, Author, CreationDate }) => {
+                    $('#details').append(
+                        `
+                <td>${Title}</td>
+                <td>${Author}</td>
+                <td>${CreationDate}</td>`
+                    )
+                })
+            }
+        });
+    })
+</script>
