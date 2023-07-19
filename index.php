@@ -1,8 +1,20 @@
-<!DOCTYPE html>
-<html>
 <?php
 require_once('./include/header.php');
+include('include/verify.php');
+
+$logged = $_SESSION['loggedin'] ?? null;
+
+if($logged === true) {
+if(!isVerified($userId)) {
+    
+    header("Location: verify.php");
+    exit();
+}
+}
 ?>
+<!DOCTYPE html>
+<html>
+
 
 <link rel="stylesheet" type="text/css" href="css/pages/home.css">
 <link href="libs/owl.carousel.min.css" rel="stylesheet">

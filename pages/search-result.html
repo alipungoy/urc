@@ -10,6 +10,14 @@
 </section>
 
 <script>
+    // Function to highlight the search term in the text
+    function highlightSearchTerm(searchTerm, text) {
+    const escapedTerm = String(searchTerm).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(escapedTerm, 'gi');
+    var highlightedText = text.replace(regex, '<span class="highlighted">$&</span>');
+    return highlightedText;
+}
+
     $(function () {
         const val = window.location.search.slice(3).split('+');
         const data = val.join(" ");
@@ -28,7 +36,12 @@
                         authors,
                         title
                     }) => {
-                        $("#result").append(`<li>
+                        // Highlight the search term in title, abstract, and authors
+                        title = highlightSearchTerm(data, title);
+                        abstract = highlightSearchTerm(data, abstract);
+                        authors = highlightSearchTerm(data, authors);
+
+                        $("#result ol").append(`<li class="mb-5" style="list-style-type:none;">
                             <div>
                                 <a href="journal-details.php?type=patubas&id=${id}">${title}</a>
                                 <div>
@@ -41,7 +54,7 @@
                             </li>`);
                     });
                 } else {
-                    $('#result').append(`<h1> test </h1>`)
+                    $('#result ol').append(`<li><h1>No results found.</h1></li>`);
                 }
             }
 

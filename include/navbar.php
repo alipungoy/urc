@@ -46,17 +46,23 @@
                         Researches
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarResearches">
-                        <li><h6 class="dropdown-header">Faculty Research</h6></li>
+                        <li>
+                            <h6 class="dropdown-header">Faculty Research</h6>
+                        </li>
                         <li><a class="dropdown-item" href="faculty-research.php">Completed</a></li>
                         <li><a class="dropdown-item" href="faculty-research.php">Ongoing</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><h6 class="dropdown-header">Student Research</h6></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <h6 class="dropdown-header">Student Research</h6>
+                        </li>
                         <li><a class="dropdown-item" href="student-research.php">Completed</a></li>
                         <li><a class="dropdown-item" href="student-research.php">Ongoing</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarJournals" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarJournals" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Journals
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarResearches">
@@ -72,20 +78,19 @@
                 </li>
             </ul>
             <!--search bar -->
-            <ul class="nav ms-10"> 
+            <ul class="nav ms-10">
                 <li class="nav-item">
                     <a class="nav-link px-2 dropdown-toggle" href="#" id="navbarSearch" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-search"></i>
                     </a>
-                    <div class="dropdown-menu p-2" aria-labelledby="navbarSearch">
-                        <form class="navbar-search"  action="search-result.php" method="GET" id='search_form'>
-                            <div class="input-group" id="search_bar">
-                                <input type="text" id="searchBox" name="q" class="form-control bg-light border-0 small" placeholder="Search for..." autocomplete="off" aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary search" type="submit">
-                                        <i class="bi bi-search"></i>
-                                    </button>
-                                </div>
+                    <div class="dropdown-menu p-2" aria-labelledby="navbarSearch" style="background-color: transparent; border:none">
+                        <form class="navbar-search" action="search-result.php" method="GET" id='search_form'>
+                            <div class="input-group">
+                                <input type="text" id="searchBox" name="q" class="form-control bg-light border-0 rounded-pill" placeholder="Search for..." autocomplete="off" aria-label="Search" aria-describedby="basic-addon2">
+                                <button class="btn btn-primary search" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </li>

@@ -39,6 +39,8 @@ if ($row < 1) {
         if (in_array($ext, $valid_extensions)) {
             $path = $path.strtolower($img);
             if (move_uploaded_file($tmp, $path)) {
+
+                
                 //insert form data in the database
                 $insert = ("INSERT INTO journals (type, publication_date, volume, journal_name) VALUES ('".$type."', '".$DATE."', '".$vol."', '".$img."')");
                 $stmt=$db->connection->prepare($insert);

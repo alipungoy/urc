@@ -1,0 +1,16 @@
+.result {
+    margin-bottom: 20px;
+  }
+  
+  .result h3 {
+    color: #007bff;
+  }
+  
+  .authors {
+    font-style: italic;
+  }
+  
+  .highlighted {
+    background-color: yellow;
+    font-weight: bold;
+  }

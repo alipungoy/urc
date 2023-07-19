@@ -23,20 +23,10 @@
     </div>
 
     <section class="d-flex justify-content-start" id="latestNews">
-        <div class="row">
-            <div class="col-md-5 m-4">
-                <h2 class="text-cpu-blue fw-bold display-6 d-flex justify-content-center items-center container">Latest News</h2>
-                <p id="lastNews">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex
-                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                    officia
-                    deserunt mollit anim id est laborum.
-                </p>
-                <a href="news.php" class="fs-6 fw-bold d-flex justify-content-center">View more news...</a>
+        <div class="container mt-5 text-center">
+            <h2 class="text-cpu-blue fw-bold display-6 mb-5">Latest News</h2>
+            <div class="row" id="lastNews">
+                <!-- News cards will be appended here -->
             </div>
         </div>
         <!-- <div class="p-5 w-50">
@@ -185,13 +175,32 @@
         });
 
         //fetch latest news
+        function createNews(id, title, truncate) {
+            const card = $('<div class="col-md-4 mb-3"></div>');
+            const cardContent = $("<div class='card'></div>");
+            const cardBody = $('<div class="card-body" style="min-height: 650px; box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;"></div>');
+            const cardTitle = $('<h5 class="card-title"></h5>').text(title);
+            const articleLink = $('<a></a>').attr('href', 'news-details.php?id=' + id).append(cardTitle);
+            const cardText = $('<p class="card-text"></p>').html(truncate);
+            const readMoreLink = $('<a class="" href="news-details.php?id=' + id + '">Read More</a>');
+
+            cardBody.append(articleLink);
+            cardBody.append(cardText);
+            cardBody.append(readMoreLink);
+            cardContent.append(cardBody);
+            card.append(cardContent);
+
+            $('#lastNews').append(card);
+        }
+        
         $.ajax({
             url: 'api/get/latest-news.php',
             dataType: 'json',
             method: 'get',
             success: function (response) {
-                response.forEach(({ id, title, date, details }) => {
-                    const truncate = jQuery.trim(details).substring(0, 2300).trim(this) + "...";
+                const limitData = response.slice(0, 3);
+                limitData.forEach(({ id, title, date, details }) => {
+                    const truncate = jQuery.trim(details).substring(0, 1800).trim(this) + "...";
                     // $("#carouselLatestNews").append(`<div class="card mx-auto" style="width: 60%;">
                     //     <img src="assets/images/news-placeholder.jpg" class="card-img-top" alt="...">
                     //     <div class="card-body">
@@ -203,7 +212,7 @@
                     //         <a href="news-details.php?id=${id}" class="card-link">Read More</a>
                     //     </div>
                     // </div>`);
-                    $('#lastNews').html(`<div class="mt-3 shadow mb-2 p-4 rounded"><a href="news-details.php?id=${id}"><h5 class="">${title}</h5><small class="text-muted">By CPU-URC | ${new Date(date).toDateString()}</small><a><p>${truncate}</p><div><a class="fw-bold" href="news-details.php?id=${id}">Read more</a></div>`);
+                    createNews(id, title, truncate)
                 });
 
                 // var ifMultiple = false;

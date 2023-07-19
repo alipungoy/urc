@@ -79,13 +79,9 @@
   opacity: 1;
 }
 
-/* 
-.scientia__Abstract {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-} */
 
-/*
-navbar search
-*/
+.custom-card {
+  border: 1px solid blue !important;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
