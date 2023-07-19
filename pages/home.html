@@ -178,7 +178,7 @@
         function createNews(id, title, truncate) {
             const card = $('<div class="col-md-4 mb-3"></div>');
             const cardContent = $("<div class='card'></div>");
-            const cardBody = $('<div class="card-body" style="min-height: 650px; box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;"></div>');
+            const cardBody = $('<div class="card-body" style="min-height: 620px; box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;"></div>');
             const cardTitle = $('<h5 class="card-title"></h5>').text(title);
             const articleLink = $('<a></a>').attr('href', 'news-details.php?id=' + id).append(cardTitle);
             const cardText = $('<p class="card-text"></p>').html(truncate);
@@ -200,7 +200,7 @@
             success: function (response) {
                 const limitData = response.slice(0, 3);
                 limitData.forEach(({ id, title, date, details }) => {
-                    const truncate = jQuery.trim(details).substring(0, 1800).trim(this) + "...";
+                    const truncate = jQuery.trim(details).substring(0, 1800)+"...";
                     // $("#carouselLatestNews").append(`<div class="card mx-auto" style="width: 60%;">
                     //     <img src="assets/images/news-placeholder.jpg" class="card-img-top" alt="...">
                     //     <div class="card-body">

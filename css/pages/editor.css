@@ -1,31 +1,29 @@
-.editor{
-    position: absolute;
-    top:190px;
-    left:30px;
-    right:30px;
-    bottom:0px;
-    overflow: auto;
-  }
+.fr-box.fr-basic .fr-toolbar {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
 
-  /* .event-editor {
-    position: absolute;
-    top:20px;
-    left:30px;
-    right:30px;
-    bottom:0px;
-    overflow: auto;
-  } */
-  .contentlist{
-    padding:0 0 0 5px;
-    position:relative;
-    border-right: 1px #f8f7f3 solid;
-    /* background-image:url(images/bubble.png); */
-    /* background-color: black; */
-    }
+.fr-box .fr-wrapper {
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
 
-    .itemconfiguration {
-		height:580px;
-		/* background-color:#CCC; */		
-        overflow:auto;
-		position:relative;
-    }
+.fr-box .fr-element {
+  min-height: 200px; /* Set a minimum height for the editor content area */
+  padding: 0.5rem;
+}
+
+.fr-box .fr-element p {
+  margin: 0;
+}
+
+/* Button styles */
+.btn {
+  border-radius: 0.25rem;
+}
+
+/* Custom styles for the buttons */
+.button-gap {
+  margin-right: 10px; /* Adjust the margin to control the gap between buttons */
+}

@@ -1,89 +1,208 @@
 <section>
     <header>
-        <h4>Add News</h4>
+        <h4 class="mt-3">Newsletter Management</h4>
+        <button type="button" class="btn btn-outline-secondary px-3 btn-sm" data-bs-toggle="modal"
+            data-bs-target="#addNewsModal">
+            <i class="bi-plus-lg me-2"></i>
+            Add News
+        </button>
     </header>
-    <div class="row">
-        <div class="col-12">
-            <form id="addNews_form">
-                <div class="body">
-                    <div class="mb-3">
-                        <label class="form-label">Title</label>
-                        <input name="title" id="title" type="input" class="form-control" required>
-                    </div>
-                    <div class="editor">
+    <table class="table table-striped table-bordered" id="newsletter-management" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+    </table>
+</section>
+
+<!-- Add News Modal -->
+<div class="modal fade" id="addNewsModal" tabindex="-1" role="dialog" aria-labelledby="addNewsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewsModalLabel">Add News</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addNews_form">
+                    <div class="body">
                         <div class="mb-3">
-                            <textarea name="details" id="editor" required></textarea>
+                            <label for="title" class="form-label">Title</label>
+                            <input name="title" id="title" type="input" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEditor" class="form-label">Details</label>
+                            <textarea name="details" id="addEditor" required></textarea>
                             <div class="mt-4 d-flex justify-content-end">
-                                <button type="button" id="clear" class="btn btn-danger">Cancel</button>
-                                <button type="submit" class="btn btn-success ml-2">Add News</button>
+                                <button type="button" id="addClear" class="btn btn-danger"
+                                    style="margin-right: 10px;">Cancel</button>
+                                <button type="submit" class="btn btn-success">Add News</button>
                             </div>
                         </div>
                     </div>
-                    <!-- <div id="toolbar"></div> -->
-                    <!-- <div class="mb-3">
-                        <label class="form-label">Images</label>
-                        <input name="imahge" type="file" class="form-control" required>
-                    </div> -->
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-    <!-- <div class="col-6 container">
-            <header><h5>Preview</h5></header>
-            <div id="titlePrev"></div>
-            <div id="preview">
-                
+</div>
+
+<div class="modal fade" id="editNewsModal" tabindex="-1" role="dialog" aria-labelledby="editNewsModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editNewsLabel">Edit News</h5> <!-- Corrected modal title -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div> -->
+            <div class="modal-body" style="max-height: 600px; overflow-y: auto;">
+                <input name="id" type="input" hidden>
+                <form id="editNews_form">
+                    <div class="body">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input name="editTitle" id="editTitle" type="input" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEditor" class="form-label">Details</label>
+                            <textarea name="editDetails" id="editEditor" required></textarea>
+                            <!-- Corrected textarea ID -->
+                            <div class="mt-4 d-flex justify-content-end">
+                                <button type="button" id="editClear" class="btn btn-danger"
+                                    style="margin-right: 10px;">Cancel</button>
+                                <button type="submit" class="btn btn-success">Update News</button>
+                                <!-- Corrected button text -->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</section>
+</div>
 
 
 <script>
     $(document).ready(function () {
-        //editor
-        // DecoupledEditor.create(document.querySelector("#editor"), {
-        //     ckfinder: {
-        //         uploadUrl: 'libs/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-        //     },
-
-        // })
-        //     .then(editor => {
-        //         const toolbarContainer = document.querySelector('#toolbar');
-        //         const plugins = DecoupledEditor.builtinPlugins.map( plugin => plugin.pluginName );
-
-        //         toolbarContainer.appendChild(editor.ui.view.toolbar.element);
-        //         editor.editing.view.focus();
-        //         fileContent = editor;
-
-
-
-        //         console.log(plugins)
-        //     })
-        //     .catch(error => {
-        //         console.error(error);
-        //     });
-
-        var editor = new FroalaEditor('#editor', {
-            toolbarSticky: true,
-            scrollableContainer: '.editor',
-            imageUploadURL: './forms/upload_image.php',
-            imageDefaultWidth: 480,
-            imageUploadParams: {
-                id: 'my_editor'
+        // Fetch Data
+        $('#newsletter-management').dataTable({
+            "scrollY": "500px",
+            "pagingType": "full_numbers",
+            "ajax": {
+                "url": "api/get/load-news.php",
+                type: 'get',
+                "data": function (d) {
+                    d.extra_search = $('#extra').val();
+                }
             },
-            dragInline: false,
-            pluginsEnabled: ['image', 'link', 'draggable', 'align'],
+            "columns": [
+                { "data": "title" },
+                { "data": "date" },
+                {
+                    "data": null,
+                    orderable: false,
+                    "render": function (data, type, row, meta) {
+                        return `
+                        <div class="btn-group" role="group text">
+                            <button type="button" class="btn btn-outline-primary btn-sm px-3 me-2" data-bs-toggle="modal" data-bs-target="#editNewsModal">
+                            Edit
+                        </button>
+                            <button type="button" class="btn btn-outline-danger fw-bold btn-sm px-3" onclick="handleDelete(${data.id})" >
+                            Delete
+                        </button>
+                        </div>`;
+                    }
+                }
+            ],
+            'createdRow': function (row, data, dataIndex) {
+                $(row).attr('data-id', data.id);
+            },
+            "order": [[0, "desc"]],
+            'columnDefs': [
+                {
+                    "targets": -1,
+                    "className": "text-center"
+                }
+            ]
+        });
 
-        })
+        var addNewsEditor, editNewsEditor;
+
+        // Show the Froala Editor when the modal is shown
+        $('#addNewsModal').on('shown.bs.modal', function () {
+            if (!addNewsEditor) {
+                addNewsEditor = new FroalaEditor('#addEditor', {
+                    // Configuration options
+                    toolbarSticky: true,
+                    imageUploadURL: './forms/upload_image.php', // Adjust this to the correct URL for image uploads
+                    imageDefaultWidth: 251,
+                    imageDefaultHeight: 181,
+                    imageUploadParams: {
+                        id: 'my_editor'
+                    },
+                    dragInline: false,
+                    pluginsEnabled: ['image', 'link', 'draggable', 'align'],
+                });
+            }
+        });
+
+        // Show the Froala Editor when the modal is shown
+        $('#editNewsModal').on('shown.bs.modal', function (e) {
+            const id = $(e.relatedTarget).closest('tr').data('id');
+            const editTitle = $('#editNewsModal').find('textarea[name="editTitle"]');
+            const editDetails = $('#editNewsModal').find('textarea[name="editDetails"]')
+
+            if (!editNewsEditor) {
+                editNewsEditor = new FroalaEditor('#editEditor', {
+                    // Configuration options
+                    toolbarSticky: true,
+                    imageUploadURL: './forms/upload_image.php', // Adjust this to the correct URL for image uploads
+                    imageDefaultWidth: 251,
+                    imageDefaultHeight: 181,
+                    imageUploadParams: {
+                        id: 'my_editor'
+                    },
+                    dragInline: false,
+                    pluginsEnabled: ['image', 'link', 'draggable', 'align'],
+                });
+            }
+            $.ajax({
+                type: "GET",
+                url: `api/get/load-news.php?id=${id}`,
+                dataType: "json",
+                success: function (response) {
+                    const data = response.data; // Check the received data in the console
+
+                    if (data && data.length > 0) {
+                        const title = data[0].title;
+                        const details = data[0].details;
+                        const editTitle = $('#editTitle');
+                        const editDetails = $('#editDetails'); // Find the correct selector for the editTitle textarea
+                        editTitle.val(title);
+                        editDetails.val(details);
+
+                        if (editNewsEditor) {
+                            editNewsEditor.html.set(details);
+                        }
+
+                    }
+                },
+                error: (e) => {
+                    alert(e.responseText || 'Something went wrong')
+                }
+            });
+        });
 
 
+        // Form Submission
         $("#addNews_form").submit(function (e) {
-            e.preventDefault()
-
+            e.preventDefault();
             $.ajax({
                 type: "POST",
-                url: 'api/post/news.php',
+                url: 'api/post/news.php', // Adjust this to the correct URL for news submission
                 data: $('#addNews_form').serializeArray(),
                 dataType: "json",
                 success: function (data) {
@@ -93,25 +212,42 @@
                         location.reload();
                     }
                 },
-                error: (e) => {
-                    alert(e.responseText || 'Something went wrong')
+                error: function (e) {
+                    alert(e.responseText || 'Something went wrong');
                 }
             });
         });
 
-        // $('#editor').on('keyup', function() {
-        //     const contents = fileContent.getData();
-        //     const title = $('#title').val();
 
-        //     $('#preview').html(contents);
-        //     $('#titlePrev').html(title);
-        // });
+        // Clear Editor Content and Title Input
+        $('#addClear').click(function () {
+            addEditor.html.set('');
+            $('#title').val('');
+        });
+        $('#editClear').click(function () {
+            editNewsEditor.html.set('');
+            $('#title').val('');
+        });
 
-        // //clear field
-        // $('#clear').click(function () {
-        //     const editor = new FroalaEditor('#editor', function() {})
-        //     const body = $('#editor').FroalaEditor('html.set');
-        //     $('#title').val('');
-        // })
-    });
+
+
+        handleDelete = (id) => {
+            if (confirm(`Are you sure you want to delete this?`)) {
+                $.ajax({
+                    type: "DELETE",
+                    url: `api/delete/news.php?id=${id}`,
+                    dataType: "json",
+                    success: function (data) {
+                        alert(data.message || 'Something went wrong')
+                        if (data.type === 'success') {
+                            location.reload();
+                        }
+                    },
+                    error: (e) => {
+                        alert(e.responseText || 'Something went wrong')
+                    }
+                });
+            }
+        }
+    })
 </script>
