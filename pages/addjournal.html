@@ -67,7 +67,7 @@
 </div>
 
 <div class="modal fade" tabindex="-1" id="addData">
-  <form id="addData_form" class="modal-dialog">
+  <form id="contents" class="modal-dialog modal-md" enctype="multipart/form-data">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add Data</h5>
@@ -76,17 +76,10 @@
       <div class="modal-body">
         <input class="id" name="id" type="input" hidden>
         <div class="mb-3">
-          <label class="form-label" required>Title</label>
-          <input name="title" type="input" class="form-control">
-        </div>
-        <div class="mb-3">
-          <label class="form-label" required>Authors</label>
-          <textarea name="authors" type="input" class="form-control" rows="2" required></textarea>
-          <small class="fst-italic text-muted">* Authors Should be comma spearated.</small>
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">Abstract</label>
-          <textarea name="abstract" class="form-control" id="exampleFormControlTextarea1" rows="5" required></textarea>
+          <label class="form-label">Upload Data Files</label>
+          <input name="dataFiles[]" type="file" class="form-control" required accept="application/pdf" multiple>
+          <small class="fst-italic text-muted">Accepts multiple PDF files. Hold 'Ctrl' or 'Shift' to select multiple
+            files.</small>
         </div>
       </div>
       <div class="modal-footer">
@@ -96,7 +89,6 @@
     </div>
   </form>
 </div>
-
 
 <script>
   $(document).ready(function () {
@@ -138,7 +130,7 @@
       "order": [[0, "desc"]]
     });
 
-    // Add new News
+    // Add new content
     $("#addJournal__form").on('submit', function (e) {
       e.preventDefault();
       const formData = new FormData(this);
@@ -184,120 +176,51 @@
 
     });
 
-    $("#addData_form").on('submit', function (e) {
+    $("#contents").on('submit', function (e) {
       e.preventDefault();
+
+      const formData = new FormData(this); // Use the parent form with ID #contents
+      const filesInput = $('#contents').find('input[type="file"]');
+
+      // Filter out any empty file inputs
+      const selectedFiles = Array.from(filesInput[0].files).filter(file => file.size > 0);
+
+      // Check if at least one file is selected before submitting the form
+      if (selectedFiles.length === 0) {
+        alert('Please select at least one file to upload.');
+        return;
+      }
+
+      // Clear the existing file inputs and add the selected files to the FormData object
+      formData.delete('dataFiles[]');
+      selectedFiles.forEach(file => formData.append('dataFiles[]', file));
 
       $.ajax({
         type: "POST",
         url: 'api/post/journals-patubas-data.php',
-        data: $("#addData_form").serialize(),
+        data: formData,
         dataType: 'JSON',
+        contentType: false,
+        cache: false,
+        processData: false,
         success: function (data) {
-          alert(data.message || 'Something went wrong')
-          
-          if(data.type === 'success') {
-            location.reload();
+          if (Array.isArray(data)) {
+            // Check if the response is an array
+            alert('Multiple files were uploaded');
+          } else {
+            // Handle the case when only one file is uploaded
+            alert('Single file was uploaded');
           }
         },
-        error: (e) => {
-          alert(e.responseText || 'Something went wrong')
+        error: function (e) {
+          alert(e.responseText || 'Something went wrong');
         }
       });
     });
 
-
-
-    // $("#number").on('keyup', function () {
-    //   const volume = $('#number').val();
-    //   const date = new Date();
-    //   const dateToday = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    //   console.log(volume);
-
-    //   $('#body').html(
-    //     `                        <div class="mb-3">
-    //                         <h5 class="card-title mb-0">Vol. ${volume}</h5>
-    //                     <small class="text-muted">${dateToday}</small>
-    //                         </div>`
-    //   )
-    // });
-
     $('#reset').on('click', function () {
       $('#addJournal__form').trigger("change");
     });
-    // // Load data for edit
-    // $('#editNews').on('show.bs.modal', function (e) {
-    //   const id = $(e.relatedTarget).closest('tr').data('id');
 
-    //   const field_id = $('#editNews').find('input[name="id"]')
-    //   const field_title = $('#editNews').find('input[name="title"]')
-    //   const field_details = $('#editNews').find('textarea[name="details"]')
-    //   const field_start = $('#editNews').find('input[name="start"]')
-    //   const field_end = $('#editNews').find('input[name="end"]')
-    //   const field_color = $('#editNews').find('input[name="color"]')
-    //   const field_with_registration = $('#editNews').find('input[name="with_registration"]')
-
-    //   $.ajax({
-    //     type: "GET",
-    //     url: `api/get/news-details.php?id=${id}`,
-    //     dataType: "json",
-    //     success: function (response) {
-    //       if (response.type === 'success') {
-    //         field_id.val(response.data.id)
-    //         field_title.val(response.data.event_title);
-    //         field_details.val(response.data.events_information);
-    //         field_start.val(moment(response.data.event_from_time).format('YYYY-MM-DD'));
-    //         field_end.val(moment(response.data.event_to_time).format('YYYY-MM-DD'));
-    //         field_color.val(response.data.color);
-    //         console.log(field_with_registration)
-    //         field_with_registration.prop('checked', response.data.register_possible === 'on' ? true : false);
-    //       }
-    //     },
-    //     error: (e) => {
-    //       alert(e.responseText || 'Something went wrong')
-    //     }
-    //   });
-    // })
-
-    // Add new News
-    // $("#editNews_form").submit(function (e) {
-    //   e.preventDefault();
-
-    //   $.ajax({
-    //     type: "POST",
-    //     url: 'api/put/news.php',
-    //     data: $('#editNews_form').serialize(),
-    //     dataType: "json",
-    //     success: function (data) {
-    //       alert(data.message || 'Something went wrong');
-
-    //       if (data.type === 'success') {
-    //         location.reload();
-    //       }
-    //     },
-    //     error: (e) => {
-    //       alert(e.responseText || 'Something went wrong')
-    //     }
-    //   });
-    // });
-
-    // handleDelete = (id) => {
-    //   if (confirm(`Are you sure you want to delete this?`)) {
-    //     $.ajax({
-    //       type: "DELETE",
-    //       url: `api/delete/news.php?id=${id}`,
-    //       dataType: "json",
-    //       success: function (data) {
-    //         alert(data.message || 'Something went wrong');
-
-    //         if (data.type === 'success') {
-    //           location.reload();
-    //         }
-    //       },
-    //       error: (e) => {
-    //         alert(e.responseText || 'Something went wrong')
-    //       }
-    //     });
-    //   }
-    // }
   })
 </script>

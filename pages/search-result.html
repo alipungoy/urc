@@ -1,27 +1,70 @@
-<h3 class="display-6 mb-3">Search Result</h3>
-<section class="container mt-5">
-    <div class="mb-5">
-        <div id="result" class="row container">
-            <ol class="d-block">
+<section id="patubas" class="container mt-5">
+    <h3 class="display-6 mb-3" style="color: #e48a2a;">Scientia et Fides</h3>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-9 main-content border-end shadow-lg p-1 mb-2 bg-body rounded">
+            <div id="result" class="col mt-2">
+                <table class="table table-bordered">
+                    <tbody id="resultBody">
 
-            </ol>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination links placed below the search results -->
+            <div class="d-flex justify-content-center" id="scientiaPagination">
+            </div>
+        </div>
+        <div class="col-md-3" id="quickLinks">
         </div>
     </div>
 </section>
-
 <script>
-    // Function to highlight the search term in the text
-    function highlightSearchTerm(searchTerm, text) {
-    const escapedTerm = String(searchTerm).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(escapedTerm, 'gi');
-    var highlightedText = text.replace(regex, '<span class="highlighted">$&</span>');
-    return highlightedText;
-}
 
     $(function () {
         const val = window.location.search.slice(3).split('+');
         const data = val.join(" ");
         console.log(data);
+
+        // Function to highlight the search term in the text
+        function highlightSearchTerm(searchTerm, text) {
+            const escapedTerm = String(searchTerm).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(?<!\\b(?:a|an|the)\\s)${escapedTerm}`, 'gi');
+            var highlightedText = text.replace(regex, '<span class="highlighted">$&</span>');
+            return highlightedText;
+        }
+
+        // Function to display the current page of search results
+        function displayPage(pageData) {
+            const resultBody = $("#resultBody"); // Get the table body element
+            resultBody.empty(); // Clear the existing search results
+
+            pageData.forEach(({
+                id,
+                abstract,
+                authors,
+                title,
+                link
+            }) => {
+                // Highlight the search term in title, abstract, and authors
+                title = highlightSearchTerm(data, title);
+                abstract = highlightSearchTerm(data, abstract);
+                authors = highlightSearchTerm(data, authors);
+
+                const tableRow = `<tr class="py-2 my-2">
+                <td class="text-start">
+                    <a href="${link}${id}">${title}</a>
+                    <div>
+                        <p>${abstract}</p>
+                    </div>
+                    <div>
+                        <small>${authors}</small>
+                    </div>
+                </td>
+            </tr>`;
+
+                resultBody.append(tableRow);
+            });
+        }
 
         $.ajax({
             url: 'api/post/search.php',
@@ -30,34 +73,90 @@
             data: { "term": data },
             success: function (data) {
                 if (data != 'empty') {
-                    data.forEach(({
-                        id,
-                        abstract,
-                        authors,
-                        title
-                    }) => {
-                        // Highlight the search term in title, abstract, and authors
-                        title = highlightSearchTerm(data, title);
-                        abstract = highlightSearchTerm(data, abstract);
-                        authors = highlightSearchTerm(data, authors);
+                    const pageSize = 5; // Number of search results per page
+                    const totalPages = Math.ceil(data.length / pageSize);
 
-                        $("#result ol").append(`<li class="mb-5" style="list-style-type:none;">
-                            <div>
-                                <a href="journal-details.php?type=patubas&id=${id}">${title}</a>
-                                <div>
-                                    <p>${abstract}
-                                        </p>
-                                </div>
-                                <div>
-                                    <small>${authors}</small>
-                                    </div>
-                            </li>`);
+                    // Initialize the pagination component
+                    $('#scientiaPagination').html(`
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item" data-page="prev"><a class="page-link" href="#">Previous</a></li>
+                            ${Array.from({ length: totalPages }, (_, index) => `
+                                <li class="page-item" data-page="${index + 1}"><a class="page-link" href="#">${index + 1}</a></li>
+                            `).join('')}
+                            <li class="page-item" data-page="next"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                `);
+
+                    const paginationLinks = $('#scientiaPagination .page-link');
+
+                    // Display the first page of search results by default
+                    displayPage(data.slice(0, pageSize));
+
+                    // Pagination click event
+                    paginationLinks.on('click', function (e) {
+                        e.preventDefault();
+                        const page = $(this).parent().data('page');
+                        const currentPage = parseInt(paginationLinks.filter('.active').parent().data('page'));
+                        let newPage;
+
+                        switch (page) {
+                            case 'prev':
+                                newPage = currentPage - 1;
+                                break;
+                            case 'next':
+                                newPage = currentPage + 1;
+                                break;
+                            default:
+                                newPage = page;
+                        }
+
+                        const startIndex = (newPage - 1) * pageSize;
+                        const endIndex = startIndex + pageSize;
+
+                        // Update the active page and display the results
+                        paginationLinks.removeClass('active');
+                        paginationLinks.filter(`[data-page="${newPage}"]`).addClass('active');
+                        displayPage(data.slice(startIndex, endIndex));
+
+                        // Disable "Next" and current pagination number if not enough results to fill the page
+                        if (newPage >= totalPages) {
+                            $('#scientiaPagination li[data-page="next"]').addClass('disabled');
+                        } else {
+                            $('#scientiaPagination li[data-page="next"]').removeClass('disabled');
+                        }
+                        if (newPage === 1) {
+                            $('#scientiaPagination li[data-page="prev"]').addClass('disabled');
+                        } else {
+                            $('#scientiaPagination li[data-page="prev"]').removeClass('disabled');
+                        }
                     });
+
+                    // Disable "Next" if there are not enough results for a full page
+                    if (totalPages <= 1) {
+                        $('#scientiaPagination li[data-page="next"]').addClass('disabled');
+                    }
                 } else {
-                    $('#result ol').append(`<li><h1>No results found.</h1></li>`);
+                    $('#scientiaPagination').html('<p>No results found.</p>');
                 }
             }
+        });
 
-        })
-    });
+        $(function () {
+            $.ajax({
+                url: 'include/quick-links.php',
+                dataType: 'json',
+                method: 'get',
+                success: function (data) {
+                    // console.log(data);
+                    const link = window.location.href.split('/')[4];
+                    console.log(link);
+                    $('#quickLinks').html(data);
+
+                    $("a.quickLinks[href='" + link + "']").css("color", "blue").addClass('disabled');
+                }
+            });
+        });
+    })
 </script>

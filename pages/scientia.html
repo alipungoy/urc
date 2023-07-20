@@ -130,7 +130,7 @@
                 divv = $('<div class="col-md-8 shadow p-3 mb-5 bg-body rounded">');
                 div.append("<div class='row'>");
                 div.append("<div class='col-xs-6 col-sm-12'><div class='thumbnail'>");
-                div.append("<img src='journals/coverphoto/" + displayScientia[i].cp + "' class='shadow p-1 mb-2 bg-body rounded'></div>");
+                div.append("<img src='journals/coverphoto/" + displayScientia[i].cp + "' class='shadow mt-2 mb-2 bg-body rounded img-fluid' style='width: 250px; height: 240px; object-fit: contain;'></div>");
                 div.append("<div class='col-xs-6 col-sm-12 mt-5'> <div class='word-break'>");
                 div.append("</div></div></div>");
                 divv.append("<a href='journal-details.php?type=scientia&id=" + displayScientia[i].id + "'><h5>" + displayScientia[i].title + "</h5></a>")
@@ -159,7 +159,6 @@
         }
 
         // load quicklinks
-        $(function () {
         $.ajax({
             url: 'include/quick-links.php',
             dataType: 'json',
@@ -173,7 +172,6 @@
                 $("a.quickLinks[href='" + link + "']").css("color", "blue").addClass('disabled');
             }
         });
-    });
 
         //scroll to top
                 //Scroll To top
